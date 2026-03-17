@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   UtensilsCrossed, Wrench, Smile, ShieldCheck, Scissors,
   Church, Car, Stethoscope, Home, GraduationCap, Dumbbell, ShoppingBag,
@@ -50,16 +51,19 @@ const CategoryGrid = () => {
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
-              <motion.a
+              <motion.div
                 key={cat.name}
-                href={`#${cat.name.toLowerCase().replace(/\s/g, "-")}`}
                 variants={item}
-                className="group bg-card border rounded-xl p-6 hover:border-primary transition-all duration-300 hover:scale-[1.01] shadow-card cursor-pointer"
               >
-                <Icon size={24} className="text-muted-foreground group-hover:text-primary transition-colors mb-4" strokeWidth={1.5} />
-                <p className="font-semibold text-foreground text-sm mb-1">{cat.name}</p>
-                <p className="text-xs text-muted-foreground">{cat.count} listings in Alief</p>
-              </motion.a>
+                <Link
+                  to={`/category/${cat.name.toLowerCase().replace(/\s/g, "-")}`}
+                  className="group block bg-card border rounded-xl p-6 hover:border-primary transition-all duration-300 hover:scale-[1.01] shadow-card cursor-pointer"
+                >
+                  <Icon size={24} className="text-muted-foreground group-hover:text-primary transition-colors mb-4" strokeWidth={1.5} />
+                  <p className="font-semibold text-foreground text-sm mb-1">{cat.name}</p>
+                  <p className="text-xs text-muted-foreground">{cat.count} listings in Alief</p>
+                </Link>
+              </motion.div>
             );
           })}
         </motion.div>
