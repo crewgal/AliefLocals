@@ -32,9 +32,9 @@ const Navbar = () => {
               {cat}
             </a>
           ))}
-          <button className="ml-4 px-5 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
+          <a href="#get-listed" className="ml-4 px-5 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
             Get Listed
-          </button>
+          </a>
         </div>
 
         {/* Mobile toggle */}
