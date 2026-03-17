@@ -23,7 +23,8 @@ const HeroSection = () => {
           className="text-5xl md:text-7xl font-serif font-semibold text-white leading-[1.1] mb-6"
         >
           Discover The Best Local{" "}
-          <span className="text-primary">Businesses in Alief, Texas</span>
+          <span className="text-primary">Businesses in Alief</span>{" "}
+          and Surrounding Areas in Texas
         </motion.h1>
 
         <motion.p
