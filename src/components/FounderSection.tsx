@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, MapPin } from "lucide-react";
+import founderPortrait from "@/assets/founder-portrait.jpg";
 import aliefCenter from "@/assets/alief-center.png";
 import aliefFood from "@/assets/alief-food.png";
 import aliefNature from "@/assets/alief-nature.png";
@@ -39,6 +40,72 @@ const FounderSection = () => {
   return (
     <section className="py-[15vh] bg-foreground overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
+        {/* How It Works — Founder Bio + Portrait */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 items-start mb-16"
+        >
+          <div>
+            <h2 className="text-4xl md:text-5xl font-serif font-semibold text-white leading-tight mb-6">
+              How It Works
+            </h2>
+            <p className="text-lg text-white/75 leading-relaxed mb-5">
+              The best local businesses aren't always the ones with the biggest ad budgets.{" "}
+              <strong className="text-white">Alief Locals</strong> is the place to discover the
+              local gems in our community.
+            </p>
+            <p className="text-lg text-white/75 leading-relaxed mb-5">
+              Our listings are <strong className="text-white">free, but invitation-only</strong>.
+              This means you aren't seeing who paid the most to be here. You are seeing business
+              owners who earned their spot because they are proud of what they do and are willing
+              to stand behind their work.
+            </p>
+            <p className="text-lg text-white/75 leading-relaxed mb-5">
+              Knowing the people behind a business matters. When you connect with a neighbor who
+              puts their heart into their business, you get a higher level of accountability.
+            </p>
+            <p className="text-base text-white/55 leading-relaxed">
+              We also like having fun. So, we regularly run{" "}
+              <strong className="text-primary">giveaways, raffles, and scavenger hunts</strong>{" "}
+              to help you discover the best local businesses in Alief &amp; the 77083 area.
+            </p>
+          </div>
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-52 h-52 md:w-60 md:h-60 rounded-2xl overflow-hidden border-2 border-primary/30 shadow-lg">
+              <img
+                src={founderPortrait}
+                alt="Founder of Alief Locals"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <p className="text-white/60 text-sm text-center max-w-[14rem] leading-snug">
+              Pastor / Evangelist &amp; MBA — Founder of Alief Locals
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Email + Calendly CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 max-w-xl"
+        >
+          <a
+            href="https://calendly.com/thesthillstudios/sthill-studios-website-design-marketing-and-seo-meeting"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block w-full text-center py-4 px-6 rounded-full bg-primary text-primary-foreground font-semibold text-base hover:opacity-90 transition-opacity"
+          >
+            📅 Book a Free Meeting
+          </a>
+        </motion.div>
+
+        {/* Welcome to Alief heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -56,16 +123,10 @@ const FounderSection = () => {
             dozens of nationalities, Alief is a place where authentic cuisines, family-owned shops,
             and tight-knit neighborhoods come together.
           </p>
-          <p className="text-lg text-white/75 leading-relaxed mb-6">
+          <p className="text-lg text-white/75 leading-relaxed">
             From the famous Bellaire Food Street to the brand-new Alief Community Center,
             our neighborhood is thriving. Whether you need a trusted mechanic, a great barber,
             or a new church home — the best businesses in 77083 are right here, run by your neighbors.
-          </p>
-          <p className="text-base text-white/55 leading-relaxed">
-            Alief Locals is built to help you discover these hidden gems. Our listings are
-            <strong className="text-white"> free, but invitation-only</strong> — you're not seeing
-            who paid the most to be here. You're seeing business owners who earned their spot
-            because they're proud of what they do and stand behind their work.
           </p>
         </motion.div>
       </div>
@@ -96,7 +157,6 @@ const FounderSection = () => {
                   loading="lazy"
                 />
               </div>
-              {/* Business name overlay */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-10">
                 <h3 className="text-white font-semibold text-lg leading-tight">{img.name}</h3>
                 <p className="text-white/60 text-sm flex items-center gap-1 mt-1">
@@ -119,7 +179,6 @@ const FounderSection = () => {
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
             onClick={closeLightbox}
           >
-            {/* Close button */}
             <button
               onClick={closeLightbox}
               className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-50"
@@ -128,7 +187,6 @@ const FounderSection = () => {
               <X size={36} />
             </button>
 
-            {/* Business name at top */}
             <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50 text-center">
               <h3 className="text-white text-2xl md:text-3xl font-serif font-semibold">
                 {images[lightboxIndex].name}
@@ -138,7 +196,6 @@ const FounderSection = () => {
               </p>
             </div>
 
-            {/* Prev arrow - HUGE */}
             <button
               onClick={(e) => { e.stopPropagation(); goPrev(); }}
               className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-50 w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md flex items-center justify-center transition-all animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] border border-white/20"
@@ -147,7 +204,6 @@ const FounderSection = () => {
               <ChevronLeft size={48} className="text-white md:w-14 md:h-14" />
             </button>
 
-            {/* Next arrow - HUGE */}
             <button
               onClick={(e) => { e.stopPropagation(); goNext(); }}
               className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-50 w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md flex items-center justify-center transition-all animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] border border-white/20"
@@ -156,7 +212,6 @@ const FounderSection = () => {
               <ChevronRight size={48} className="text-white md:w-14 md:h-14" />
             </button>
 
-            {/* Image */}
             <AnimatePresence mode="wait">
               <motion.img
                 key={lightboxIndex}
@@ -171,7 +226,6 @@ const FounderSection = () => {
               />
             </AnimatePresence>
 
-            {/* Dot indicators */}
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
               {images.map((_, i) => (
                 <button
@@ -185,7 +239,6 @@ const FounderSection = () => {
               ))}
             </div>
 
-            {/* Counter */}
             <p className="absolute bottom-6 right-8 text-white/50 text-sm font-mono">
               {lightboxIndex + 1} / {images.length}
             </p>

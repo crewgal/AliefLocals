@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import CategoryGrid from "@/components/CategoryGrid";
 import FounderSection from "@/components/FounderSection";
+import FeaturedBusinesses from "@/components/FeaturedBusinesses";
 import GetListedSection from "@/components/GetListedSection";
 import TrustBadge from "@/components/TrustBadge";
 
@@ -12,6 +13,7 @@ const Index = () => {
       <HeroSection />
       <CategoryGrid />
       <FounderSection />
+      <FeaturedBusinesses />
       <GetListedSection />
       <TrustBadge />
     </div>
