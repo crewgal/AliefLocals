@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, MapPin } from "lucide-react";
-import founderPortrait from "@/assets/founder-portrait.jpg";
+import founderPortrait from "@/assets/founder-portrait.webp";
 import aliefCenter from "@/assets/alief-center.png";
 import aliefFood from "@/assets/alief-food.png";
 import aliefNature from "@/assets/alief-nature.png";
