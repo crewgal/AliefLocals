@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import {
+import { Link } from "react-router-dom";
   UtensilsCrossed, Wrench, Smile, ShieldCheck, Scissors,
   Church, Car, Stethoscope, Home, GraduationCap, Dumbbell, ShoppingBag,
 } from "lucide-react";
