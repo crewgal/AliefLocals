@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
-import heroImg from "@/assets/alief-aerial.png";
+import heroImg from "@/assets/alief-hero.png";
 
 const HeroSection = () => {
   return (
