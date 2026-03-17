@@ -99,7 +99,7 @@ const BusinessProfilePage = () => {
                 )}
 
                 {biz.verified && (
-                  <div className="flex items-center gap-2 text-sm font-medium text-green-600">
+                  <div className="flex items-center gap-2 text-sm font-medium text-primary">
                     <CheckCircle size={18} />
                     Verified
                   </div>
