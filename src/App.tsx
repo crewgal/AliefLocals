@@ -22,6 +22,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/category/:slug" element={<CategoryPage />} />
+          <Route path="/business/:slug" element={<BusinessProfilePage />} />
           <Route path="/get-listed" element={<GetListedPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/post-job" element={<PostJobPage />} />
