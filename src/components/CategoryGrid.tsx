@@ -1,17 +1,7 @@
 import { motion } from "framer-motion";
 import {
-  UtensilsCrossed,
-  Wrench,
-  Smile,
-  ShieldCheck,
-  Scissors,
-  Church,
-  Car,
-  Stethoscope,
-  Home,
-  GraduationCap,
-  Dumbbell,
-  ShoppingBag,
+  UtensilsCrossed, Wrench, Smile, ShieldCheck, Scissors,
+  Church, Car, Stethoscope, Home, GraduationCap, Dumbbell, ShoppingBag,
 } from "lucide-react";
 
 const categories = [
@@ -31,10 +21,7 @@ const categories = [
 
 const container = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.05 },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.05 } },
 };
 
 const item = {
@@ -50,7 +37,7 @@ const CategoryGrid = () => {
           Browse by Category
         </h2>
         <p className="text-muted-foreground mb-10 max-w-lg">
-          Every listing is vetted. Every business is local. Find exactly what you need in Harris County.
+          Every listing is vetted. Every business is local. Find exactly what you need in Alief.
         </p>
 
         <motion.div
@@ -69,15 +56,9 @@ const CategoryGrid = () => {
                 variants={item}
                 className="group bg-card border rounded-xl p-6 hover:border-primary transition-all duration-300 hover:scale-[1.01] shadow-card cursor-pointer"
               >
-                <Icon
-                  size={24}
-                  className="text-muted-foreground group-hover:text-primary transition-colors mb-4"
-                  strokeWidth={1.5}
-                />
+                <Icon size={24} className="text-muted-foreground group-hover:text-primary transition-colors mb-4" strokeWidth={1.5} />
                 <p className="font-semibold text-foreground text-sm mb-1">{cat.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  {cat.count} listings in 77083
-                </p>
+                <p className="text-xs text-muted-foreground">{cat.count} listings in Alief</p>
               </motion.a>
             );
           })}

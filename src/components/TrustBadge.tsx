@@ -1,9 +1,9 @@
-import { Heart, Award, Eye } from "lucide-react";
+import { MapPin, Users, ShieldCheck } from "lucide-react";
 
 const badges = [
-  { icon: Heart, label: "Evangelist", sub: "The Heart" },
-  { icon: Award, label: "MBA", sub: "The Standard" },
-  { icon: Eye, label: "Designer", sub: "The Clarity" },
+  { icon: MapPin, label: "77083", sub: "Alief, TX" },
+  { icon: Users, label: "Community First", sub: "Local & Vetted" },
+  { icon: ShieldCheck, label: "Invitation Only", sub: "Quality Assured" },
 ];
 
 const TrustBadge = () => {
@@ -11,7 +11,7 @@ const TrustBadge = () => {
     <section className="py-12 px-6 border-t">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <p className="text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Mission Bend Locals · Harris County, TX 77083
+          © {new Date().getFullYear()} Alief Locals · Harris County, TX 77083
         </p>
         <div className="flex items-center gap-8">
           {badges.map((b) => {
