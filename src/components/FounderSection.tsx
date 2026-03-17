@@ -3,17 +3,25 @@ import aliefBuilding from "@/assets/alief-building.png";
 import aliefFood from "@/assets/alief-food.png";
 import aliefNature from "@/assets/alief-nature.png";
 import aliefHeb from "@/assets/alief-heb.png";
+import aliefAerial from "@/assets/alief-aerial.png";
+import aliefShopping from "@/assets/alief-shopping.png";
 
+// Add more images here — just add { src: importedImage, alt: "description" }
 const images = [
   { src: aliefBuilding, alt: "Alief Community Center" },
   { src: aliefFood, alt: "Bellaire Food Street near Alief" },
   { src: aliefHeb, alt: "HEB grocery store in Alief" },
   { src: aliefNature, alt: "Nature trail in Alief area" },
+  { src: aliefAerial, alt: "Aerial view of Alief neighborhood" },
+  { src: aliefShopping, alt: "Shopping and entertainment in Alief" },
 ];
+
+// Duplicate for seamless infinite scroll
+const scrollImages = [...images, ...images];
 
 const FounderSection = () => {
   return (
-    <section className="py-[15vh] bg-foreground">
+    <section className="py-[15vh] bg-foreground overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,25 +52,40 @@ const FounderSection = () => {
             because they're proud of what they do and stand behind their work.
           </p>
         </motion.div>
+      </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {images.map((img, i) => (
-            <motion.div
-              key={img.alt}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="aspect-[4/3] rounded-xl overflow-hidden"
+      {/* Infinite auto-scrolling carousel */}
+      <div className="relative w-full">
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-foreground to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-foreground to-transparent z-10 pointer-events-none" />
+
+        <motion.div
+          className="flex gap-5 w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30,
+              ease: "linear",
+            },
+          }}
+        >
+          {scrollImages.map((img, i) => (
+            <div
+              key={`${img.alt}-${i}`}
+              className="flex-shrink-0 w-[350px] md:w-[420px] aspect-[16/10] rounded-2xl overflow-hidden"
             >
               <img
                 src={img.src}
                 alt={img.alt}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                loading="lazy"
               />
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
