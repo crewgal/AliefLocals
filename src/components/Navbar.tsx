@@ -60,9 +60,9 @@ const Navbar = () => {
               {cat}
             </a>
           ))}
-          <button className="mt-2 w-full px-5 py-2.5 text-sm font-semibold bg-primary text-primary-foreground rounded-full">
+          <a href="#get-listed" className="mt-2 block text-center w-full px-5 py-2.5 text-sm font-semibold bg-primary text-primary-foreground rounded-full" onClick={() => setOpen(false)}>
             Get Listed
-          </button>
+          </a>
         </div>
       )}
     </nav>
