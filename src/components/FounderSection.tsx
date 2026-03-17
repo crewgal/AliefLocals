@@ -1,20 +1,20 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import aliefBuilding from "@/assets/alief-building.png";
+import { ChevronLeft, ChevronRight, X, MapPin } from "lucide-react";
+import aliefCenter from "@/assets/alief-center.png";
 import aliefFood from "@/assets/alief-food.png";
 import aliefNature from "@/assets/alief-nature.png";
 import aliefHeb from "@/assets/alief-heb.png";
-import aliefAerial from "@/assets/alief-aerial.png";
 import aliefShopping from "@/assets/alief-shopping.png";
+import missionBendLibrary from "@/assets/mission-bend-library.png";
 
 const images = [
-  { src: aliefBuilding, alt: "Alief Community Center" },
-  { src: aliefFood, alt: "Bellaire Food Street near Alief" },
-  { src: aliefHeb, alt: "HEB grocery store in Alief" },
-  { src: aliefNature, alt: "Nature trail in Alief area" },
-  { src: aliefAerial, alt: "Aerial view of Alief neighborhood" },
-  { src: aliefShopping, alt: "Shopping and entertainment in Alief" },
+  { src: aliefCenter, alt: "Alief Community Center", name: "Alief Community Center", address: "11903 Bellaire Blvd, Houston, TX 77072" },
+  { src: aliefFood, alt: "Bellaire Food Street near Alief", name: "Bellaire Food Street", address: "Bellaire Blvd, Houston, TX 77072" },
+  { src: aliefHeb, alt: "HEB grocery store in Alief", name: "H-E-B Alief", address: "Alief, TX 77083" },
+  { src: aliefNature, alt: "Nature trail in Alief area", name: "Alief Nature Trail", address: "Alief, TX 77083" },
+  { src: aliefShopping, alt: "Shopping and entertainment in Alief", name: "Alief Shopping Center", address: "Alief, TX 77083" },
+  { src: missionBendLibrary, alt: "Mission Bend Branch Library", name: "Mission Bend Branch Library", address: "8421 Addicks-Clodine Rd, Houston, TX 77083" },
 ];
 
 const scrollImages = [...images, ...images];
@@ -85,15 +85,24 @@ const FounderSection = () => {
           {scrollImages.map((img, i) => (
             <div
               key={`${img.alt}-${i}`}
-              className="flex-shrink-0 w-[350px] md:w-[420px] aspect-[16/10] rounded-2xl overflow-hidden cursor-pointer"
+              className="flex-shrink-0 w-[350px] md:w-[420px] rounded-2xl overflow-hidden cursor-pointer relative group"
               onClick={() => openLightbox(i)}
             >
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
+              <div className="aspect-[16/10]">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+              {/* Business name overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-10">
+                <h3 className="text-white font-semibold text-lg leading-tight">{img.name}</h3>
+                <p className="text-white/60 text-sm flex items-center gap-1 mt-1">
+                  <MapPin size={12} /> {img.address}
+                </p>
+              </div>
             </div>
           ))}
         </motion.div>
@@ -116,25 +125,35 @@ const FounderSection = () => {
               className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-50"
               aria-label="Close lightbox"
             >
-              <X size={32} />
+              <X size={36} />
             </button>
 
-            {/* Prev arrow */}
+            {/* Business name at top */}
+            <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50 text-center">
+              <h3 className="text-white text-2xl md:text-3xl font-serif font-semibold">
+                {images[lightboxIndex].name}
+              </h3>
+              <p className="text-white/50 text-sm flex items-center justify-center gap-1.5 mt-1">
+                <MapPin size={14} /> {images[lightboxIndex].address}
+              </p>
+            </div>
+
+            {/* Prev arrow - HUGE */}
             <button
               onClick={(e) => { e.stopPropagation(); goPrev(); }}
-              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 w-14 h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur flex items-center justify-center transition-colors animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]"
+              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-50 w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md flex items-center justify-center transition-all animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] border border-white/20"
               aria-label="Previous image"
             >
-              <ChevronLeft size={28} className="text-white" />
+              <ChevronLeft size={48} className="text-white md:w-14 md:h-14" />
             </button>
 
-            {/* Next arrow */}
+            {/* Next arrow - HUGE */}
             <button
               onClick={(e) => { e.stopPropagation(); goNext(); }}
-              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 w-14 h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur flex items-center justify-center transition-colors animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]"
+              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-50 w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md flex items-center justify-center transition-all animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] border border-white/20"
               aria-label="Next image"
             >
-              <ChevronRight size={28} className="text-white" />
+              <ChevronRight size={48} className="text-white md:w-14 md:h-14" />
             </button>
 
             {/* Image */}
@@ -147,7 +166,7 @@ const FounderSection = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.92 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl"
+                className="max-w-[75vw] max-h-[75vh] object-contain rounded-xl shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               />
             </AnimatePresence>
