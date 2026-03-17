@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "@/assets/alief-locals-logo.png";
 
 const categories = [
   { name: "Restaurants", slug: "restaurants" },
