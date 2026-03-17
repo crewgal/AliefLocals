@@ -120,7 +120,7 @@ const BusinessProfilePage = () => {
                     <div key={i} className="space-y-2">
                       <div className="flex items-center gap-1">
                         {Array.from({ length: review.rating }).map((_, j) => (
-                          <Star key={j} size={16} className="fill-yellow-400 text-yellow-400" />
+                          <Star key={j} size={16} className="fill-primary text-primary" />
                         ))}
                       </div>
                       <p className="text-sm font-semibold text-foreground">
