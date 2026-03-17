@@ -82,7 +82,7 @@ const FounderSection = () => {
               />
             </div>
             <p className="text-white/60 text-sm text-center max-w-[14rem] leading-snug">
-              Pastor / Evangelist &amp; MBA — Founder of Alief Locals
+              Pastor / Evangelist · MBA, Western Governors University · 18 years of web design experience — Founder of Alief Locals
             </p>
           </div>
         </motion.div>
