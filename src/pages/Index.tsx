@@ -21,6 +21,7 @@ const Index = () => {
       <FounderSection />
       <FeaturedBusinesses />
       <Testimonials />
+      <JobsSection />
       <NewsletterSignup />
       <GetListedSection />
       <TrustBadge />
