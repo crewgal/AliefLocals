@@ -18,7 +18,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
         <a href="/" className="font-serif text-xl font-semibold tracking-tight text-foreground">
-          Mission Bend <span className="text-primary">Locals</span>
+          Alief <span className="text-primary">Locals</span>
         </a>
 
         {/* Desktop */}

@@ -1,66 +1,68 @@
-import founderImg from "@/assets/founder-portrait.jpg";
 import { motion } from "framer-motion";
+import aliefBuilding from "@/assets/alief-building.png";
+import aliefFood from "@/assets/alief-food.png";
+import aliefNature from "@/assets/alief-nature.png";
+import aliefHeb from "@/assets/alief-heb.png";
+
+const images = [
+  { src: aliefBuilding, alt: "Alief Community Center" },
+  { src: aliefFood, alt: "Bellaire Food Street near Alief" },
+  { src: aliefHeb, alt: "HEB grocery store in Alief" },
+  { src: aliefNature, alt: "Nature trail in Alief area" },
+];
 
 const FounderSection = () => {
   return (
     <section className="py-[15vh] bg-foreground">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-semibold text-background leading-tight mb-6">
-            Built by a neighbor,{" "}
-            <br />
-            <span className="text-primary">driven by a mission.</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-semibold text-white leading-tight mb-6">
+            Welcome to{" "}
+            <span className="text-primary">Alief, Texas</span>
           </h2>
-          <p className="text-lg text-background/75 max-w-prose mb-8 leading-relaxed">
-            The best local businesses aren't always the ones with the biggest ad budgets.
-            Mission Bend Locals is the place to discover the local gems in our community.
-            Our listings are <strong className="text-background">free, but invitation-only</strong>.
-            You aren't seeing who paid the most to be here — you're seeing business owners
-            who earned their spot because they are proud of what they do and are willing to
-            stand behind their work.
+          <p className="text-lg text-white/75 leading-relaxed mb-6">
+            Alief is one of the most culturally diverse communities in the entire United States,
+            located in southwest Houston within Harris County. Home to over 100,000 residents representing
+            dozens of nationalities, Alief is a place where authentic cuisines, family-owned shops,
+            and tight-knit neighborhoods come together.
           </p>
-          <p className="text-base text-background/65 max-w-prose mb-10 leading-relaxed">
-            As a Pastor and Evangelist with an MBA and 18 years of professional web design experience,
-            I believe our local businesses deserve the same excellence we bring to our faith.
-            When you connect with a neighbor who puts their heart into their business,
-            you get a higher level of accountability.
+          <p className="text-lg text-white/75 leading-relaxed mb-6">
+            From the famous Bellaire Food Street to the brand-new Alief Community Center,
+            our neighborhood is thriving. Whether you need a trusted mechanic, a great barber,
+            or a new church home — the best businesses in 77083 are right here, run by your neighbors.
           </p>
-
-          <div className="flex gap-8">
-            <div>
-              <p className="text-3xl font-mono font-bold text-primary">18</p>
-              <p className="text-xs uppercase tracking-widest text-background/40 mt-1">Years Design</p>
-            </div>
-            <div>
-              <p className="text-3xl font-mono font-bold text-primary">77083</p>
-              <p className="text-xs uppercase tracking-widest text-background/40 mt-1">Local Zip</p>
-            </div>
-            <div>
-              <p className="text-3xl font-mono font-bold text-primary">MBA</p>
-              <p className="text-xs uppercase tracking-widest text-background/40 mt-1">Standard</p>
-            </div>
-          </div>
+          <p className="text-base text-white/55 leading-relaxed">
+            Alief Locals is built to help you discover these hidden gems. Our listings are
+            <strong className="text-white"> free, but invitation-only</strong> — you're not seeing
+            who paid the most to be here. You're seeing business owners who earned their spot
+            because they're proud of what they do and stand behind their work.
+          </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="aspect-square rounded-2xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-700"
-          style={{ background: "hsl(var(--background) / 0.1)" }}
-        >
-          <img
-            src={founderImg}
-            alt="Adrian — Pastor, MBA, and Web Designer serving Mission Bend"
-            className="w-full h-full object-cover object-top"
-          />
-        </motion.div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {images.map((img, i) => (
+            <motion.div
+              key={img.alt}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="aspect-[4/3] rounded-xl overflow-hidden"
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
