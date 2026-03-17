@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import CategoryPage from "./pages/CategoryPage.tsx";
+import BusinessProfilePage from "./pages/BusinessProfilePage.tsx";
 import GetListedPage from "./pages/GetListedPage.tsx";
 import JobsPage from "./pages/JobsPage.tsx";
 import PostJobPage from "./pages/PostJobPage.tsx";
