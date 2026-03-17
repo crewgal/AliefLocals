@@ -18,9 +18,9 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b">
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between py-4">
         <Link to="/">
-          <img src={logo} alt="Alief Locals" className="h-20 my-2" />
+          <img src={logo} alt="Alief Locals" className="h-20 my-3" />
         </Link>
 
         {/* Desktop */}
