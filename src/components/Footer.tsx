@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Youtube, Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Youtube, Mail, MapPin } from "lucide-react";
+import logo from "@/assets/alief-locals-logo.png";
 
 const categories = [
   { name: "Restaurants", slug: "restaurants" },
@@ -18,8 +19,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link to="/" className="font-serif text-2xl font-semibold text-white tracking-tight">
-              Alief <span className="text-primary">Locals</span>
+            <Link to="/">
+              <img src={logo} alt="Alief Locals" className="h-14" />
             </Link>
             <p className="text-sm mt-3 leading-relaxed text-white/50">
               Connecting the Alief community with trusted, local businesses since day one.

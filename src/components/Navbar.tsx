@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "@/assets/alief-locals-logo.png";
 
 const categories = [
   { name: "Restaurants", slug: "restaurants" },
@@ -18,8 +19,8 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
-        <Link to="/" className="font-serif text-xl font-semibold tracking-tight text-foreground">
-          Alief <span className="text-primary">Locals</span>
+        <Link to="/">
+          <img src={logo} alt="Alief Locals" className="h-12" />
         </Link>
 
         {/* Desktop */}
