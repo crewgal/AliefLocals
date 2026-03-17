@@ -6,6 +6,7 @@ import FounderSection from "@/components/FounderSection";
 import FeaturedBusinesses from "@/components/FeaturedBusinesses";
 import Testimonials from "@/components/Testimonials";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import JobsSection from "@/components/JobsSection";
 import GetListedSection from "@/components/GetListedSection";
 import TrustBadge from "@/components/TrustBadge";
 import Footer from "@/components/Footer";
@@ -20,6 +21,7 @@ const Index = () => {
       <FounderSection />
       <FeaturedBusinesses />
       <Testimonials />
+      <JobsSection />
       <NewsletterSignup />
       <GetListedSection />
       <TrustBadge />

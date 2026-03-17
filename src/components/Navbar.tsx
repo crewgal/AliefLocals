@@ -33,6 +33,9 @@ const Navbar = () => {
               {cat.name}
             </Link>
           ))}
+          <Link to="/jobs" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Jobs
+          </Link>
           <Link to="/get-listed" className="ml-4 px-5 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
             Get Listed
           </Link>
@@ -61,6 +64,9 @@ const Navbar = () => {
               {cat.name}
             </Link>
           ))}
+          <Link to="/jobs" className="block py-2 text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>
+            Jobs
+          </Link>
           <Link to="/get-listed" className="mt-2 block text-center w-full px-5 py-2.5 text-sm font-semibold bg-primary text-primary-foreground rounded-full" onClick={() => setOpen(false)}>
             Get Listed
           </Link>
