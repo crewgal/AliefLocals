@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Home, Users, MessageCircle, UserPlus, Store } from "lucide-react";
 
 const items = [
-  { icon: Home, label: "Feed", path: "/" },
+  { icon: Home, label: "Feed", path: "/community" },
   { icon: Users, label: "Groups", path: "/groups" },
   { icon: MessageCircle, label: "Chat", path: "/messages" },
   { icon: UserPlus, label: "People", path: "/people" },
