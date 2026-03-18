@@ -100,7 +100,7 @@ const Navbar = () => {
               Jobs
             </Link>
             <Link to="/get-listed" className="mt-2 block text-center w-full px-5 py-2.5 text-sm font-semibold bg-primary text-primary-foreground rounded-full" onClick={() => setOpen(false)}>
-              Get Listed
+              Business Login
             </Link>
 
             {user ? (
