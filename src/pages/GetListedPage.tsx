@@ -1,23 +1,21 @@
-import Navbar from "@/components/Navbar";
+import SocialLayout from "@/layouts/SocialLayout";
 import GetListedSection from "@/components/GetListedSection";
-import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const GetListedPage = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <div className="max-w-7xl mx-auto px-6 pt-10">
+    <SocialLayout>
+      <div className="max-w-3xl mx-auto px-4 py-6">
         <Link
-          to="/"
+          to="/businesses"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft size={16} /> Back to Home
+          <ArrowLeft size={16} /> Back to Businesses
         </Link>
+        <GetListedSection />
       </div>
-      <GetListedSection />
-    </div>
+    </SocialLayout>
   );
 };
 

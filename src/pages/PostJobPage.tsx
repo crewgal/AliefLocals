@@ -1,5 +1,4 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import SocialLayout from "@/layouts/SocialLayout";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import { useState } from "react";
