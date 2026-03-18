@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import SocialLayout from "@/layouts/SocialLayout";
+import ReviewSection from "@/components/ReviewSection";
 import ReviewSection from "@/components/ReviewSection";
 import { motion } from "framer-motion";
 import { ArrowLeft, Phone, Globe, CheckCircle } from "lucide-react";
