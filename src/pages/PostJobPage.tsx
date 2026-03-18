@@ -53,8 +53,8 @@ const PostJobPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
+    <SocialLayout>
+      <div className="max-w-3xl mx-auto px-4 py-6">
 
       <section className="max-w-5xl mx-auto px-6 py-14">
         <Link to="/jobs" className="text-sm text-muted-foreground hover:text-foreground transition-colors mb-6 inline-block">
