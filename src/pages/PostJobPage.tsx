@@ -176,8 +176,8 @@ const PostJobPage = () => {
         </motion.form>
       </section>
 
-      <Footer />
-    </div>
+      </div>
+    </SocialLayout>
   );
 };
 
