@@ -1,5 +1,4 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import SocialLayout from "@/layouts/SocialLayout";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import { useState } from "react";
@@ -33,9 +32,8 @@ const PostJobPage = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <div className="max-w-xl mx-auto px-6 py-32 text-center">
+      <SocialLayout>
+        <div className="max-w-xl mx-auto px-6 py-20 text-center">
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
               <CheckCircle size={32} className="text-primary" />
@@ -49,14 +47,13 @@ const PostJobPage = () => {
             </Link>
           </motion.div>
         </div>
-        <Footer />
-      </div>
+      </SocialLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
+    <SocialLayout>
+      <div className="max-w-3xl mx-auto px-4 py-6">
 
       <section className="max-w-5xl mx-auto px-6 py-14">
         <Link to="/jobs" className="text-sm text-muted-foreground hover:text-foreground transition-colors mb-6 inline-block">
@@ -178,8 +175,8 @@ const PostJobPage = () => {
         </motion.form>
       </section>
 
-      <Footer />
-    </div>
+      </div>
+    </SocialLayout>
   );
 };
 

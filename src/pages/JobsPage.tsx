@@ -1,5 +1,4 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import SocialLayout from "@/layouts/SocialLayout";
 import { motion } from "framer-motion";
 import { Briefcase, MapPin, Clock, DollarSign, Search } from "lucide-react";
 import { useState } from "react";
@@ -31,8 +30,8 @@ const JobsPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
+    <SocialLayout>
+      <div className="max-w-3xl mx-auto p-4">
 
       {/* Header */}
       <section className="bg-accent/5 border-b py-14">
@@ -123,9 +122,8 @@ const JobsPage = () => {
           </Link>
         </div>
       </section>
-
-      <Footer />
-    </div>
+      </div>
+    </SocialLayout>
   );
 };
 

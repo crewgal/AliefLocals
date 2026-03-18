@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import SocialLayout from "@/layouts/SocialLayout";
 import ReviewSection from "@/components/ReviewSection";
 import { motion } from "framer-motion";
 import { ArrowLeft, Phone, Globe, CheckCircle } from "lucide-react";
@@ -54,14 +53,13 @@ const BusinessProfilePage = () => {
   }, [slug]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <div className="max-w-5xl mx-auto px-6 py-12">
+    <SocialLayout>
+      <div className="max-w-3xl mx-auto px-4 py-6">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
         >
-          <ArrowLeft size={16} /> Back to Home
+          <ArrowLeft size={16} /> Back to Businesses
         </Link>
 
         <motion.div
@@ -146,8 +144,7 @@ const BusinessProfilePage = () => {
           </div>
         </motion.div>
       </div>
-      <Footer />
-    </div>
+    </SocialLayout>
   );
 };
 
