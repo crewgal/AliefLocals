@@ -39,6 +39,9 @@ const Navbar = () => {
                 {cat.name}
               </Link>
             ))}
+            <Link to="/community" className="px-3 py-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
+              Community
+            </Link>
             <Link to="/jobs" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Jobs
             </Link>
