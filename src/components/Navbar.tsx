@@ -46,7 +46,7 @@ const Navbar = () => {
               Jobs
             </Link>
             <Link to="/get-listed" className="ml-2 px-5 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
-              Get Listed
+              Business Login
             </Link>
 
             {user ? (
