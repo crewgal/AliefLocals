@@ -146,8 +146,7 @@ const BusinessProfilePage = () => {
           </div>
         </motion.div>
       </div>
-      <Footer />
-    </div>
+    </SocialLayout>
   );
 };
 
