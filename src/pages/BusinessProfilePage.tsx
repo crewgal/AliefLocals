@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import SocialLayout from "@/layouts/SocialLayout";
 import ReviewSection from "@/components/ReviewSection";
-import ReviewSection from "@/components/ReviewSection";
 import { motion } from "framer-motion";
 import { ArrowLeft, Phone, Globe, CheckCircle } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
