@@ -48,9 +48,8 @@ const PostJobPage = () => {
             </Link>
           </motion.div>
         </div>
-        <Footer />
-      </div>
-    );
+        </div>
+      </SocialLayout>
   }
 
   return (
