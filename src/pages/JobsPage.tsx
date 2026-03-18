@@ -122,9 +122,8 @@ const JobsPage = () => {
           </Link>
         </div>
       </section>
-
-      <Footer />
-    </div>
+      </div>
+    </SocialLayout>
   );
 };
 
