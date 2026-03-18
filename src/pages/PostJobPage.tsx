@@ -34,7 +34,6 @@ const PostJobPage = () => {
     return (
       <SocialLayout>
         <div className="max-w-xl mx-auto px-6 py-20 text-center">
-        <div className="max-w-xl mx-auto px-6 py-32 text-center">
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
               <CheckCircle size={32} className="text-primary" />
@@ -47,6 +46,7 @@ const PostJobPage = () => {
               Browse Jobs
             </Link>
           </motion.div>
+        </div>
       </SocialLayout>
     );
   }
