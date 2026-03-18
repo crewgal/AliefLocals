@@ -30,8 +30,8 @@ const JobsPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
+    <SocialLayout>
+      <div className="max-w-3xl mx-auto p-4">
 
       {/* Header */}
       <section className="bg-accent/5 border-b py-14">
