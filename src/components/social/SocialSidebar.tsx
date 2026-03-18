@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/alief-locals-logo.png";
 
 const navItems = [
-  { icon: Home, label: "Feed", path: "/" },
+  { icon: Home, label: "Feed", path: "/community" },
   { icon: Users, label: "Groups", path: "/groups" },
   { icon: MessageCircle, label: "Messages", path: "/messages" },
   { icon: UserPlus, label: "Find Neighbors", path: "/people" },
