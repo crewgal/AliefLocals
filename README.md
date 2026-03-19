@@ -1,50 +1,49 @@
 # Alief Locals
 
-This app now uses a local Node/Express API backed by MySQL instead of Supabase.
+This project now supports shared-hosting deployment with:
 
-## Local setup
+- a Vite-built frontend
+- a PHP API under `/api`
+- MySQL
 
-1. Copy `.env.example` to `.env` and adjust the MySQL credentials if needed.
-2. Create the database schema:
+## Local frontend
 
-```bash
-mysql -u root -p < mysql/schema.sql
-```
-
-3. Install dependencies:
+Install dependencies and run the frontend:
 
 ```bash
 npm install
-```
-
-4. Start the API server in one terminal:
-
-```bash
-npm run server
-```
-
-5. Start the frontend in another terminal:
-
-```bash
 npm run dev
 ```
 
-The frontend runs on `http://localhost:8080` by default and the API runs on `http://localhost:3001`.
+The Vite app runs on `http://localhost:8080`.
+
+## Local API
+
+The repo includes a PHP API in [api/index.php](/Users/marvin/Sites/upwork/alieflocals/api/index.php) and a migration runner in [migrate.php](/Users/marvin/Sites/upwork/alieflocals/scripts/migrate.php).
+
+1. Copy [api/.env.example.php](/Users/marvin/Sites/upwork/alieflocals/api/.env.example.php) to `api/.env.php`.
+2. Adjust the MySQL credentials in `api/.env.php`.
+3. Run the migration:
+
+```bash
+php scripts/migrate.php
+```
+
+4. Serve the API with PHP however you prefer locally. The frontend build for production uses `/api` as the API base.
 
 ## GitHub deployment
 
-The repo includes [deploy.yml](/Users/marvin/Sites/upwork/alieflocals/.github/workflows/deploy.yml), which deploys to:
+The workflow at [deploy.yml](/Users/marvin/Sites/upwork/alieflocals/.github/workflows/deploy.yml) deploys to:
 
 `/home/u497238762/domains/alieflocals.com/public_html`
 
-On every push to `main`, the workflow:
+On every push to `main`, it:
 
-1. Installs dependencies, runs tests, and builds the frontend with `VITE_API_URL=/api`.
-2. Uploads `dist/`, `server/`, `mysql/`, and the runtime `package*.json` files to the target server over SSH.
-3. Writes a production `.env` file on the server from GitHub Secrets.
-4. Runs `npm ci --omit=dev` on the server.
-5. Runs the MySQL migration file `mysql/schema.sql`.
-6. Optionally runs a restart command if you provide one in secrets.
+1. installs dependencies, runs tests, and builds the frontend with `VITE_API_URL=/api`
+2. uploads the built frontend to `public_html`
+3. uploads `api/`, `mysql/`, `scripts/`, and Apache `.htaccess` files
+4. writes `api/.env.php` on the server from GitHub Secrets
+5. runs `php scripts/migrate.php` on the server so MySQL migrations apply automatically
 
 Required secrets:
 
@@ -64,4 +63,4 @@ Optional secret:
 
 - `DEPLOY_RESTART_COMMAND`
 
-Examples for `DEPLOY_RESTART_COMMAND` depend on your host setup. If your host uses Passenger, it is often something like `mkdir -p tmp && touch tmp/restart.txt`. If you use `pm2`, it could be `pm2 restart alieflocals`.
+Most PHP shared hosting setups do not need `DEPLOY_RESTART_COMMAND`. If your host uses a restart trigger, you can add it there.

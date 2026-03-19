@@ -8,7 +8,7 @@ on:
 
 env:
   DEPLOY_PATH: /home/u497238762/domains/alieflocals.com/public_html
-  APP_DOMAIN: https://alieflocals.com
+  APP_URL: https://alieflocals.com
 
 jobs:
   deploy:
@@ -46,56 +46,97 @@ jobs:
           printf '%s\n' "${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
-      - name: Create deploy directory
+      - name: Create deploy directories
         run: |
           ssh -p "${{ secrets.DEPLOY_SSH_PORT }}" "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}" \
-            "mkdir -p '${{ env.DEPLOY_PATH }}' '${{ env.DEPLOY_PATH }}/server/uploads'"
+            "mkdir -p '${{ env.DEPLOY_PATH }}' '${{ env.DEPLOY_PATH }}/api' '${{ env.DEPLOY_PATH }}/mysql' '${{ env.DEPLOY_PATH }}/scripts' '${{ env.DEPLOY_PATH }}/uploads'"
 
-      - name: Upload application files
+      - name: Upload frontend build
         run: |
           rsync -az --delete \
-            --exclude ".env" \
-            --exclude "server/uploads" \
-            --exclude ".git" \
-            --exclude "node_modules" \
+            --exclude "api" \
+            --exclude "mysql" \
+            --exclude "scripts" \
+            --exclude "uploads" \
+            --exclude ".htaccess" \
             -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
-            dist \
-            server \
-            mysql \
-            package.json \
-            package-lock.json \
-            README.md \
+            dist/ \
             "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/"
 
-      - name: Install runtime dependencies, write env, and run migrations
+      - name: Upload backend and deployment files
+        run: |
+          rsync -az --delete \
+            --exclude ".env.php" \
+            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
+            api/ \
+            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/api/"
+
+          rsync -az --delete \
+            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
+            mysql/ \
+            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/mysql/"
+
+          rsync -az --delete \
+            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
+            scripts/ \
+            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/scripts/"
+
+          rsync -az \
+            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
+            .htaccess \
+            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/"
+
+          rsync -az \
+            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
+            uploads/.htaccess \
+            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/uploads/"
+
+      - name: Render production PHP config
+        env:
+          APP_JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
+          DEPLOY_DB_HOST: ${{ secrets.DEPLOY_DB_HOST }}
+          DEPLOY_DB_PORT: ${{ secrets.DEPLOY_DB_PORT }}
+          DEPLOY_DB_NAME: ${{ secrets.DEPLOY_DB_NAME }}
+          DEPLOY_DB_USER: ${{ secrets.DEPLOY_DB_USER }}
+          DEPLOY_DB_PASSWORD: ${{ secrets.DEPLOY_DB_PASSWORD }}
+        run: |
+          php -r '
+            $config = [
+              "app_url" => getenv("APP_URL"),
+              "jwt_secret" => getenv("APP_JWT_SECRET"),
+              "db" => [
+                "host" => getenv("DEPLOY_DB_HOST"),
+                "port" => (int) getenv("DEPLOY_DB_PORT"),
+                "database" => getenv("DEPLOY_DB_NAME"),
+                "user" => getenv("DEPLOY_DB_USER"),
+                "password" => getenv("DEPLOY_DB_PASSWORD"),
+              ],
+            ];
+            file_put_contents(getenv("RUNNER_TEMP") . "/api-env.php", "<?php\nreturn " . var_export($config, true) . ";\n");
+          '
+
+      - name: Upload production PHP config
+        run: |
+          rsync -az \
+            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
+            "$RUNNER_TEMP/api-env.php" \
+            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/api/.env.php"
+
+      - name: Run migrations
         run: |
           ssh -p "${{ secrets.DEPLOY_SSH_PORT }}" "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}" <<EOF
           set -eu
           cd "${{ env.DEPLOY_PATH }}"
 
-          cat > .env <<ENVFILE
-          NODE_ENV=production
-          API_PORT=3001
-          API_PUBLIC_URL=${{ env.APP_DOMAIN }}
-          FRONTEND_URL=${{ env.APP_DOMAIN }}
-          MYSQL_HOST=${{ secrets.DEPLOY_DB_HOST }}
-          MYSQL_PORT=${{ secrets.DEPLOY_DB_PORT }}
-          MYSQL_USER=${{ secrets.DEPLOY_DB_USER }}
-          MYSQL_PASSWORD=${{ secrets.DEPLOY_DB_PASSWORD }}
-          MYSQL_DATABASE=${{ secrets.DEPLOY_DB_NAME }}
-          JWT_SECRET=${{ secrets.APP_JWT_SECRET }}
-          ENVFILE
+          if ! command -v php >/dev/null 2>&1; then
+            echo "php is not available on PATH during deploy."
+            exit 1
+          fi
 
-          mkdir -p server/uploads
-          npm ci --omit=dev
+          mkdir -p uploads
+          php scripts/migrate.php
 
-          mysql \
-            --host="${{ secrets.DEPLOY_DB_HOST }}" \
-            --port="${{ secrets.DEPLOY_DB_PORT }}" \
-            --user="${{ secrets.DEPLOY_DB_USER }}" \
-            --password="${{ secrets.DEPLOY_DB_PASSWORD }}" < mysql/schema.sql
-
-          if [ -n "${{ secrets.DEPLOY_RESTART_COMMAND }}" ]; then
+          if [ -n "${{ secrets.DEPLOY_RESTART_COMMAND || '' }}" ]; then
             eval "${{ secrets.DEPLOY_RESTART_COMMAND }}"
           fi
           EOF
