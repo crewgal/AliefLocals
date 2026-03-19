@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Users, MessageCircle, Briefcase, Store, UserPlus, Settings } from "lucide-react";
+import { Home, Users, MessageCircle, Briefcase, Store, UserPlus, Newspaper } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/alief-locals-logo.png";
 
 const navItems = [
-  { icon: Home, label: "Feed", path: "/community" },
+  { icon: Home, label: "Home", path: "/" },
+  { icon: Newspaper, label: "Feed", path: "/community" },
   { icon: Users, label: "Groups", path: "/groups" },
   { icon: MessageCircle, label: "Messages", path: "/messages" },
   { icon: UserPlus, label: "Find Neighbors", path: "/people" },
