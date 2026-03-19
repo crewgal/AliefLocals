@@ -53,7 +53,7 @@ const FeedPage = () => {
   if (!user) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
-        <Link to="/" className="absolute top-6 left-6 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+        <Link to="/" className="absolute top-6 left-6 flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors bg-primary/10 px-4 py-2 rounded-full">
           <Home size={18} />
           <span>Back to Home</span>
         </Link>
