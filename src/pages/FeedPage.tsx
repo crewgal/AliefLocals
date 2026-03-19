@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import SocialLayout from "@/layouts/SocialLayout";
@@ -6,7 +7,7 @@ import CreatePost from "@/components/social/CreatePost";
 import PostCard from "@/components/social/PostCard";
 import RightSidebar from "@/components/social/RightSidebar";
 import AuthModal from "@/components/AuthModal";
-import { Loader2, Users, MessageCircle, ImagePlus, Video } from "lucide-react";
+import { Loader2, Users, MessageCircle, ImagePlus, Video, Home } from "lucide-react";
 
 const FeedPage = () => {
   const { user, loading: authLoading } = useAuth();
@@ -51,7 +52,11 @@ const FeedPage = () => {
   // Gate: require login
   if (!user) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+        <Link to="/" className="absolute top-6 left-6 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+          <Home size={18} />
+          <span>Back to Home</span>
+        </Link>
         <div className="max-w-md w-full bg-card border rounded-2xl p-8 text-center shadow-lg space-y-6">
           <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
             <Users size={32} className="text-primary" />
