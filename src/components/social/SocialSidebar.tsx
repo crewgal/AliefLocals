@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Users, MessageCircle, Briefcase, Store, UserPlus, Settings } from "lucide-react";
+import { Home, Users, MessageCircle, Briefcase, Store, UserPlus, Newspaper } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/alief-locals-logo.png";
 
