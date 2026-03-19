@@ -57,9 +57,11 @@ const CategoryGrid = () => {
               >
                 <Link
                   to={`/category/${cat.name.toLowerCase().replace(/\s/g, "-")}`}
-                  className="group block bg-card border rounded-xl p-6 hover:border-primary transition-all duration-300 hover:scale-[1.01] shadow-card cursor-pointer"
+                  className="group block bg-card border rounded-xl p-6 hover:scale-[1.01] transition-all duration-300 shadow-card cursor-pointer"
                 >
-                  <Icon size={24} className="text-muted-foreground group-hover:text-primary transition-colors mb-4" strokeWidth={1.5} />
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 ${cat.color}`}>
+                    <Icon size={20} strokeWidth={1.5} />
+                  </div>
                   <p className="font-semibold text-foreground text-sm mb-1">{cat.name}</p>
                   <p className="text-xs text-muted-foreground">{cat.count} listings in Alief</p>
                 </Link>
