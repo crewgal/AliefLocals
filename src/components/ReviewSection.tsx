@@ -1,17 +1,9 @@
 import { useState, useEffect } from "react";
 import { Star, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "./AuthModal";
 import { motion } from "framer-motion";
-
-interface Review {
-  id: string;
-  rating: number;
-  comment: string;
-  created_at: string;
-  profiles: { display_name: string | null; avatar_url: string | null } | null;
-}
+import { createReview, listReviews, type Review } from "@/lib/api";
 
 interface ReviewSectionProps {
   businessId: string;
@@ -30,13 +22,7 @@ const ReviewSection = ({ businessId }: ReviewSectionProps) => {
   const [error, setError] = useState("");
 
   const fetchReviews = async () => {
-    const { data } = await supabase
-      .from("reviews")
-      .select("id, rating, comment, created_at, profiles(display_name, avatar_url)")
-      .eq("business_id", businessId)
-      .order("created_at", { ascending: false });
-
-    if (data) setReviews(data as unknown as Review[]);
+    setReviews(await listReviews(businessId));
     setLoading(false);
   };
 
@@ -65,24 +51,14 @@ const ReviewSection = ({ businessId }: ReviewSectionProps) => {
     setSubmitting(true);
     setError("");
 
-    const { error: insertError } = await supabase.from("reviews").insert({
-      business_id: businessId,
-      user_id: user.id,
-      rating,
-      comment: trimmed,
-    });
-
-    if (insertError) {
-      if (insertError.code === "23505") {
-        setError("You've already reviewed this business.");
-      } else {
-        setError(insertError.message);
-      }
-    } else {
+    try {
+      await createReview(businessId, { rating, comment: trimmed });
       setComment("");
       setRating(5);
       setShowForm(false);
       await fetchReviews();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to submit review.");
     }
     setSubmitting(false);
   };

@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import SocialLayout from "@/layouts/SocialLayout";
 import AuthModal from "@/components/AuthModal";
 import { Users, Plus, Loader2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { createGroup, joinGroup as joinGroupRequest, listGroups, type Group } from "@/lib/api";
 
 const GroupsPage = () => {
   const { user } = useAuth();
-  const [groups, setGroups] = useState<any[]>([]);
+  const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
@@ -21,13 +20,11 @@ const GroupsPage = () => {
   }, []);
 
   const fetchGroups = async () => {
-    const { data } = await supabase
-      .from("groups")
-      .select("*, group_members(count)")
-      .eq("is_public", true)
-      .order("created_at", { ascending: false });
-    if (data) setGroups(data);
-    setLoading(false);
+    try {
+      setGroups(await listGroups());
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCreateGroup = async (e: React.FormEvent) => {
@@ -36,15 +33,7 @@ const GroupsPage = () => {
     if (!name.trim()) return;
 
     setCreating(true);
-    const { data: group } = await supabase
-      .from("groups")
-      .insert({ name: name.trim(), description: description.trim() || null, created_by: user.id })
-      .select()
-      .single();
-
-    if (group) {
-      await supabase.from("group_members").insert({ group_id: group.id, user_id: user.id, role: "admin" });
-    }
+    await createGroup({ name: name.trim(), description: description.trim() });
 
     setName("");
     setDescription("");
@@ -55,7 +44,7 @@ const GroupsPage = () => {
 
   const joinGroup = async (groupId: string) => {
     if (!user) { setShowAuth(true); return; }
-    await supabase.from("group_members").insert({ group_id: groupId, user_id: user.id });
+    await joinGroupRequest(groupId);
     fetchGroups();
   };
 

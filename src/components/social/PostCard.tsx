@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import { Heart, MessageCircle, MoreHorizontal, Trash2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { formatDistanceToNow } from "date-fns";
+import {
+  addPostComment,
+  deletePost,
+  getPostLikes,
+  likePost,
+  listPostComments,
+  type Post,
+  type PostComment,
+  unlikePost,
+} from "@/lib/api";
 
 interface PostCardProps {
-  post: {
-    id: string;
-    user_id: string;
-    content: string | null;
-    media_url: string | null;
-    media_type: string | null;
-    created_at: string;
-    profiles: { display_name: string | null; avatar_url: string | null } | null;
-  };
+  post: Post;
   onDeleted?: () => void;
 }
 
@@ -21,7 +22,7 @@ const PostCard = ({ post, onDeleted }: PostCardProps) => {
   const { user } = useAuth();
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
-  const [comments, setComments] = useState<any[]>([]);
+  const [comments, setComments] = useState<PostComment[]>([]);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [showMenu, setShowMenu] = useState(false);
@@ -31,41 +32,24 @@ const PostCard = ({ post, onDeleted }: PostCardProps) => {
   }, [post.id]);
 
   const fetchLikes = async () => {
-    const { count } = await supabase
-      .from("likes")
-      .select("*", { count: "exact", head: true })
-      .eq("post_id", post.id);
-    setLikes(count ?? 0);
-
-    if (user) {
-      const { data } = await supabase
-        .from("likes")
-        .select("id")
-        .eq("post_id", post.id)
-        .eq("user_id", user.id)
-        .maybeSingle();
-      setLiked(!!data);
-    }
+    const data = await getPostLikes(post.id);
+    setLikes(data.count ?? 0);
+    setLiked(data.liked);
   };
 
   const toggleLike = async () => {
     if (!user) return;
     if (liked) {
-      await supabase.from("likes").delete().eq("post_id", post.id).eq("user_id", user.id);
+      await unlikePost(post.id);
     } else {
-      await supabase.from("likes").insert({ post_id: post.id, user_id: user.id });
+      await likePost(post.id);
     }
     setLiked(!liked);
     setLikes((p) => (liked ? p - 1 : p + 1));
   };
 
   const fetchComments = async () => {
-    const { data } = await supabase
-      .from("comments")
-      .select("id, content, created_at, user_id, profiles:user_id(display_name, avatar_url)")
-      .eq("post_id", post.id)
-      .order("created_at", { ascending: true });
-    if (data) setComments(data as any[]);
+    setComments(await listPostComments(post.id));
   };
 
   const handleToggleComments = () => {
@@ -75,17 +59,13 @@ const PostCard = ({ post, onDeleted }: PostCardProps) => {
 
   const submitComment = async () => {
     if (!user || !commentText.trim()) return;
-    await supabase.from("comments").insert({
-      post_id: post.id,
-      user_id: user.id,
-      content: commentText.trim(),
-    });
+    await addPostComment(post.id, commentText.trim());
     setCommentText("");
     fetchComments();
   };
 
-  const deletePost = async () => {
-    await supabase.from("posts").delete().eq("id", post.id);
+  const handleDeletePost = async () => {
+    await deletePost(post.id);
     onDeleted?.();
   };
 
@@ -117,7 +97,7 @@ const PostCard = ({ post, onDeleted }: PostCardProps) => {
             </button>
             {showMenu && (
               <div className="absolute right-0 top-8 bg-card border rounded-lg shadow-elevated z-10 py-1 min-w-[120px]">
-                <button onClick={deletePost} className="flex items-center gap-2 px-3 py-2 text-sm text-destructive hover:bg-muted w-full">
+                <button onClick={handleDeletePost} className="flex items-center gap-2 px-3 py-2 text-sm text-destructive hover:bg-muted w-full">
                   <Trash2 size={14} /> Delete
                 </button>
               </div>

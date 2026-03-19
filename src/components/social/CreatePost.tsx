@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { Image, Video, Send, X, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
+import { createPost, uploadMedia } from "@/lib/api";
 
 interface CreatePostProps {
   onPostCreated: () => void;
@@ -47,20 +47,14 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
     let media_url: string | null = null;
 
     if (mediaFile) {
-      const ext = mediaFile.name.split(".").pop();
-      const path = `${user.id}/${Date.now()}.${ext}`;
-      const { error } = await supabase.storage.from("media").upload(path, mediaFile);
-      if (!error) {
-        const { data } = supabase.storage.from("media").getPublicUrl(path);
-        media_url = data.publicUrl;
-      }
+      const upload = await uploadMedia(mediaFile);
+      media_url = upload.url;
     }
 
-    await supabase.from("posts").insert({
-      user_id: user.id,
+    await createPost({
       content: content.trim() || null,
-      media_url,
-      media_type: mediaFile ? mediaType : null,
+      mediaUrl: media_url,
+      mediaType: mediaFile ? mediaType : null,
     });
 
     setContent("");
@@ -73,7 +67,7 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
     <div className="bg-card border rounded-xl p-4 shadow-card">
       <div className="flex gap-3">
         <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm shrink-0">
-          {user.user_metadata?.full_name?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase() || "?"}
+          {user.displayName?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase() || "?"}
         </div>
         <div className="flex-1">
           <textarea

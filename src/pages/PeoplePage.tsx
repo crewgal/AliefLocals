@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import SocialLayout from "@/layouts/SocialLayout";
 import AuthModal from "@/components/AuthModal";
 import { UserPlus, Check, Clock, MessageCircle, Loader2 } from "lucide-react";
+import {
+  acceptFriendRequest,
+  createConversation,
+  listFriendships,
+  listPeople,
+  sendFriendRequest,
+  type Friendship,
+  type Profile,
+} from "@/lib/api";
 
 const PeoplePage = () => {
   const { user } = useAuth();
-  const [people, setPeople] = useState<any[]>([]);
-  const [friendships, setFriendships] = useState<any[]>([]);
+  const [people, setPeople] = useState<Profile[]>([]);
+  const [friendships, setFriendships] = useState<Friendship[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAuth, setShowAuth] = useState(false);
 
@@ -18,22 +26,14 @@ const PeoplePage = () => {
   }, [user]);
 
   const fetchPeople = async () => {
-    const { data } = await supabase
-      .from("profiles")
-      .select("id, user_id, display_name, avatar_url, created_at")
-      .order("created_at", { ascending: false })
-      .limit(50);
-    if (data) setPeople(data.filter((p) => p.user_id !== user?.id));
+    const data = await listPeople();
+    setPeople(data.filter((p) => p.user_id !== user?.id));
     setLoading(false);
   };
 
   const fetchFriendships = async () => {
     if (!user) return;
-    const { data } = await supabase
-      .from("friendships")
-      .select("*")
-      .or(`requester_id.eq.${user.id},addressee_id.eq.${user.id}`);
-    if (data) setFriendships(data);
+    setFriendships(await listFriendships());
   };
 
   const getFriendStatus = (userId: string) => {
@@ -45,29 +45,20 @@ const PeoplePage = () => {
 
   const sendRequest = async (addresseeId: string) => {
     if (!user) { setShowAuth(true); return; }
-    await supabase.from("friendships").insert({ requester_id: user.id, addressee_id: addresseeId });
+    await sendFriendRequest(addresseeId);
     fetchFriendships();
   };
 
   const acceptRequest = async (requesterId: string) => {
     if (!user) return;
-    await supabase
-      .from("friendships")
-      .update({ status: "accepted" })
-      .eq("requester_id", requesterId)
-      .eq("addressee_id", user.id);
+    await acceptFriendRequest(requesterId);
     fetchFriendships();
   };
 
   const startConversation = async (otherUserId: string) => {
     if (!user) return;
-    // Create conversation + add both participants
-    const { data: convo } = await supabase.from("conversations").insert({}).select().single();
+    const convo = await createConversation([otherUserId]);
     if (convo) {
-      await supabase.from("conversation_participants").insert([
-        { conversation_id: convo.id, user_id: user.id },
-        { conversation_id: convo.id, user_id: otherUserId },
-      ]);
       window.location.href = "/messages";
     }
   };

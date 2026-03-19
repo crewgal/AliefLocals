@@ -52,7 +52,7 @@ const Navbar = () => {
             {user ? (
               <div className="ml-2 flex items-center gap-2">
                 <span className="text-sm text-muted-foreground truncate max-w-[120px]">
-                  {user.user_metadata?.full_name || user.email?.split("@")[0]}
+                  {user.displayName || user.email?.split("@")[0]}
                 </span>
                 <button
                   onClick={signOut}

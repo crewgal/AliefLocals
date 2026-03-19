@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import SocialLayout from "@/layouts/SocialLayout";
 import CreatePost from "@/components/social/CreatePost";
@@ -8,36 +7,29 @@ import PostCard from "@/components/social/PostCard";
 import RightSidebar from "@/components/social/RightSidebar";
 import AuthModal from "@/components/AuthModal";
 import { Loader2, Users, MessageCircle, ImagePlus, Video, Home } from "lucide-react";
+import { listPosts, type Post } from "@/lib/api";
 
 const FeedPage = () => {
   const { user, loading: authLoading } = useAuth();
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAuth, setShowAuth] = useState(false);
 
   const fetchPosts = async () => {
     setLoading(true);
-    const { data } = await supabase
-      .from("posts")
-      .select("id, user_id, content, media_url, media_type, created_at, profiles:user_id(display_name, avatar_url)")
-      .order("created_at", { ascending: false })
-      .limit(50);
-    if (data) setPosts(data as any[]);
-    setLoading(false);
+    try {
+      setPosts(await listPosts());
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     if (!user) return;
     fetchPosts();
 
-    const channel = supabase
-      .channel("feed-posts")
-      .on("postgres_changes", { event: "*", schema: "public", table: "posts" }, () => {
-        fetchPosts();
-      })
-      .subscribe();
-
-    return () => { supabase.removeChannel(channel); };
+    const intervalId = window.setInterval(fetchPosts, 15000);
+    return () => window.clearInterval(intervalId);
   }, [user]);
 
   // Show loading while checking auth

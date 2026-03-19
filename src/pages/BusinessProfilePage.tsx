@@ -4,7 +4,7 @@ import ReviewSection from "@/components/ReviewSection";
 import { motion } from "framer-motion";
 import { ArrowLeft, Phone, Globe, CheckCircle } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { getBusinessBySlug } from "@/lib/api";
 
 // Fallback sample data for businesses not yet in the DB
 const sampleBusiness = {
@@ -28,11 +28,7 @@ const BusinessProfilePage = () => {
   useEffect(() => {
     const fetchBusiness = async () => {
       if (!slug) return;
-      const { data } = await supabase
-        .from("businesses")
-        .select("*")
-        .eq("slug", slug)
-        .maybeSingle();
+      const data = await getBusinessBySlug(slug).catch(() => null);
 
       if (data) {
         setBiz({

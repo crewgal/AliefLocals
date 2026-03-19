@@ -1,0 +1,101 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  DEPLOY_PATH: /home/u497238762/domains/alieflocals.com/public_html
+  APP_DOMAIN: https://alieflocals.com
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build frontend
+        run: npm run build
+        env:
+          VITE_API_URL: /api
+
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Create deploy directory
+        run: |
+          ssh -p "${{ secrets.DEPLOY_SSH_PORT }}" "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}" \
+            "mkdir -p '${{ env.DEPLOY_PATH }}' '${{ env.DEPLOY_PATH }}/server/uploads'"
+
+      - name: Upload application files
+        run: |
+          rsync -az --delete \
+            --exclude ".env" \
+            --exclude "server/uploads" \
+            --exclude ".git" \
+            --exclude "node_modules" \
+            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
+            dist \
+            server \
+            mysql \
+            package.json \
+            package-lock.json \
+            README.md \
+            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/"
+
+      - name: Install runtime dependencies, write env, and run migrations
+        run: |
+          ssh -p "${{ secrets.DEPLOY_SSH_PORT }}" "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}" <<EOF
+          set -eu
+          cd "${{ env.DEPLOY_PATH }}"
+
+          cat > .env <<ENVFILE
+          NODE_ENV=production
+          API_PORT=3001
+          API_PUBLIC_URL=${{ env.APP_DOMAIN }}
+          FRONTEND_URL=${{ env.APP_DOMAIN }}
+          MYSQL_HOST=${{ secrets.DEPLOY_DB_HOST }}
+          MYSQL_PORT=${{ secrets.DEPLOY_DB_PORT }}
+          MYSQL_USER=${{ secrets.DEPLOY_DB_USER }}
+          MYSQL_PASSWORD=${{ secrets.DEPLOY_DB_PASSWORD }}
+          MYSQL_DATABASE=${{ secrets.DEPLOY_DB_NAME }}
+          JWT_SECRET=${{ secrets.APP_JWT_SECRET }}
+          ENVFILE
+
+          mkdir -p server/uploads
+          npm ci --omit=dev
+
+          mysql \
+            --host="${{ secrets.DEPLOY_DB_HOST }}" \
+            --port="${{ secrets.DEPLOY_DB_PORT }}" \
+            --user="${{ secrets.DEPLOY_DB_USER }}" \
+            --password="${{ secrets.DEPLOY_DB_PASSWORD }}" < mysql/schema.sql
+
+          if [ -n "${{ secrets.DEPLOY_RESTART_COMMAND }}" ]; then
+            eval "${{ secrets.DEPLOY_RESTART_COMMAND }}"
+          fi
+          EOF

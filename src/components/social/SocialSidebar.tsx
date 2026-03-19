@@ -47,11 +47,11 @@ const SocialSidebar = () => {
         <div className="border-t pt-3 mt-2">
           <div className="flex items-center gap-3 px-3 py-2">
             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-xs">
-              {user.user_metadata?.full_name?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase() || "?"}
+              {user.displayName?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase() || "?"}
             </div>
             <div className="text-sm">
               <p className="font-medium text-foreground truncate max-w-[150px]">
-                {user.user_metadata?.full_name || user.email?.split("@")[0]}
+                {user.displayName || user.email?.split("@")[0]}
               </p>
               <p className="text-xs text-muted-foreground">Online</p>
             </div>

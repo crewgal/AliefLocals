@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import SocialLayout from "@/layouts/SocialLayout";
 import { Link } from "react-router-dom";
 import { Star, MapPin, Loader2, Search } from "lucide-react";
+import { listBusinesses, type Business } from "@/lib/api";
 
 const categories = [
   "All", "restaurants", "mechanics", "dentists", "car-insurance",
@@ -10,7 +10,7 @@ const categories = [
 ];
 
 const BusinessesPage = () => {
-  const [businesses, setBusinesses] = useState<any[]>([]);
+  const [businesses, setBusinesses] = useState<Business[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
   const [search, setSearch] = useState("");
@@ -21,13 +21,11 @@ const BusinessesPage = () => {
 
   const fetchBusinesses = async () => {
     setLoading(true);
-    let query = supabase.from("businesses").select("*").order("name");
-    if (activeCategory !== "All") {
-      query = query.eq("category", activeCategory);
+    try {
+      setBusinesses(await listBusinesses(activeCategory !== "All" ? activeCategory : undefined));
+    } finally {
+      setLoading(false);
     }
-    const { data } = await query;
-    if (data) setBusinesses(data);
-    setLoading(false);
   };
 
   const filtered = search

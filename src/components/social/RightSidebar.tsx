@@ -1,21 +1,18 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { UserPlus } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
+import { listPeople, sendFriendRequest, type Profile } from "@/lib/api";
 
 const RightSidebar = () => {
   const { user } = useAuth();
-  const [people, setPeople] = useState<any[]>([]);
+  const [people, setPeople] = useState<Profile[]>([]);
   const [showAuth, setShowAuth] = useState(false);
 
   useEffect(() => {
     const fetchPeople = async () => {
-      const { data } = await supabase
-        .from("profiles")
-        .select("id, user_id, display_name, avatar_url")
-        .limit(6);
-      if (data) setPeople(data.filter((p) => p.user_id !== user?.id));
+      const data = await listPeople();
+      setPeople(data.filter((p) => p.user_id !== user?.id));
     };
     fetchPeople();
   }, [user]);
@@ -25,10 +22,7 @@ const RightSidebar = () => {
       setShowAuth(true);
       return;
     }
-    await supabase.from("friendships").insert({
-      requester_id: user.id,
-      addressee_id: addresseeId,
-    });
+    await sendFriendRequest(addresseeId);
   };
 
   return (

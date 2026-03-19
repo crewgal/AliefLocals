@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import SocialLayout from "@/layouts/SocialLayout";
 import AuthModal from "@/components/AuthModal";
 import { Send, MessageCircle, Loader2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { listConversations, listMessages, sendMessage as createMessage, type Conversation, type Message } from "@/lib/api";
 
 const MessagesPage = () => {
   const { user } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
-  const [conversations, setConversations] = useState<any[]>([]);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConvo, setActiveConvo] = useState<string | null>(null);
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [newMsg, setNewMsg] = useState("");
   const [loading, setLoading] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -25,14 +25,8 @@ const MessagesPage = () => {
     if (!activeConvo) return;
     fetchMessages();
 
-    const channel = supabase
-      .channel(`msgs-${activeConvo}`)
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${activeConvo}` }, () => {
-        fetchMessages();
-      })
-      .subscribe();
-
-    return () => { supabase.removeChannel(channel); };
+    const intervalId = window.setInterval(fetchMessages, 5000);
+    return () => window.clearInterval(intervalId);
   }, [activeConvo]);
 
   useEffect(() => {
@@ -41,42 +35,23 @@ const MessagesPage = () => {
 
   const fetchConversations = async () => {
     if (!user) return;
-    const { data: parts } = await supabase
-      .from("conversation_participants")
-      .select("conversation_id")
-      .eq("user_id", user.id);
-
-    if (!parts?.length) { setLoading(false); return; }
-
-    const ids = parts.map((p) => p.conversation_id);
-    const { data } = await supabase
-      .from("conversations")
-      .select("id, updated_at")
-      .in("id", ids)
-      .order("updated_at", { ascending: false });
-
+    const data = await listConversations();
     if (data) setConversations(data);
     setLoading(false);
   };
 
   const fetchMessages = async () => {
     if (!activeConvo) return;
-    const { data } = await supabase
-      .from("messages")
-      .select("id, content, created_at, sender_id, profiles:sender_id(display_name)")
-      .eq("conversation_id", activeConvo)
-      .order("created_at", { ascending: true });
-    if (data) setMessages(data as any[]);
+    const data = await listMessages(activeConvo);
+    if (data) setMessages(data);
   };
 
   const sendMessage = async () => {
     if (!user || !activeConvo || !newMsg.trim()) return;
-    await supabase.from("messages").insert({
-      conversation_id: activeConvo,
-      sender_id: user.id,
-      content: newMsg.trim(),
-    });
+    await createMessage(activeConvo, newMsg.trim());
     setNewMsg("");
+    fetchMessages();
+    fetchConversations();
   };
 
   if (!user) {
