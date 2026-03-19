@@ -1,9 +1,3 @@
-CREATE DATABASE IF NOT EXISTS alieflocals
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-USE alieflocals;
-
 CREATE TABLE IF NOT EXISTS users (
   id CHAR(36) NOT NULL PRIMARY KEY,
   email VARCHAR(255) NOT NULL,

@@ -20,7 +20,7 @@ mysqli_real_connect(
     $db['host'],
     $db['user'],
     $db['password'],
-    null,
+    $db['database'],
     (int) $db['port'],
 );
 
@@ -34,6 +34,9 @@ if ($sql === false) {
     fwrite(STDERR, "Unable to read mysql/schema.sql\n");
     exit(1);
 }
+
+$sql = preg_replace('/^\s*CREATE\s+DATABASE\b.*?;\s*/ims', '', $sql) ?? $sql;
+$sql = preg_replace('/^\s*USE\s+`?[\w-]+`?\s*;\s*/ims', '', $sql) ?? $sql;
 
 if (!mysqli_multi_query($connection, $sql)) {
     fwrite(STDERR, 'Migration failed: ' . mysqli_error($connection) . PHP_EOL);

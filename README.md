@@ -22,14 +22,15 @@ The Vite app runs on `http://localhost:8080`.
 The repo includes a PHP API in [api/index.php](/Users/marvin/Sites/upwork/alieflocals/api/index.php) and a migration runner in [migrate.php](/Users/marvin/Sites/upwork/alieflocals/scripts/migrate.php).
 
 1. Copy [api/.env.example.php](/Users/marvin/Sites/upwork/alieflocals/api/.env.example.php) to `api/.env.php`.
-2. Adjust the MySQL credentials in `api/.env.php`.
-3. Run the migration:
+2. Create the MySQL database first.
+3. Adjust the MySQL credentials in `api/.env.php`.
+4. Run the migration:
 
 ```bash
 php scripts/migrate.php
 ```
 
-4. Serve the API with PHP however you prefer locally. The frontend build for production uses `/api` as the API base.
+5. Serve the API with PHP however you prefer locally. The frontend build for production uses `/api` as the API base.
 
 ## GitHub deployment
 
