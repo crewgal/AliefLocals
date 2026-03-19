@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import SocialLayout from "@/layouts/SocialLayout";
@@ -6,7 +7,7 @@ import CreatePost from "@/components/social/CreatePost";
 import PostCard from "@/components/social/PostCard";
 import RightSidebar from "@/components/social/RightSidebar";
 import AuthModal from "@/components/AuthModal";
-import { Loader2, Users, MessageCircle, ImagePlus, Video } from "lucide-react";
+import { Loader2, Users, MessageCircle, ImagePlus, Video, Home } from "lucide-react";
 
 const FeedPage = () => {
   const { user, loading: authLoading } = useAuth();
