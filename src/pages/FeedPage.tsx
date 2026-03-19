@@ -6,10 +6,10 @@ import CreatePost from "@/components/social/CreatePost";
 import PostCard from "@/components/social/PostCard";
 import RightSidebar from "@/components/social/RightSidebar";
 import AuthModal from "@/components/AuthModal";
-import { Loader2 } from "lucide-react";
+import { Loader2, Users, MessageCircle, ImagePlus, Video } from "lucide-react";
 
 const FeedPage = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAuth, setShowAuth] = useState(false);
@@ -26,9 +26,9 @@ const FeedPage = () => {
   };
 
   useEffect(() => {
+    if (!user) return;
     fetchPosts();
 
-    // Realtime subscription
     const channel = supabase
       .channel("feed-posts")
       .on("postgres_changes", { event: "*", schema: "public", table: "posts" }, () => {
@@ -37,29 +37,72 @@ const FeedPage = () => {
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
-  }, []);
+  }, [user]);
+
+  // Show loading while checking auth
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-background">
+        <Loader2 size={32} className="animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  // Gate: require login
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-card border rounded-2xl p-8 text-center shadow-lg space-y-6">
+          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+            <Users size={32} className="text-primary" />
+          </div>
+          <h1 className="text-2xl font-serif font-bold text-foreground">
+            Welcome to Alief Community
+          </h1>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            Sign in to connect with your neighbors, share photos &amp; videos, chat with friends and family, and join local groups.
+          </p>
+          <div className="grid grid-cols-2 gap-3 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2 bg-muted/50 rounded-lg p-3">
+              <ImagePlus size={16} className="text-primary" />
+              <span>Share Photos</span>
+            </div>
+            <div className="flex items-center gap-2 bg-muted/50 rounded-lg p-3">
+              <Video size={16} className="text-primary" />
+              <span>Post Videos</span>
+            </div>
+            <div className="flex items-center gap-2 bg-muted/50 rounded-lg p-3">
+              <MessageCircle size={16} className="text-primary" />
+              <span>Chat &amp; Message</span>
+            </div>
+            <div className="flex items-center gap-2 bg-muted/50 rounded-lg p-3">
+              <Users size={16} className="text-primary" />
+              <span>Join Groups</span>
+            </div>
+          </div>
+          <button
+            onClick={() => setShowAuth(true)}
+            className="w-full px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+          >
+            Sign In to Join
+          </button>
+          <p className="text-xs text-muted-foreground">
+            Don't have an account?{" "}
+            <button onClick={() => setShowAuth(true)} className="text-primary font-medium hover:underline">
+              Sign up free
+            </button>
+          </p>
+        </div>
+        <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
+      </div>
+    );
+  }
 
   return (
     <SocialLayout>
       <div className="flex max-w-6xl mx-auto">
         <div className="flex-1 max-w-2xl mx-auto p-4 space-y-4">
-          {/* Welcome / Auth prompt */}
-          {!user && (
-            <div className="bg-card border rounded-xl p-6 text-center shadow-card">
-              <h1 className="text-xl font-serif font-bold text-foreground mb-2">Welcome to Alief Locals</h1>
-              <p className="text-sm text-muted-foreground mb-4">
-                Connect with your neighbors, discover local businesses, and share what's happening in your community.
-              </p>
-              <button
-                onClick={() => setShowAuth(true)}
-                className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
-              >
-                Join the Community
-              </button>
-            </div>
-          )}
-
-          {user && <CreatePost onPostCreated={fetchPosts} />}
+          <CreatePost onPostCreated={fetchPosts} />
 
           {loading ? (
             <div className="flex justify-center py-12">
@@ -77,7 +120,6 @@ const FeedPage = () => {
         </div>
         <RightSidebar />
       </div>
-      <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
     </SocialLayout>
   );
 };
