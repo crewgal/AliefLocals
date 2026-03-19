@@ -2,8 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Home, Users, MessageCircle, UserPlus, Store } from "lucide-react";
 
 const items = [
-  { icon: Home, label: "Feed", path: "/community" },
-  { icon: Users, label: "Groups", path: "/groups" },
+  { icon: Home, label: "Home", path: "/" },
+  { icon: Users, label: "Feed", path: "/community" },
   { icon: MessageCircle, label: "Chat", path: "/messages" },
   { icon: UserPlus, label: "People", path: "/people" },
   { icon: Store, label: "Biz", path: "/businesses" },
