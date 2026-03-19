@@ -5,7 +5,7 @@ import logo from "@/assets/alief-locals-logo.png";
 
 const navItems = [
   { icon: Home, label: "Home", path: "/" },
-  { icon: Users, label: "Feed", path: "/community" },
+  { icon: Newspaper, label: "Feed", path: "/community" },
   { icon: Users, label: "Groups", path: "/groups" },
   { icon: MessageCircle, label: "Messages", path: "/messages" },
   { icon: UserPlus, label: "Find Neighbors", path: "/people" },
