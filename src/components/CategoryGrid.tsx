@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   UtensilsCrossed, Wrench, Smile, ShieldCheck, Scissors,
-  Church, Car, Stethoscope, Home, GraduationCap, Dumbbell, ShoppingBag,
+  Church, Car, Stethoscope, Home, GraduationCap, Dumbbell, ShoppingBag, Palette,
 } from "lucide-react";
 
 const categories = [
