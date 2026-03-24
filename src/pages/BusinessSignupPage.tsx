@@ -84,10 +84,17 @@ const BusinessSignupPage = () => {
       <header className="border-b bg-accent text-accent-foreground">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <Link to="/" className="inline-flex w-fit items-center">
-            <img src={logo} alt="Alief Locals" className="h-14 w-auto" />
+            <img src={logo} alt="Alief Locals" className="h-20 w-auto brightness-0 invert" />
           </Link>
 
           <div className="flex flex-wrap gap-3">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 rounded-2xl border border-card/20 bg-card/10 px-5 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-card/20"
+            >
+              <Home size={18} />
+              Home
+            </Link>
             <Link
               to="/business-dashboard"
               className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-card transition-opacity hover:opacity-90"
