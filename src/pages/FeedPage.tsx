@@ -45,7 +45,7 @@ const FeedPage = () => {
   }
 
   // Gate: require login
-  if (!user) {
+  if (!user && !previewMode) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
         <Link to="/" className="absolute top-6 left-6 flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors bg-primary/10 px-4 py-2 rounded-full">
@@ -92,6 +92,24 @@ const FeedPage = () => {
               Sign up free
             </button>
           </p>
+
+          {isPreview && (
+            <div className="border-t border-orange-500/20 pt-4">
+              <p className="text-xs text-orange-400 mb-2 flex items-center justify-center gap-1">
+                <Monitor size={14} /> Preview Environment Detected
+              </p>
+              <button
+                onClick={() => setPreviewMode(true)}
+                className="w-full px-6 py-3 rounded-xl border-2 border-orange-500 text-orange-500 font-semibold text-sm hover:bg-orange-500 hover:text-white transition-colors flex items-center justify-center gap-2"
+              >
+                <Monitor size={18} />
+                Enter Community (Preview Mode)
+              </button>
+              <p className="text-xs text-orange-400/60 mt-2">
+                Production login may fail in preview due to CORS restrictions
+              </p>
+            </div>
+          )}
         </div>
         <AuthModal open={showAuth} onClose={() => setShowAuth(false)} accountType="customer" />
       </div>
