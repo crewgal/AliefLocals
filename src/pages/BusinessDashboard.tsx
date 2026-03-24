@@ -19,7 +19,7 @@ import {
   Users,
 } from "lucide-react";
 
-const isPreview = !window.location.hostname.includes("mission-bend-connect");
+const isPreview = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
 const BusinessDashboard = () => {
   const { user, loading, signOut } = useAuth();
