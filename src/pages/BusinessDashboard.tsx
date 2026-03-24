@@ -4,6 +4,11 @@ import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
+import { Monitor } from "lucide-react";
+
+const isPreview = window.location.hostname.includes("preview") || window.location.hostname === "localhost";
+import Navbar from "@/components/Navbar";
+import { motion } from "framer-motion";
 import {
   Building2,
   Briefcase,
