@@ -4,18 +4,30 @@ import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
 import { ExternalLink, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import sthillAd from "@/assets/ads/sthillstudios-ad.png";
 
-interface FeaturedBusiness {
+interface FeaturedSlide {
+  type: "image-ad" | "business";
   name: string;
-  description: string;
-  initials: string;
-  color: string;
+  description?: string;
+  initials?: string;
+  color?: string;
   slug: string;
-  tier: "gold" | "silver" | "bronze";
+  tier?: "gold" | "silver" | "bronze";
+  image?: string;
+  link?: string;
 }
 
-const featuredBusinesses: FeaturedBusiness[] = [
+const featuredSlides: FeaturedSlide[] = [
   {
+    type: "image-ad",
+    name: "STHill Studios",
+    slug: "sthillstudios",
+    image: sthillAd,
+    link: "/get-listed",
+  },
+  {
+    type: "business",
     name: "Trojan Grill",
     description: "American Cuisine — burgers, sandwiches, salads, and live music every month.",
     initials: "TG",
@@ -24,6 +36,7 @@ const featuredBusinesses: FeaturedBusiness[] = [
     tier: "gold",
   },
   {
+    type: "business",
     name: "Beth Baldwin Real Estate",
     description: "Exceptional service and effective marketing for your home buying journey.",
     initials: "BB",
@@ -32,6 +45,7 @@ const featuredBusinesses: FeaturedBusiness[] = [
     tier: "gold",
   },
   {
+    type: "business",
     name: "Sirius and the Wren",
     description: "Heart-centered Reiki healing for people and animals, promoting natural energy flow.",
     initials: "SW",
@@ -40,6 +54,7 @@ const featuredBusinesses: FeaturedBusiness[] = [
     tier: "silver",
   },
   {
+    type: "business",
     name: "Infinity Coordinator",
     description: "Expert event decorator creating affordable weddings and celebrations with creativity.",
     initials: "IC",
@@ -48,6 +63,7 @@ const featuredBusinesses: FeaturedBusiness[] = [
     tier: "silver",
   },
   {
+    type: "business",
     name: "Pigeon & Co",
     description: "Unique shopping with refurbished, new, artistic, and vintage finds.",
     initials: "PC",
@@ -56,6 +72,7 @@ const featuredBusinesses: FeaturedBusiness[] = [
     tier: "bronze",
   },
   {
+    type: "business",
     name: "Cindy Steele Real Estate",
     description: "Top-producing agent helping hundreds live the American dream.",
     initials: "CS",
