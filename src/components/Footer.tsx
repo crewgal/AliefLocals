@@ -27,17 +27,7 @@ const Footer = () => {
               Connecting the Alief community with trusted, local businesses since day one.
               Free listings. Invitation only. Real neighbors.
             </p>
-            <div className="flex gap-3 mt-5">
-              <a href="#" className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary/80 flex items-center justify-center transition-colors" aria-label="Facebook">
-                <Facebook size={16} />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary/80 flex items-center justify-center transition-colors" aria-label="Instagram">
-                <Instagram size={16} />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white/10 hover:bg-primary/80 flex items-center justify-center transition-colors" aria-label="YouTube">
-                <Youtube size={16} />
-              </a>
-            </div>
+            <SocialMediaLinks variant="light" size="sm" className="mt-5" />
           </div>
 
           {/* Categories */}

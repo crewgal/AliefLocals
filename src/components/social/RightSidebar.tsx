@@ -60,9 +60,11 @@ const RightSidebar = () => {
 
       <div className="bg-card border rounded-xl p-4 shadow-card">
         <h3 className="text-sm font-serif font-semibold text-foreground mb-2">Community</h3>
-        <p className="text-xs text-muted-foreground leading-relaxed">
+        <p className="text-xs text-muted-foreground leading-relaxed mb-3">
           Connect with your Alief neighbors. Share what's happening, find local businesses, and build community together.
         </p>
+        <h4 className="text-xs font-semibold text-foreground mb-2">Follow Us</h4>
+        <SocialMediaLinks variant="dark" size="sm" />
       </div>
 
       <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
