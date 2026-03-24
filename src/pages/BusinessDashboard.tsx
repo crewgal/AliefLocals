@@ -86,7 +86,7 @@ const BusinessDashboard = () => {
     );
   }
 
-  if (!user) {
+  if (!user && !previewMode) {
     return (
       <>
         <Navbar />
