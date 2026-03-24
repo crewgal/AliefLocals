@@ -117,7 +117,7 @@ const Navbar = () => {
                 className="mt-2 flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground border rounded-full"
               >
                 <User size={16} />
-                Sign in
+                Local Sign In
               </button>
             )}
           </div>
