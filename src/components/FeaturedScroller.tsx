@@ -172,20 +172,20 @@ const FeaturedScroller = () => {
                   className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0 pl-4"
                 >
                   {slide.type === "image-ad" ? (
-                    <Link to={slide.link || "/get-listed"} className="block h-full">
+                    <a href="https://calendly.com/thesthillstudios/sthill-studios-website-design-marketing-and-seo-meeting" target="_blank" rel="noopener noreferrer" className="block h-full">
                       <div className="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full border border-white/10">
                         <img
                           src={slide.image}
                           alt={slide.name}
                           className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-[hsl(43,80%,55%)] text-lg md:text-xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <span className="text-white text-lg md:text-xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
                             sthillstudios.com
                           </span>
                         </div>
                       </div>
-                    </Link>
+                    </a>
                   ) : slide.type === "cta" ? (
                     <Link to="/get-listed" className="block h-full">
                       <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-6 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[280px]">
