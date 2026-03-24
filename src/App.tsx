@@ -41,6 +41,7 @@ const App = () => (
             <Route path="/business/:slug" element={<BusinessProfilePage />} />
             <Route path="/get-listed" element={<GetListedPage />} />
             <Route path="/business-dashboard" element={<BusinessDashboard />} />
+            <Route path="/business-signup" element={<BusinessSignupPage />} />
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/post-job" element={<PostJobPage />} />
             <Route path="/lost-found" element={<LostFoundPage />} />
