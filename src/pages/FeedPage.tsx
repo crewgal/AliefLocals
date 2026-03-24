@@ -6,8 +6,10 @@ import CreatePost from "@/components/social/CreatePost";
 import PostCard from "@/components/social/PostCard";
 import RightSidebar from "@/components/social/RightSidebar";
 import AuthModal from "@/components/AuthModal";
-import { Loader2, Users, MessageCircle, ImagePlus, Video, Home } from "lucide-react";
+import { Loader2, Users, MessageCircle, ImagePlus, Video, Home, Monitor } from "lucide-react";
 import { listPosts, type Post } from "@/lib/api";
+
+const isPreview = window.location.hostname.includes("preview") || window.location.hostname === "localhost";
 
 const FeedPage = () => {
   const { user, loading: authLoading } = useAuth();
