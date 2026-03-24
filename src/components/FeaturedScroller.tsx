@@ -173,12 +173,17 @@ const FeaturedScroller = () => {
                 >
                   {slide.type === "image-ad" ? (
                     <Link to={slide.link || "/get-listed"} className="block h-full">
-                      <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full border border-white/10">
+                      <div className="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full border border-white/10">
                         <img
                           src={slide.image}
                           alt={slide.name}
                           className="w-full h-full object-cover"
                         />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-[hsl(43,80%,55%)] text-lg md:text-xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+                            sthillstudios.com
+                          </span>
+                        </div>
                       </div>
                     </Link>
                   ) : slide.type === "cta" ? (
@@ -202,7 +207,7 @@ const FeaturedScroller = () => {
                       </div>
                     </Link>
                   ) : (
-                    <div className="bg-[hsl(200,20%,16%)] border border-white/10 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col items-center text-center">
+                    <div className="relative bg-[hsl(200,20%,16%)] border border-white/10 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col items-center text-center">
                       <div className="flex items-center gap-2 mb-4 w-full justify-between">
                         <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${tierBadge[slide.tier!].className}`}>
                           {tierBadge[slide.tier!].label}
@@ -229,6 +234,15 @@ const FeaturedScroller = () => {
                         className="mt-auto text-[hsl(30,80%,60%)] text-sm font-semibold hover:underline inline-flex items-center gap-1.5"
                       >
                         View Profile <ExternalLink size={13} />
+                      </Link>
+
+                      {/* "Your Business Can Be Here" overlay */}
+                      <Link
+                        to="/get-listed"
+                        className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[hsl(30,80%,20%)] via-[hsl(30,80%,15%,0.9)] to-transparent rounded-b-2xl py-3 px-4 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+                      >
+                        <Plus size={20} className="text-[hsl(30,80%,65%)] mb-1" />
+                        <span className="text-[hsl(30,80%,65%)] text-xs font-bold">Your Business Can Be Here!</span>
                       </Link>
                     </div>
                   )}
