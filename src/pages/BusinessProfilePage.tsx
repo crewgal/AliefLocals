@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Phone, Globe, CheckCircle } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { getBusinessBySlug } from "@/lib/api";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
 
 // Fallback sample data for businesses not yet in the DB
 const sampleBusiness = {
