@@ -16,6 +16,7 @@ import GetListedPage from "./pages/GetListedPage";
 import BusinessDashboard from "./pages/BusinessDashboard";
 import JobsPage from "./pages/JobsPage";
 import PostJobPage from "./pages/PostJobPage";
+import LostFoundPage from "./pages/LostFoundPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/business-dashboard" element={<BusinessDashboard />} />
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/post-job" element={<PostJobPage />} />
+            <Route path="/lost-found" element={<LostFoundPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

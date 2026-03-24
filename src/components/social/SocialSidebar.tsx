@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import {
   Home, Users, MessageCircle, Briefcase, Store, UserPlus, Newspaper,
-  CalendarDays, Handshake, Star, Search, Camera, Video, Settings, Bell, Crown
+  CalendarDays, Handshake, Star, Search, Camera, Video, Settings, Bell, Crown, PawPrint
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/alief-locals-logo.png";
@@ -21,6 +21,7 @@ const navItems = [
   { icon: Briefcase, label: "Local Jobs", path: "/jobs" },
   { icon: Video, label: "Videos", path: "/community?tab=videos" },
   { icon: Camera, label: "Photos", path: "/community?tab=photos" },
+  { icon: PawPrint, label: "Lost & Found", path: "/lost-found" },
   { icon: Settings, label: "Settings", path: "/community?tab=settings" },
   { icon: Bell, label: "Notifications", path: "/community?tab=notifications" },
 ];
