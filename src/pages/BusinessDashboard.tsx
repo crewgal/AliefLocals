@@ -5,7 +5,6 @@ import AuthModal from "@/components/AuthModal";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 
-const isPreview = window.location.hostname.includes("preview") || window.location.hostname === "localhost";
 import {
   Building2,
   Briefcase,
@@ -17,7 +16,10 @@ import {
   LogOut,
   BarChart3,
   MessageSquare,
+  Monitor,
 } from "lucide-react";
+
+const isPreview = window.location.hostname.includes("preview") || window.location.hostname === "localhost";
 
 const dashboardCards = [
   {
