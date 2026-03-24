@@ -21,6 +21,7 @@ const navItems = [
   { icon: Briefcase, label: "Local Jobs", path: "/jobs" },
   { icon: Video, label: "Videos", path: "/community?tab=videos" },
   { icon: Camera, label: "Photos", path: "/community?tab=photos" },
+  { icon: PawPrint, label: "Lost & Found", path: "/lost-found" },
   { icon: Settings, label: "Settings", path: "/community?tab=settings" },
   { icon: Bell, label: "Notifications", path: "/community?tab=notifications" },
 ];
