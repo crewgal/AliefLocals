@@ -202,7 +202,7 @@ const FeaturedScroller = () => {
                       </div>
                     </Link>
                   ) : (
-                    <div className="bg-[hsl(200,20%,16%)] border border-white/10 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col items-center text-center">
+                    <div className="relative bg-[hsl(200,20%,16%)] border border-white/10 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col items-center text-center">
                       <div className="flex items-center gap-2 mb-4 w-full justify-between">
                         <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${tierBadge[slide.tier!].className}`}>
                           {tierBadge[slide.tier!].label}
@@ -229,6 +229,15 @@ const FeaturedScroller = () => {
                         className="mt-auto text-[hsl(30,80%,60%)] text-sm font-semibold hover:underline inline-flex items-center gap-1.5"
                       >
                         View Profile <ExternalLink size={13} />
+                      </Link>
+
+                      {/* "Your Business Can Be Here" overlay */}
+                      <Link
+                        to="/get-listed"
+                        className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[hsl(30,80%,20%)] via-[hsl(30,80%,15%,0.9)] to-transparent rounded-b-2xl py-3 px-4 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+                      >
+                        <Plus size={20} className="text-[hsl(30,80%,65%)] mb-1" />
+                        <span className="text-[hsl(30,80%,65%)] text-xs font-bold">Your Business Can Be Here!</span>
                       </Link>
                     </div>
                   )}
