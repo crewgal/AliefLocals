@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { motion } from "framer-motion";
-import { BarChart3, Loader2, Pencil, Star, UploadCloud } from "lucide-react";
+import { BarChart3, Home, Loader2, Pencil, Star, UploadCloud } from "lucide-react";
 import logo from "@/assets/alief-locals-logo.png";
 
 const businessTypes = [
