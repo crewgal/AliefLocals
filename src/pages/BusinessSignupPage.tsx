@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { motion } from "framer-motion";
-import { BarChart3, Loader2, Pencil, Star, UploadCloud } from "lucide-react";
+import { BarChart3, Home, Loader2, Pencil, Star, UploadCloud } from "lucide-react";
 import logo from "@/assets/alief-locals-logo.png";
 
 const businessTypes = [
@@ -84,10 +84,17 @@ const BusinessSignupPage = () => {
       <header className="border-b bg-accent text-accent-foreground">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <Link to="/" className="inline-flex w-fit items-center">
-            <img src={logo} alt="Alief Locals" className="h-14 w-auto" />
+            <img src={logo} alt="Alief Locals" className="h-20 w-auto brightness-0 invert" />
           </Link>
 
           <div className="flex flex-wrap gap-3">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 rounded-2xl border border-card/20 bg-card/10 px-5 py-3 text-sm font-semibold text-accent-foreground transition-colors hover:bg-card/20"
+            >
+              <Home size={18} />
+              Home
+            </Link>
             <Link
               to="/business-dashboard"
               className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-card transition-opacity hover:opacity-90"
@@ -347,13 +354,16 @@ const BusinessSignupPage = () => {
 
           <div className="rounded-[2rem] border bg-card p-6 shadow-card">
             <h2 className="text-2xl font-serif font-semibold text-accent">Subscription Plan</h2>
-            <p className="mt-5 text-lg font-semibold text-foreground">Current Plan: Free Listing</p>
-            <button
-              type="button"
-              className="mt-5 inline-flex items-center justify-center rounded-2xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90"
+            <p className="mt-5 text-lg font-semibold text-foreground">Current Plan: <span className="text-primary">Free Listing</span></p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Upgrade to <strong>Premium ($25/month)</strong> to get featured on the homepage, priority in search results, a verified badge, and social media shoutouts.
+            </p>
+            <Link
+              to="/business-dashboard"
+              className="mt-5 inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
-              Upgrade to Premium
-            </button>
+              Upgrade to Premium — $25/mo
+            </Link>
           </div>
         </section>
       </main>
