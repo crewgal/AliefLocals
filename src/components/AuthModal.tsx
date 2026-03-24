@@ -22,8 +22,9 @@ const AuthModal = ({ open, onClose, redirectTo, accountType = "customer" }: Auth
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const defaultRedirect = accountType === "business" ? "/business-dashboard" : "/customer-dashboard";
-  const finalRedirect = redirectTo || defaultRedirect;
+  const defaultLoginRedirect = accountType === "business" ? "/business-dashboard" : "/customer-dashboard";
+  const defaultSignupRedirect = accountType === "business" ? "/business-signup" : "/customer-dashboard";
+  const finalRedirect = redirectTo || (mode === "signup" ? defaultSignupRedirect : defaultLoginRedirect);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();

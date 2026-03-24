@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import BusinessSidebar from "@/components/business/BusinessSidebar";
 import BusinessRightSidebar from "@/components/business/BusinessRightSidebar";
 import LeadMarketplace from "@/components/business/LeadMarketplace";
+import ApplyFeatured from "@/components/business/ApplyFeatured";
 import { motion } from "framer-motion";
 import {
   Building2,
@@ -142,6 +143,7 @@ const BusinessDashboard = () => {
           <div className="flex">
             <div className="flex-1 min-w-0 p-6">
               <LeadMarketplace />
+              <ApplyFeatured />
             </div>
             <BusinessRightSidebar />
           </div>

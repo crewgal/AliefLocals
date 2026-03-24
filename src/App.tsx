@@ -17,6 +17,7 @@ import BusinessDashboard from "./pages/BusinessDashboard";
 import JobsPage from "./pages/JobsPage";
 import PostJobPage from "./pages/PostJobPage";
 import LostFoundPage from "./pages/LostFoundPage";
+import BusinessSignupPage from "./pages/BusinessSignupPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/business/:slug" element={<BusinessProfilePage />} />
             <Route path="/get-listed" element={<GetListedPage />} />
             <Route path="/business-dashboard" element={<BusinessDashboard />} />
+            <Route path="/business-signup" element={<BusinessSignupPage />} />
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/post-job" element={<PostJobPage />} />
             <Route path="/lost-found" element={<LostFoundPage />} />
