@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Youtube, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import logo from "@/assets/alief-locals-logo.png";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
 
 const categories = [
   { name: "Restaurants", slug: "restaurants" },
