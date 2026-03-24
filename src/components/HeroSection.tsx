@@ -1,6 +1,7 @@
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
 import heroImg from "@/assets/alief-hero.png";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
 
 const HeroSection = () => {
   return (
@@ -49,6 +50,16 @@ const HeroSection = () => {
             placeholder="Find a mechanic, a dentist, or a church in Alief..."
             className="w-full pl-14 pr-8 py-5 rounded-full bg-white shadow-elevated border text-foreground placeholder:text-muted-foreground text-base focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow"
           />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center mt-8"
+        >
+          <p className="text-white/60 text-sm mb-3">Follow us on social media</p>
+          <SocialMediaLinks variant="light" size="md" />
         </motion.div>
       </div>
     </section>

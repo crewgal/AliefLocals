@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { UserPlus } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
 import { listPeople, sendFriendRequest, type Profile } from "@/lib/api";
 
 const RightSidebar = () => {
@@ -59,9 +60,11 @@ const RightSidebar = () => {
 
       <div className="bg-card border rounded-xl p-4 shadow-card">
         <h3 className="text-sm font-serif font-semibold text-foreground mb-2">Community</h3>
-        <p className="text-xs text-muted-foreground leading-relaxed">
+        <p className="text-xs text-muted-foreground leading-relaxed mb-3">
           Connect with your Alief neighbors. Share what's happening, find local businesses, and build community together.
         </p>
+        <h4 className="text-xs font-semibold text-foreground mb-2">Follow Us</h4>
+        <SocialMediaLinks variant="dark" size="sm" />
       </div>
 
       <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Phone, Globe, CheckCircle } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { getBusinessBySlug } from "@/lib/api";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
 
 // Fallback sample data for businesses not yet in the DB
 const sampleBusiness = {
@@ -124,6 +125,11 @@ const BusinessProfilePage = () => {
                     Verified
                   </div>
                 )}
+
+                <div className="pt-2 border-t">
+                  <h3 className="text-sm font-semibold text-foreground mb-2">Follow Us</h3>
+                  <SocialMediaLinks variant="dark" size="sm" />
+                </div>
               </div>
 
               {/* Reviews — from database */}
