@@ -179,11 +179,6 @@ const FeaturedScroller = () => {
                           alt={slide.name}
                           className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                          <span className="text-white text-lg md:text-xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                            sthillstudios.com
-                          </span>
-                        </div>
                       </div>
                     </a>
                   ) : slide.type === "cta" ? (
