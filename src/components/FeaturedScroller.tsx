@@ -149,19 +149,19 @@ const FeaturedScroller = () => {
         <div className="relative">
           <button
             onClick={() => emblaApi?.scrollPrev()}
-            className="absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors disabled:opacity-30 text-white"
+            className="absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
             disabled={!canScrollPrev}
             aria-label="Previous"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={22} />
           </button>
           <button
             onClick={() => emblaApi?.scrollNext()}
-            className="absolute -right-3 md:-right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors disabled:opacity-30 text-white"
+            className="absolute -right-3 md:-right-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
             disabled={!canScrollNext}
             aria-label="Next"
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={22} />
           </button>
 
           <div className="overflow-hidden" ref={emblaRef}>
