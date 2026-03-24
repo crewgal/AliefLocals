@@ -152,45 +152,54 @@ const FeaturedScroller = () => {
 
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-4">
-              {featuredBusinesses.map((biz) => {
-                const badge = tierBadge[biz.tier];
-                return (
-                  <div
-                    key={biz.name}
-                    className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0 pl-4"
-                  >
+              {featuredSlides.map((slide) => (
+                <div
+                  key={slide.name}
+                  className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0 pl-4"
+                >
+                  {slide.type === "image-ad" ? (
+                    <Link to={slide.link || "/get-listed"} className="block h-full">
+                      <div className="rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-300 h-full">
+                        <img
+                          src={slide.image}
+                          alt={slide.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </Link>
+                  ) : (
                     <div className="bg-card border rounded-2xl p-6 shadow-card hover:shadow-elevated transition-shadow duration-300 h-full flex flex-col items-center text-center">
                       <div className="flex items-center gap-2 mb-4 w-full justify-between">
-                        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${badge.className}`}>
-                          {badge.label}
+                        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${tierBadge[slide.tier!].className}`}>
+                          {tierBadge[slide.tier!].label}
                         </span>
                         <span className="text-[10px] text-muted-foreground">Sponsored</span>
                       </div>
 
                       <div
                         className="w-20 h-20 rounded-xl flex items-center justify-center mb-4 text-white text-xl font-serif font-bold shadow-md"
-                        style={{ backgroundColor: biz.color }}
+                        style={{ backgroundColor: slide.color }}
                       >
-                        {biz.initials}
+                        {slide.initials}
                       </div>
 
                       <h3 className="text-base font-serif font-semibold text-foreground mb-2">
-                        {biz.name}
+                        {slide.name}
                       </h3>
                       <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-3">
-                        {biz.description}
+                        {slide.description}
                       </p>
 
                       <Link
-                        to={`/business/${biz.slug}`}
+                        to={`/business/${slide.slug}`}
                         className="mt-auto text-primary text-sm font-semibold hover:underline inline-flex items-center gap-1.5"
                       >
                         View Profile <ExternalLink size={13} />
                       </Link>
                     </div>
-                  </div>
-                );
-              })}
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
