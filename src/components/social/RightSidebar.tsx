@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { UserPlus } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
 import { listPeople, sendFriendRequest, type Profile } from "@/lib/api";
 
 const RightSidebar = () => {
