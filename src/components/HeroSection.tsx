@@ -1,6 +1,7 @@
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
 import heroImg from "@/assets/alief-hero.png";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
 
 const HeroSection = () => {
   return (
