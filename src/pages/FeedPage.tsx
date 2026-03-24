@@ -90,7 +90,7 @@ const FeedPage = () => {
             </button>
           </p>
         </div>
-        <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
+        <AuthModal open={showAuth} onClose={() => setShowAuth(false)} accountType="customer" />
       </div>
     );
   }
