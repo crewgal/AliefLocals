@@ -64,7 +64,7 @@ const Navbar = () => {
               </div>
             ) : (
               <Link
-                to="/community"
+                to="/customer-dashboard"
                 className="ml-2 flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors border rounded-full"
               >
                 <User size={16} />
@@ -113,7 +113,7 @@ const Navbar = () => {
               </button>
             ) : (
               <Link
-                to="/community"
+                to="/customer-dashboard"
                 onClick={() => setOpen(false)}
                 className="mt-2 flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground border rounded-full"
               >

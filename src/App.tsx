@@ -29,6 +29,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/customer-dashboard" element={<FeedPage />} />
             <Route path="/community" element={<FeedPage />} />
             <Route path="/groups" element={<GroupsPage />} />
             <Route path="/messages" element={<MessagesPage />} />
