@@ -16,6 +16,7 @@ import GetListedPage from "./pages/GetListedPage";
 import BusinessDashboard from "./pages/BusinessDashboard";
 import JobsPage from "./pages/JobsPage";
 import PostJobPage from "./pages/PostJobPage";
+import LostFoundPage from "./pages/LostFoundPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
