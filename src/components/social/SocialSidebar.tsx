@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import {
   Home, Users, MessageCircle, Briefcase, Store, UserPlus, Newspaper,
-  CalendarDays, Handshake, Star, Search, Camera, Video, Settings, Bell, Crown
+  CalendarDays, Handshake, Star, Search, Camera, Video, Settings, Bell, Crown, PawPrint
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/alief-locals-logo.png";
