@@ -19,7 +19,7 @@ import {
   Monitor,
 } from "lucide-react";
 
-const isPreview = window.location.hostname.includes("preview") || window.location.hostname === "localhost" || window.location.hostname.includes("lovable");
+const isPreview = !window.location.hostname.includes("mission-bend-connect");
 
 const dashboardCards = [
   {
