@@ -151,10 +151,10 @@ const BusinessDashboard = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
             <div>
               <h1 className="text-3xl font-serif font-semibold text-foreground">
-                Welcome back, {user.displayName || user.email?.split("@")[0]}
+                Welcome back, {user?.displayName || user?.email?.split("@")[0] || "Business Owner"}
               </h1>
               <p className="text-muted-foreground mt-1">
-                Manage your business and connect with the Alief community.
+                {previewMode ? "Preview mode — exploring the business dashboard." : "Manage your business and connect with the Alief community."}
               </p>
             </div>
             <div className="flex items-center gap-3">
