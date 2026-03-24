@@ -70,10 +70,10 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/customer-dashboard"
-                className="ml-2 flex items-center justify-center gap-2 px-5 py-2 text-sm font-semibold text-primary bg-primary/10 border border-primary/30 rounded-full hover:bg-primary/20 transition-colors"
+                className="ml-2 flex flex-col items-center justify-center px-5 py-1.5 text-xs font-semibold text-primary bg-primary/10 border border-primary/30 rounded-full hover:bg-primary/20 transition-colors leading-tight"
               >
-                <User size={16} />
-                Locals Sign In
+                <span className="flex items-center gap-1"><User size={14} /> Locals</span>
+                <span>Sign In</span>
               </Link>
             )}
           </div>
