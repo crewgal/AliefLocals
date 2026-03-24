@@ -76,6 +76,7 @@ const dashboardCards = [
 const BusinessDashboard = () => {
   const { user, loading, signOut } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
+  const [previewMode, setPreviewMode] = useState(false);
 
   if (loading) {
     return (
