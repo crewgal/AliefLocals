@@ -19,7 +19,7 @@ import {
   Users,
 } from "lucide-react";
 
-const isPreview = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+const isPreview = !window.location.hostname.includes("alieflocals");
 
 const BusinessDashboard = () => {
   const { user, loading, signOut } = useAuth();
