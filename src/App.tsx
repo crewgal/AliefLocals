@@ -13,6 +13,7 @@ import BusinessesPage from "./pages/BusinessesPage";
 import CategoryPage from "./pages/CategoryPage";
 import BusinessProfilePage from "./pages/BusinessProfilePage";
 import GetListedPage from "./pages/GetListedPage";
+import BusinessDashboard from "./pages/BusinessDashboard";
 import JobsPage from "./pages/JobsPage";
 import PostJobPage from "./pages/PostJobPage";
 import NotFound from "./pages/NotFound";
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/category/:slug" element={<CategoryPage />} />
             <Route path="/business/:slug" element={<BusinessProfilePage />} />
             <Route path="/get-listed" element={<GetListedPage />} />
+            <Route path="/business-dashboard" element={<BusinessDashboard />} />
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/post-job" element={<PostJobPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

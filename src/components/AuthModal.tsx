@@ -2,14 +2,18 @@ import { useState } from "react";
 import { X, Mail, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface AuthModalProps {
   open: boolean;
   onClose: () => void;
+  redirectTo?: string;
+  accountType?: "customer" | "business";
 }
 
-const AuthModal = ({ open, onClose }: AuthModalProps) => {
+const AuthModal = ({ open, onClose, redirectTo, accountType = "customer" }: AuthModalProps) => {
   const { signIn, signUp } = useAuth();
+  const navigate = useNavigate();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +21,9 @@ const AuthModal = ({ open, onClose }: AuthModalProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const defaultRedirect = accountType === "business" ? "/business-dashboard" : "/community";
+  const finalRedirect = redirectTo || defaultRedirect;
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,6 +36,7 @@ const AuthModal = ({ open, onClose }: AuthModalProps) => {
         await signUp({ name, email, password });
         setSuccess("Account created successfully.");
         onClose();
+        navigate(finalRedirect);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unable to create account.");
       }
@@ -36,12 +44,30 @@ const AuthModal = ({ open, onClose }: AuthModalProps) => {
       try {
         await signIn({ email, password });
         onClose();
+        navigate(finalRedirect);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unable to sign in.");
       }
     }
     setLoading(false);
   };
+
+  const titles = {
+    customer: {
+      login: "Welcome back",
+      signup: "Join the Community",
+      loginDesc: "Sign in to connect with your Alief neighbors.",
+      signupDesc: "Create an account to join discussions, leave reviews, and more.",
+    },
+    business: {
+      login: "Business Login",
+      signup: "Register Your Business",
+      loginDesc: "Sign in to manage your business profile, post jobs, and connect with customers.",
+      signupDesc: "Create a business account to get listed, post jobs, and grow your business.",
+    },
+  };
+
+  const t = titles[accountType];
 
   if (!open) return null;
 
@@ -70,20 +96,17 @@ const AuthModal = ({ open, onClose }: AuthModalProps) => {
           </button>
 
           <h2 className="text-2xl font-serif font-semibold text-foreground mb-2">
-            {mode === "login" ? "Welcome back" : "Create an account"}
+            {mode === "login" ? t.login : t.signup}
           </h2>
           <p className="text-sm text-muted-foreground mb-6">
-            {mode === "login"
-              ? "Sign in to leave reviews and engage with businesses."
-              : "Join the Alief community to review businesses and more."}
+            {mode === "login" ? t.loginDesc : t.signupDesc}
           </p>
 
-          {/* Email form */}
           <form onSubmit={handleEmailAuth} className="space-y-3">
             {mode === "signup" && (
               <input
                 type="text"
-                placeholder="Full name"
+                placeholder={accountType === "business" ? "Business name" : "Full name"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
