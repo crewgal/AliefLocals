@@ -63,13 +63,13 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <button
-                onClick={() => setShowAuth(true)}
+              <Link
+                to="/community"
                 className="ml-2 flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors border rounded-full"
               >
                 <User size={16} />
                 Local Sign In
-              </button>
+              </Link>
             )}
           </div>
 
