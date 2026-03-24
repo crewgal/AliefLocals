@@ -3,74 +3,22 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
 import Navbar from "@/components/Navbar";
+import BusinessSidebar from "@/components/business/BusinessSidebar";
+import BusinessRightSidebar from "@/components/business/BusinessRightSidebar";
+import LeadMarketplace from "@/components/business/LeadMarketplace";
 import { motion } from "framer-motion";
-
 import {
   Building2,
   Briefcase,
-  Users,
   Star,
-  Settings,
-  Plus,
-  ArrowRight,
-  LogOut,
-  BarChart3,
   MessageSquare,
   Monitor,
+  LogOut,
+  Eye,
+  Users,
 } from "lucide-react";
 
 const isPreview = !window.location.hostname.includes("mission-bend-connect");
-
-const dashboardCards = [
-  {
-    title: "Business Profile",
-    description: "Set up and manage your business listing, add photos, and update your info.",
-    icon: Building2,
-    color: "bg-blue-50 text-blue-600 border-blue-200",
-    link: "/businesses",
-    action: "Manage Profile",
-  },
-  {
-    title: "Post a Job",
-    description: "Create job listings to find local talent in the Alief community.",
-    icon: Briefcase,
-    color: "bg-emerald-50 text-emerald-600 border-emerald-200",
-    link: "/post-job",
-    action: "Post New Job",
-  },
-  {
-    title: "Find Customers",
-    description: "Browse community posts and connect with residents who need your services.",
-    icon: Users,
-    color: "bg-orange-50 text-orange-600 border-orange-200",
-    link: "/community",
-    action: "Browse Community",
-  },
-  {
-    title: "Reviews",
-    description: "View and respond to customer reviews about your business.",
-    icon: Star,
-    color: "bg-amber-50 text-amber-600 border-amber-200",
-    link: "/businesses",
-    action: "View Reviews",
-  },
-  {
-    title: "Messages",
-    description: "Chat with potential customers and respond to inquiries.",
-    icon: MessageSquare,
-    color: "bg-purple-50 text-purple-600 border-purple-200",
-    link: "/messages",
-    action: "Open Messages",
-  },
-  {
-    title: "Analytics",
-    description: "Track views, clicks, and engagement on your business listing.",
-    icon: BarChart3,
-    color: "bg-cyan-50 text-cyan-600 border-cyan-200",
-    link: "#",
-    action: "Coming Soon",
-  },
-];
 
 const BusinessDashboard = () => {
   const { user, loading, signOut } = useAuth();
@@ -129,9 +77,6 @@ const BusinessDashboard = () => {
                   <Monitor size={18} />
                   Enter Dashboard (Preview Mode)
                 </button>
-                <p className="text-xs text-orange-400/60 mt-2">
-                  Production login may fail in preview due to CORS restrictions
-                </p>
               </div>
             )}
           </motion.div>
@@ -144,77 +89,61 @@ const BusinessDashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-background">
-        <div className="max-w-6xl mx-auto px-6 py-8">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
-            <div>
-              <h1 className="text-3xl font-serif font-semibold text-foreground">
-                Welcome back, {user?.displayName || user?.email?.split("@")[0] || "Business Owner"}
+      <div className="flex min-h-screen bg-background">
+        <BusinessSidebar />
+
+        <div className="flex-1 min-w-0 overflow-y-auto">
+          {/* Top bar with stats */}
+          <div className="border-b bg-card px-6 py-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+              <h1 className="text-xl font-serif font-semibold text-foreground">
+                Welcome, {user?.displayName || user?.email?.split("@")[0] || "Business Owner"}
               </h1>
-              <p className="text-muted-foreground mt-1">
-                {previewMode ? "Preview mode — exploring the business dashboard." : "Manage your business and connect with the Alief community."}
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Link
-                to="/"
-                className="px-4 py-2 text-sm font-medium text-orange-500 border border-orange-300 rounded-full hover:bg-orange-50 transition-colors"
-              >
-                Back to Home
-              </Link>
-              <button
-                onClick={signOut}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground border rounded-full hover:text-foreground transition-colors"
-              >
-                <LogOut size={16} />
-                Sign Out
-              </button>
-            </div>
-          </div>
-
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[
-              { label: "Profile Views", value: "—", icon: Building2 },
-              { label: "Active Jobs", value: "0", icon: Briefcase },
-              { label: "Reviews", value: "—", icon: Star },
-              { label: "Messages", value: "0", icon: MessageSquare },
-            ].map((stat) => (
-              <div key={stat.label} className="bg-card border rounded-xl p-4">
-                <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                  <stat.icon size={14} />
-                  <span className="text-xs font-medium">{stat.label}</span>
-                </div>
-                <p className="text-2xl font-semibold text-foreground">{stat.value}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Dashboard Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {dashboardCards.map((card, i) => (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
-              >
+              <div className="flex items-center gap-2">
                 <Link
-                  to={card.link}
-                  className="block bg-card border rounded-2xl p-6 hover:shadow-md transition-shadow group"
+                  to="/"
+                  className="px-3 py-1.5 text-xs font-medium text-orange-500 border border-orange-300 rounded-lg hover:bg-orange-50 transition-colors"
                 >
-                  <div className={`w-12 h-12 rounded-xl ${card.color} border flex items-center justify-center mb-4`}>
-                    <card.icon size={22} />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-1">{card.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{card.description}</p>
-                  <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                    {card.action} <ArrowRight size={14} />
-                  </span>
+                  Back to Home
                 </Link>
-              </motion.div>
-            ))}
+                <button
+                  onClick={signOut}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-muted-foreground border rounded-lg hover:text-foreground transition-colors"
+                >
+                  <LogOut size={14} />
+                  Sign Out
+                </button>
+              </div>
+            </div>
+
+            {/* Stats row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: "New Leads", value: "7", icon: Users, color: "text-primary" },
+                { label: "Messages", value: "3", sublabel: "from Customers", icon: MessageSquare, color: "text-emerald-600" },
+                { label: "Profile Views", value: "41", icon: Eye, color: "text-blue-600" },
+                { label: "Job Applicants", value: "8", icon: Briefcase, color: "text-amber-600" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex items-center gap-3 bg-background border rounded-xl p-3">
+                  <div className={`w-10 h-10 rounded-lg bg-muted flex items-center justify-center ${stat.color}`}>
+                    <stat.icon size={18} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">{stat.label}</p>
+                    <p className="text-xl font-bold text-foreground">{stat.value}</p>
+                    {stat.sublabel && <p className="text-[10px] text-muted-foreground">{stat.sublabel}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Main content */}
+          <div className="flex">
+            <div className="flex-1 min-w-0 p-6">
+              <LeadMarketplace />
+            </div>
+            <BusinessRightSidebar />
           </div>
         </div>
       </div>
