@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
+
 import {
   Building2,
   Briefcase,
@@ -15,7 +16,10 @@ import {
   LogOut,
   BarChart3,
   MessageSquare,
+  Monitor,
 } from "lucide-react";
+
+const isPreview = window.location.hostname.includes("preview") || window.location.hostname === "localhost";
 
 const dashboardCards = [
   {
@@ -71,6 +75,7 @@ const dashboardCards = [
 const BusinessDashboard = () => {
   const { user, loading, signOut } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
+  const [previewMode, setPreviewMode] = useState(false);
 
   if (loading) {
     return (
@@ -80,7 +85,7 @@ const BusinessDashboard = () => {
     );
   }
 
-  if (!user) {
+  if (!user && !previewMode) {
     return (
       <>
         <Navbar />
@@ -111,6 +116,24 @@ const BusinessDashboard = () => {
             >
               ← Back to Home
             </Link>
+
+            {isPreview && (
+              <div className="mt-8 border-t border-orange-500/20 pt-6">
+                <p className="text-xs text-orange-400 mb-2 flex items-center justify-center gap-1">
+                  <Monitor size={14} /> Preview Environment Detected
+                </p>
+                <button
+                  onClick={() => setPreviewMode(true)}
+                  className="w-full px-6 py-3 rounded-xl border-2 border-orange-500 text-orange-500 font-semibold text-sm hover:bg-orange-500 hover:text-white transition-colors flex items-center justify-center gap-2"
+                >
+                  <Monitor size={18} />
+                  Enter Dashboard (Preview Mode)
+                </button>
+                <p className="text-xs text-orange-400/60 mt-2">
+                  Production login may fail in preview due to CORS restrictions
+                </p>
+              </div>
+            )}
           </motion.div>
         </div>
         <AuthModal open={showAuth} onClose={() => setShowAuth(false)} accountType="business" />
@@ -127,10 +150,10 @@ const BusinessDashboard = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
             <div>
               <h1 className="text-3xl font-serif font-semibold text-foreground">
-                Welcome back, {user.displayName || user.email?.split("@")[0]}
+                Welcome back, {user?.displayName || user?.email?.split("@")[0] || "Business Owner"}
               </h1>
               <p className="text-muted-foreground mt-1">
-                Manage your business and connect with the Alief community.
+                {previewMode ? "Preview mode — exploring the business dashboard." : "Manage your business and connect with the Alief community."}
               </p>
             </div>
             <div className="flex items-center gap-3">
