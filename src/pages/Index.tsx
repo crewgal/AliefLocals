@@ -19,6 +19,7 @@ const Index = () => {
       <HeroSection />
       <CommunityStats />
       <CategoryGrid />
+      <FeaturedScroller />
       <FounderSection />
       <FeaturedBusinesses />
       <Testimonials />
