@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import CommunityStats from "@/components/CommunityStats";
 import CategoryGrid from "@/components/CategoryGrid";
 import FounderSection from "@/components/FounderSection";
+import FeaturedScroller from "@/components/FeaturedScroller";
 import FeaturedBusinesses from "@/components/FeaturedBusinesses";
 import Testimonials from "@/components/Testimonials";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -18,6 +19,7 @@ const Index = () => {
       <HeroSection />
       <CommunityStats />
       <CategoryGrid />
+      <FeaturedScroller />
       <FounderSection />
       <FeaturedBusinesses />
       <Testimonials />
