@@ -9,7 +9,7 @@ import AuthModal from "@/components/AuthModal";
 import { Loader2, Users, MessageCircle, ImagePlus, Video, Home, Monitor } from "lucide-react";
 import { listPosts, type Post } from "@/lib/api";
 
-const isPreview = window.location.hostname.includes("preview") || window.location.hostname === "localhost";
+const isPreview = window.location.hostname.includes("preview") || window.location.hostname === "localhost" || window.location.hostname.includes("lovable");
 
 const FeedPage = () => {
   const { user, loading: authLoading } = useAuth();
