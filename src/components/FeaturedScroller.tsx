@@ -2,12 +2,12 @@ import { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
-import { ExternalLink, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { ExternalLink, Star, ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import sthillAd from "@/assets/ads/sthillstudios-ad.png";
 
 interface FeaturedSlide {
-  type: "image-ad" | "business";
+  type: "image-ad" | "business" | "cta";
   name: string;
   description?: string;
   initials?: string;
@@ -31,7 +31,7 @@ const featuredSlides: FeaturedSlide[] = [
     name: "Trojan Grill",
     description: "American Cuisine — burgers, sandwiches, salads, and live music every month.",
     initials: "TG",
-    color: "hsl(var(--primary))",
+    color: "hsl(30 80% 50%)",
     slug: "trojan-grill",
     tier: "gold",
   },
@@ -43,6 +43,12 @@ const featuredSlides: FeaturedSlide[] = [
     color: "hsl(210 30% 30%)",
     slug: "beth-baldwin-real-estate",
     tier: "gold",
+  },
+  {
+    type: "cta",
+    name: "Your Business Here",
+    slug: "get-listed",
+    link: "/get-listed",
   },
   {
     type: "business",
@@ -83,15 +89,15 @@ const featuredSlides: FeaturedSlide[] = [
 ];
 
 const tierBadge: Record<string, { label: string; className: string }> = {
-  gold: { label: "⭐ Gold", className: "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400" },
-  silver: { label: "Silver", className: "bg-muted text-muted-foreground" },
-  bronze: { label: "Bronze", className: "bg-orange-500/15 text-orange-700 dark:text-orange-400" },
+  gold: { label: "⭐ Gold", className: "bg-yellow-400/20 text-yellow-300" },
+  silver: { label: "Silver", className: "bg-white/10 text-white/70" },
+  bronze: { label: "Bronze", className: "bg-orange-400/20 text-orange-300" },
 };
 
 const FeaturedScroller = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start", skipSnaps: false },
-    [Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })]
+    [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -111,31 +117,39 @@ const FeaturedScroller = () => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="py-16 px-6 bg-muted/30">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-12 px-6 bg-[hsl(200,25%,12%)] relative overflow-hidden">
+      {/* Subtle decorative elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(30,80%,50%,0.08),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(200,60%,40%,0.06),transparent_60%)]" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="flex items-center justify-between mb-8"
         >
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-            <Star size={14} /> Featured Businesses
+          <div>
+            <div className="inline-flex items-center gap-2 bg-[hsl(30,80%,50%,0.15)] text-[hsl(30,80%,65%)] px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
+              <Star size={14} /> Sponsored
+            </div>
+            <h2 className="text-2xl md:text-3xl font-serif font-semibold text-white">
+              Featured Businesses
+            </h2>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-3">
-            Our Premium Partners
-          </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto">
-            These trusted local businesses invest in our community. Support them and they'll support you!
-          </p>
+          <Link
+            to="/get-listed"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[hsl(30,80%,50%)] text-white font-semibold text-sm hover:bg-[hsl(30,80%,45%)] transition-colors"
+          >
+            Advertise Here →
+          </Link>
         </motion.div>
 
         <div className="relative">
-          {/* Prev / Next buttons */}
           <button
             onClick={() => emblaApi?.scrollPrev()}
-            className="absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background border shadow-card flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30"
+            className="absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors disabled:opacity-30 text-white"
             disabled={!canScrollPrev}
             aria-label="Previous"
           >
@@ -143,7 +157,7 @@ const FeaturedScroller = () => {
           </button>
           <button
             onClick={() => emblaApi?.scrollNext()}
-            className="absolute -right-3 md:-right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background border shadow-card flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-30"
+            className="absolute -right-3 md:-right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors disabled:opacity-30 text-white"
             disabled={!canScrollNext}
             aria-label="Next"
           >
@@ -159,7 +173,7 @@ const FeaturedScroller = () => {
                 >
                   {slide.type === "image-ad" ? (
                     <Link to={slide.link || "/get-listed"} className="block h-full">
-                      <div className="rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-300 h-full">
+                      <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full border border-white/10">
                         <img
                           src={slide.image}
                           alt={slide.name}
@@ -167,13 +181,33 @@ const FeaturedScroller = () => {
                         />
                       </div>
                     </Link>
+                  ) : slide.type === "cta" ? (
+                    <Link to="/get-listed" className="block h-full">
+                      <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-6 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[280px]">
+                        <div className="w-16 h-16 rounded-full bg-[hsl(30,80%,50%,0.2)] flex items-center justify-center mb-4">
+                          <Plus size={28} className="text-[hsl(30,80%,65%)]" />
+                        </div>
+                        <h3 className="text-lg font-serif font-bold text-white mb-2">
+                          Your Business
+                        </h3>
+                        <h3 className="text-lg font-serif font-bold text-[hsl(30,80%,60%)] mb-3">
+                          Can Be Here!
+                        </h3>
+                        <p className="text-white/50 text-xs mb-4">
+                          Starting at just $25/mo
+                        </p>
+                        <span className="inline-flex items-center gap-1.5 text-[hsl(30,80%,60%)] text-sm font-semibold">
+                          Get Featured <ExternalLink size={13} />
+                        </span>
+                      </div>
+                    </Link>
                   ) : (
-                    <div className="bg-card border rounded-2xl p-6 shadow-card hover:shadow-elevated transition-shadow duration-300 h-full flex flex-col items-center text-center">
+                    <div className="bg-[hsl(200,20%,16%)] border border-white/10 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col items-center text-center">
                       <div className="flex items-center gap-2 mb-4 w-full justify-between">
                         <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${tierBadge[slide.tier!].className}`}>
                           {tierBadge[slide.tier!].label}
                         </span>
-                        <span className="text-[10px] text-muted-foreground">Sponsored</span>
+                        <span className="text-[10px] text-white/40">Sponsored</span>
                       </div>
 
                       <div
@@ -183,16 +217,16 @@ const FeaturedScroller = () => {
                         {slide.initials}
                       </div>
 
-                      <h3 className="text-base font-serif font-semibold text-foreground mb-2">
+                      <h3 className="text-base font-serif font-semibold text-white mb-2">
                         {slide.name}
                       </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-3">
+                      <p className="text-xs text-white/50 leading-relaxed mb-4 line-clamp-3">
                         {slide.description}
                       </p>
 
                       <Link
                         to={`/business/${slide.slug}`}
-                        className="mt-auto text-primary text-sm font-semibold hover:underline inline-flex items-center gap-1.5"
+                        className="mt-auto text-[hsl(30,80%,60%)] text-sm font-semibold hover:underline inline-flex items-center gap-1.5"
                       >
                         View Profile <ExternalLink size={13} />
                       </Link>
@@ -204,12 +238,12 @@ const FeaturedScroller = () => {
           </div>
         </div>
 
-        <div className="text-center mt-8">
+        <div className="text-center mt-6 sm:hidden">
           <Link
             to="/get-listed"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[hsl(30,80%,50%)] text-white font-semibold text-sm hover:bg-[hsl(30,80%,45%)] transition-colors"
           >
-            Get Your Business Featured →
+            Advertise Here →
           </Link>
         </div>
       </div>
