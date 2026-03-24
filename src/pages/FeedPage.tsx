@@ -16,6 +16,7 @@ const FeedPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAuth, setShowAuth] = useState(false);
+  const [previewMode, setPreviewMode] = useState(false);
 
   const fetchPosts = async () => {
     setLoading(true);
