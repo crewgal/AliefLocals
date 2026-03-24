@@ -49,7 +49,7 @@ const HeroSection = () => {
             type="text"
             placeholder="Find a mechanic, a dentist, or a church in Alief..."
             className="w-full pl-14 pr-8 py-5 rounded-full bg-white shadow-elevated border text-foreground placeholder:text-muted-foreground text-base focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow"
-          </input>
+          />
         </motion.div>
 
         <motion.div
