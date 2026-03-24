@@ -128,19 +128,17 @@ const FeaturedScroller = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-center justify-between mb-8"
+          className="flex flex-col items-center text-center mb-8"
         >
-          <div>
-            <div className="inline-flex items-center gap-2 bg-[hsl(30,80%,50%,0.15)] text-[hsl(30,80%,65%)] px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
-              <Star size={14} /> Sponsored
-            </div>
-            <h2 className="text-2xl md:text-3xl font-serif font-semibold text-white">
-              Featured Businesses
-            </h2>
+          <div className="inline-flex items-center gap-2 bg-[hsl(30,80%,50%,0.15)] text-[hsl(30,80%,65%)] px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
+            <Star size={14} /> Sponsored
           </div>
+          <h2 className="text-2xl md:text-3xl font-serif font-semibold text-white mb-4">
+            Featured Businesses
+          </h2>
           <Link
             to="/get-listed"
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[hsl(30,80%,50%)] text-white font-semibold text-sm hover:bg-[hsl(30,80%,45%)] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[hsl(30,80%,50%)] text-white font-semibold text-sm hover:bg-[hsl(30,80%,45%)] transition-colors"
           >
             Advertise Here →
           </Link>
