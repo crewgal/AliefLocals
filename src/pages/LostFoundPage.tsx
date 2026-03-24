@@ -6,7 +6,7 @@ import AuthModal from "@/components/AuthModal";
 import { PawPrint, Plus, MapPin, Clock, Phone, Home, Monitor, Search } from "lucide-react";
 import { motion } from "framer-motion";
 
-const isPreview = !window.location.hostname.includes("mission-bend-connect");
+const isPreview = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
 const sampleItems = [
   {
