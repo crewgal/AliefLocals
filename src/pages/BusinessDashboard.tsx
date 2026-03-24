@@ -143,6 +143,7 @@ const BusinessDashboard = () => {
           <div className="flex">
             <div className="flex-1 min-w-0 p-6">
               <LeadMarketplace />
+              <ApplyFeatured />
             </div>
             <BusinessRightSidebar />
           </div>
