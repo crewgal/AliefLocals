@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
-import { Upload, Building2, Loader2 } from "lucide-react";
+import { BarChart3, Loader2, Pencil, Star, UploadCloud } from "lucide-react";
+import logo from "@/assets/alief-locals-logo.png";
 
 const businessTypes = [
   "Restaurant / Food",
@@ -19,20 +19,20 @@ const businessTypes = [
   "Other",
 ];
 
+const inputClass =
+  "w-full rounded-xl border bg-background px-4 py-3 text-base text-foreground shadow-sm outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20";
+const labelClass = "mb-2 block text-xl font-semibold text-accent";
+
 const BusinessSignupPage = () => {
   const { user, loading, signUp } = useAuth();
   const navigate = useNavigate();
 
-  const [step, setStep] = useState<"signup" | "profile">(user ? "profile" : "signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
   const [error, setError] = useState("");
-
-  // Profile fields
   const [businessName, setBusinessName] = useState("");
-  const [contactPerson, setContactPerson] = useState("");
+  const [contactPerson, setContactPerson] = useState(user?.displayName || "");
   const [businessAddress, setBusinessAddress] = useState("");
   const [businessType, setBusinessType] = useState("");
   const [yearsServing, setYearsServing] = useState("");
@@ -40,262 +40,324 @@ const BusinessSignupPage = () => {
   const [website, setWebsite] = useState("");
   const [socialMedia, setSocialMedia] = useState("");
   const [description, setDescription] = useState("");
+  const [logoFileName, setLogoFileName] = useState("");
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAuthLoading(true);
-    setError("");
-    try {
-      await signUp({ name, email, password });
-      setStep("profile");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to create account.");
-    }
-    setAuthLoading(false);
+  const welcomeName = businessName.trim() || user?.displayName || "Business Name";
+
+  const handleLogoChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setLogoFileName(file?.name || "");
   };
 
-  const handleSaveProfile = (e: React.FormEvent) => {
-    e.preventDefault();
-    // For now just navigate to dashboard
-    navigate("/business-dashboard");
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setAuthLoading(true);
+    setError("");
+
+    try {
+      if (!user) {
+        await signUp({
+          name: contactPerson.trim() || businessName.trim(),
+          email,
+          password,
+        });
+      }
+
+      navigate("/business-dashboard");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to save your business account.");
+    } finally {
+      setAuthLoading(false);
+    }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" />
       </div>
     );
   }
 
-  // If already logged in, show profile completion
-  if (user && step === "signup") {
-    setStep("profile");
-  }
-
   return (
-    <>
-      <Navbar />
-      <div className="min-h-screen bg-background flex items-start justify-center pt-8 pb-16 px-4">
-        <motion.div
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-accent text-accent-foreground">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <Link to="/" className="inline-flex w-fit items-center">
+            <img src={logo} alt="Alief Locals" className="h-14 w-auto" />
+          </Link>
+
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/business-dashboard"
+              className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-card transition-opacity hover:opacity-90"
+            >
+              <BarChart3 size={18} />
+              View Stats
+            </Link>
+            <a
+              href="#business-profile-form"
+              className="inline-flex items-center gap-2 rounded-2xl border border-card/20 bg-card px-5 py-3 text-sm font-semibold text-card-foreground shadow-card transition-colors hover:bg-muted"
+            >
+              <Pencil size={18} />
+              Edit Profile
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-lg"
+          className="rounded-[2rem] border bg-card p-5 shadow-card sm:p-8 lg:p-10"
         >
-          {step === "signup" ? (
-            <div className="bg-card border rounded-2xl p-8 shadow-card">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Building2 size={24} className="text-primary" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-serif font-semibold text-foreground">
-                    Business Sign Up
-                  </h1>
-                  <p className="text-sm text-muted-foreground">
-                    Create your account to get started
-                  </p>
-                </div>
-              </div>
+          <div className="space-y-4 text-center">
+            <p className="text-3xl font-serif font-semibold text-accent sm:text-4xl">
+              Welcome, <span className="text-primary">[{welcomeName}]</span>!
+            </p>
+            <div className="h-px bg-border" />
+            <h1 className="text-3xl font-serif font-semibold text-accent sm:text-5xl">
+              Complete Your Business Profile
+            </h1>
+            <div className="h-px bg-border" />
+          </div>
 
-              <form onSubmit={handleSignup} className="space-y-4">
+          {!user && (
+            <div className="mt-8 rounded-3xl border bg-background p-6 shadow-sm">
+              <h2 className="text-2xl font-serif font-semibold text-accent">Create Your Business Account</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Add your email and password, then save the full business profile below.
+              </p>
+
+              <div className="mt-5 grid gap-4 md:grid-cols-2">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Full Name</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="w-full px-4 py-3 rounded-xl border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                    placeholder="Your full name"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Email</label>
+                  <label className={labelClass}>Email Address</label>
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full px-4 py-3 rounded-xl border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    onChange={(event) => setEmail(event.target.value)}
+                    required={!user}
                     placeholder="you@business.com"
+                    className={inputClass}
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Password</label>
+                  <label className={labelClass}>Password</label>
                   <input
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
+                    onChange={(event) => setPassword(event.target.value)}
+                    required={!user}
                     minLength={6}
-                    className="w-full px-4 py-3 rounded-xl border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                    placeholder="Min 6 characters"
+                    placeholder="Minimum 6 characters"
+                    className={inputClass}
                   />
-                </div>
-
-                {error && <p className="text-sm text-destructive">{error}</p>}
-
-                <button
-                  type="submit"
-                  disabled={authLoading}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
-                >
-                  {authLoading ? <Loader2 size={16} className="animate-spin" /> : null}
-                  Create Business Account
-                </button>
-              </form>
-            </div>
-          ) : (
-            <div className="bg-card border rounded-2xl p-8 shadow-card">
-              <div className="text-center mb-6">
-                <p className="text-primary font-semibold text-sm">
-                  Welcome, {user?.displayName || name || "Business Owner"}!
-                </p>
-                <h1 className="text-2xl font-serif font-semibold text-foreground mt-1">
-                  Complete Your Business Profile
-                </h1>
-              </div>
-
-              <form onSubmit={handleSaveProfile} className="space-y-4">
-                {/* Logo upload */}
-                <div className="flex justify-center mb-2">
-                  <div className="w-24 h-24 rounded-full bg-muted border-2 border-dashed border-muted-foreground/30 flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 transition-colors">
-                    <Upload size={20} className="text-muted-foreground mb-1" />
-                    <span className="text-[10px] text-muted-foreground text-center leading-tight">
-                      Upload Your Logo
-                    </span>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Business Name</label>
-                  <input
-                    type="text"
-                    value={businessName}
-                    onChange={(e) => setBusinessName(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Contact Person</label>
-                  <input
-                    type="text"
-                    value={contactPerson}
-                    onChange={(e) => setContactPerson(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Business Address</label>
-                  <input
-                    type="text"
-                    value={businessAddress}
-                    onChange={(e) => setBusinessAddress(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Type of Business</label>
-                  <select
-                    value={businessType}
-                    onChange={(e) => setBusinessType(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                  >
-                    <option value="">Select a category</option>
-                    {businessTypes.map((t) => (
-                      <option key={t} value={t}>{t}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Years Serving Alief</label>
-                  <input
-                    type="text"
-                    value={yearsServing}
-                    onChange={(e) => setYearsServing(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Phone Number</label>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Website <span className="text-muted-foreground font-normal">(Optional)</span></label>
-                  <input
-                    type="url"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Social Media Links <span className="text-muted-foreground font-normal">(Optional)</span></label>
-                  <input
-                    type="text"
-                    value={socialMedia}
-                    onChange={(e) => setSocialMedia(e.target.value)}
-                    placeholder="e.g. instagram.com/yourbiz"
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Short Description / About</label>
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    rows={3}
-                    className="w-full px-4 py-2.5 rounded-lg border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                  />
-                </div>
-
-                <div className="flex gap-3 pt-2">
-                  <button
-                    type="submit"
-                    className="flex-1 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
-                  >
-                    Save Profile
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => navigate("/business-dashboard")}
-                    className="flex-1 py-2.5 rounded-full border border-muted-foreground/30 text-foreground font-semibold text-sm hover:bg-muted transition-colors"
-                  >
-                    Skip for Now
-                  </button>
-                </div>
-              </form>
-
-              {/* Bottom info */}
-              <div className="mt-6 pt-4 border-t grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-xs font-semibold text-foreground">Customer Reviews</p>
-                  <div className="flex gap-0.5 mt-1">
-                    {[1,2,3,4,5].map(i => (
-                      <span key={i} className="text-primary text-sm">★</span>
-                    ))}
-                  </div>
-                  <p className="text-[10px] text-muted-foreground mt-1">"Great service and very friendly!"</p>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-foreground">Subscription Plan</p>
-                  <p className="text-[10px] text-muted-foreground mt-1">Current Plan: Free Listing</p>
-                  <button className="mt-1 text-[10px] font-semibold text-primary-foreground bg-primary px-3 py-1 rounded-full">
-                    Upgrade to Premium
-                  </button>
                 </div>
               </div>
             </div>
           )}
-        </motion.div>
-      </div>
-    </>
+
+          <form id="business-profile-form" onSubmit={handleSubmit} className="mt-8 space-y-8">
+            <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+              <div className="flex flex-col items-center gap-4">
+                <label
+                  htmlFor="business-logo-upload"
+                  className="flex aspect-square w-full max-w-[240px] cursor-pointer flex-col items-center justify-center rounded-full border-4 border-border bg-muted px-8 text-center transition-colors hover:border-primary/40"
+                >
+                  <UploadCloud size={34} className="mb-4 text-primary" />
+                  <span className="text-2xl font-semibold leading-tight text-accent">
+                    Upload Your Logo
+                  </span>
+                  <span className="mt-4 rounded-xl border bg-card px-5 py-3 text-sm font-semibold text-foreground shadow-sm">
+                    Click to Upload
+                  </span>
+                </label>
+                <p className="text-center text-sm text-muted-foreground">
+                  {logoFileName || "No file chosen"}
+                </p>
+              </div>
+
+              <div className="space-y-5">
+                <div>
+                  <label className={labelClass}>Business Name</label>
+                  <input
+                    type="text"
+                    value={businessName}
+                    onChange={(event) => setBusinessName(event.target.value)}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Contact Person</label>
+                  <input
+                    type="text"
+                    value={contactPerson}
+                    onChange={(event) => setContactPerson(event.target.value)}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Business Address</label>
+                  <input
+                    type="text"
+                    value={businessAddress}
+                    onChange={(event) => setBusinessAddress(event.target.value)}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Type of Business</label>
+                  <select
+                    value={businessType}
+                    onChange={(event) => setBusinessType(event.target.value)}
+                    required
+                    className={inputClass}
+                  >
+                    <option value="">Select business type</option>
+                    {businessTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className={labelClass}>Years Serving Alief</label>
+                  <input
+                    type="text"
+                    value={yearsServing}
+                    onChange={(event) => setYearsServing(event.target.value)}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Phone Number</label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Website <span className="text-base font-normal text-muted-foreground">(Optional)</span></label>
+                  <input
+                    type="url"
+                    value={website}
+                    onChange={(event) => setWebsite(event.target.value)}
+                    placeholder="https://yourbusiness.com"
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Social Media Links <span className="text-base font-normal text-muted-foreground">(Optional)</span></label>
+                  <input
+                    type="text"
+                    value={socialMedia}
+                    onChange={(event) => setSocialMedia(event.target.value)}
+                    placeholder="Facebook, Instagram, YouTube, TikTok"
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Short Description / About</label>
+                  <textarea
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    rows={4}
+                    required
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-3 border-t pt-4 sm:flex-row sm:items-center">
+                  <span className="text-lg font-semibold text-accent">Upload Logo:</span>
+                  <label
+                    htmlFor="business-logo-upload"
+                    className="inline-flex w-fit cursor-pointer items-center rounded-xl border bg-background px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+                  >
+                    Choose File
+                  </label>
+                  <span className="text-sm text-muted-foreground">
+                    {logoFileName || "No file chosen"}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <input
+              id="business-logo-upload"
+              type="file"
+              accept="image/*"
+              onChange={handleLogoChange}
+              className="sr-only"
+            />
+
+            {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="submit"
+                disabled={authLoading}
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-4 text-lg font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+              >
+                {authLoading ? <Loader2 size={18} className="animate-spin" /> : null}
+                Save Profile
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("/business-dashboard")}
+                className="inline-flex flex-1 items-center justify-center rounded-2xl border bg-muted px-6 py-4 text-lg font-semibold text-foreground transition-colors hover:bg-secondary"
+              >
+                Skip for Now
+              </button>
+            </div>
+          </form>
+        </motion.section>
+
+        <section className="mt-6 grid gap-6 lg:grid-cols-2">
+          <div className="rounded-[2rem] border bg-card p-6 shadow-card">
+            <div className="mb-4 flex items-center gap-3">
+              <Star size={22} className="fill-primary text-primary" />
+              <h2 className="text-2xl font-serif font-semibold text-accent">Customer Reviews</h2>
+            </div>
+            <div className="flex gap-1 text-primary">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Star key={index} size={26} className="fill-primary text-primary" />
+              ))}
+            </div>
+            <p className="mt-4 text-xl italic text-muted-foreground">
+              “Great service and very friendly!”
+            </p>
+          </div>
+
+          <div className="rounded-[2rem] border bg-card p-6 shadow-card">
+            <h2 className="text-2xl font-serif font-semibold text-accent">Subscription Plan</h2>
+            <p className="mt-5 text-lg font-semibold text-foreground">Current Plan: Free Listing</p>
+            <button
+              type="button"
+              className="mt-5 inline-flex items-center justify-center rounded-2xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90"
+            >
+              Upgrade to Premium
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 };
 
