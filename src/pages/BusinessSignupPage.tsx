@@ -354,13 +354,16 @@ const BusinessSignupPage = () => {
 
           <div className="rounded-[2rem] border bg-card p-6 shadow-card">
             <h2 className="text-2xl font-serif font-semibold text-accent">Subscription Plan</h2>
-            <p className="mt-5 text-lg font-semibold text-foreground">Current Plan: Free Listing</p>
-            <button
-              type="button"
-              className="mt-5 inline-flex items-center justify-center rounded-2xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90"
+            <p className="mt-5 text-lg font-semibold text-foreground">Current Plan: <span className="text-primary">Free Listing</span></p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Upgrade to <strong>Premium ($25/month)</strong> to get featured on the homepage, priority in search results, a verified badge, and social media shoutouts.
+            </p>
+            <Link
+              to="/business-dashboard"
+              className="mt-5 inline-flex items-center justify-center rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
-              Upgrade to Premium
-            </button>
+              Upgrade to Premium — $25/mo
+            </Link>
           </div>
         </section>
       </main>
