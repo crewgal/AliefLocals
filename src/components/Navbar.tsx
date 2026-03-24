@@ -45,7 +45,7 @@ const Navbar = () => {
             <Link to="/jobs" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Jobs
             </Link>
-            <Link to="/get-listed" className="ml-2 px-5 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
+            <Link to="/business-dashboard" className="ml-2 px-5 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-full hover:opacity-90 transition-opacity">
               Business Login
             </Link>
 
