@@ -65,7 +65,7 @@ const RightSidebar = () => {
         <div className="space-y-3">
           {[
             { name: "Farmer's Market", time: "Friday 9am", emoji: "🍎" },
-            { name: "Yoga in the Park", time: "Saturday 10am", emoji: "🧘" },
+            { name: "All About Church", time: "Saturday 10am", emoji: "⛪" },
             { name: "Neighborhood Garage Sale", time: "Sunday 8am", emoji: "🏠" },
           ].map((event) => (
             <div key={event.name} className="flex items-center gap-3">
