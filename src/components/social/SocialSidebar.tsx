@@ -64,6 +64,8 @@ const SocialSidebar = () => {
         })}
       </nav>
 
+      <SponsorRotator />
+
       {user && (
         <div className="border-t pt-3 mt-2">
           <div className="flex items-center gap-3 px-3 py-2">
