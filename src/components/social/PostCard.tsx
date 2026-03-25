@@ -27,6 +27,7 @@ const PostCard = ({ post, onDeleted }: PostCardProps) => {
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [showMenu, setShowMenu] = useState(false);
+  const [translatedContent, setTranslatedContent] = useState<string | null>(null);
 
   useEffect(() => {
     fetchLikes();
