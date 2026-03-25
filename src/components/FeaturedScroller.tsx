@@ -170,14 +170,14 @@ const FeaturedScroller = () => {
                   className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0 pl-4"
                 >
                   {slide.type === "image-ad" ? (
-                    <Link to={slide.link || "/get-listed"} className="block h-full">
-                      <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full border border-white/10">
-                        <img
-                          src={slide.image}
-                          alt={slide.name}
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
+                      <Link to={slide.link || "/get-listed"} className="block h-full">
+                        <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full min-h-[280px] border border-white/10 bg-[hsl(215,65%,18%)] flex items-center justify-center px-3 pt-5 pb-3">
+                          <img
+                            src={slide.image}
+                            alt={slide.name}
+                            className="block w-full h-full max-h-full object-contain object-center"
+                          />
+                        </div>
                     </Link>
                   ) : slide.type === "cta" ? (
                     <Link to="/get-listed" className="block h-full">
