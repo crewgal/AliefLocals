@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
@@ -8,6 +8,7 @@ import BusinessRightSidebar from "@/components/business/BusinessRightSidebar";
 import LeadMarketplace from "@/components/business/LeadMarketplace";
 import ApplyFeatured from "@/components/business/ApplyFeatured";
 import FoundingSponsorStrip from "@/components/FoundingSponsorStrip";
+import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import {
   Building2,
@@ -26,6 +27,19 @@ const BusinessDashboard = () => {
   const { user, loading, signOut } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
+  const [businessName, setBusinessName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("businesses")
+      .select("name")
+      .eq("owner_id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data?.name) setBusinessName(data.name);
+      });
+  }, [user]);
 
   if (loading) {
     return (
@@ -99,7 +113,7 @@ const BusinessDashboard = () => {
           <div className="border-b bg-card px-6 py-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
               <h1 className="text-xl font-serif font-semibold text-foreground">
-                Welcome, {user?.displayName || user?.email?.split("@")[0] || "Business Owner"}
+                Welcome, {user?.displayName || user?.email?.split("@")[0] || "Business Owner"}{businessName ? ` from ${businessName}` : ""}
               </h1>
               <div className="flex items-center gap-2">
                 <Link

@@ -57,7 +57,7 @@ const FoundingSponsorStrip = () => {
                   </a>
                 ) : !isFilled ? (
                   <Link to="/get-listed" className="text-[hsl(45,80%,60%)] text-[9px] font-medium hover:underline mt-1">
-                    Apply
+                    Be a Founder
                   </Link>
                 ) : null}
               </div>

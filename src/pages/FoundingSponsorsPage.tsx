@@ -49,7 +49,7 @@ const FoundingSponsorsPage = () => {
                   to="/get-listed"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[hsl(45,80%,50%)] text-[hsl(200,25%,10%)] font-bold text-sm hover:bg-[hsl(45,80%,55%)] transition-colors"
                 >
-                  <Crown size={16} /> Apply for a Founding Spot
+                  <Crown size={16} /> Apply to Be a Founder of Alief Locals
                 </Link>
                 <span className="text-[hsl(45,80%,60%)] text-sm font-semibold">
                   {openSlots} of 10 spots remaining
@@ -131,7 +131,7 @@ const FoundingSponsorsPage = () => {
                     </a>
                   ) : !isFilled ? (
                     <Link to="/get-listed" className="text-primary text-xs font-semibold hover:underline">
-                      Claim This Spot →
+                      Apply to Be a Founder →
                     </Link>
                   ) : null}
                 </motion.div>
