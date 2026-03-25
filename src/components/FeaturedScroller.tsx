@@ -7,13 +7,9 @@ import { Link } from "react-router-dom";
 import sthillAd from "@/assets/ads/sthillstudios-ad.png";
 
 interface FeaturedSlide {
-  type: "image-ad" | "business" | "cta";
+  type: "image-ad" | "cta";
   name: string;
-  description?: string;
-  initials?: string;
-  color?: string;
   slug: string;
-  tier?: "gold" | "silver" | "bronze";
   image?: string;
   link?: string;
 }
