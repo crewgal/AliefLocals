@@ -3,6 +3,7 @@ import { Menu, X, User, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "./AuthModal";
+import LanguageSwitcher from "./LanguageSwitcher";
 import logo from "@/assets/alief-locals-logo.png";
 
 const categories = [
@@ -45,6 +46,7 @@ const Navbar = () => {
             <Link to="/jobs" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Jobs
             </Link>
+            <LanguageSwitcher />
             <div className="ml-2 flex items-center border border-primary rounded-full overflow-hidden">
               <Link to="/business-signup" className="px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 transition-colors">
                 Business Signup

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Bell, LogOut, Search, Plus } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import logo from "@/assets/alief-locals-logo.png";
 
 const TopBar = () => {
@@ -23,7 +24,8 @@ const TopBar = () => {
             />
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <LanguageSwitcher />
           {user ? (
             <>
               <button className="p-2 rounded-full hover:bg-muted text-muted-foreground relative">
@@ -56,7 +58,8 @@ const TopBar = () => {
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Alief Locals" className="h-7" />
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <LanguageSwitcher />
           {user ? (
             <>
               <button className="p-2 rounded-lg hover:bg-muted text-muted-foreground">

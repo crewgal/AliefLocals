@@ -16,7 +16,7 @@ serve(async (req) => {
       });
     }
 
-    const validLangs = ["es", "vi", "zh", "en"];
+    const validLangs = ["es", "vi", "zh", "en", "fr"];
     if (!validLangs.includes(targetLang)) {
       return new Response(JSON.stringify({ error: "Unsupported language" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -27,7 +27,7 @@ serve(async (req) => {
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY not configured");
 
     const langNames: Record<string, string> = {
-      es: "Spanish", vi: "Vietnamese", zh: "Chinese (Simplified)", en: "English"
+      es: "Spanish", vi: "Vietnamese", zh: "Chinese (Simplified)", en: "English", fr: "French"
     };
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
