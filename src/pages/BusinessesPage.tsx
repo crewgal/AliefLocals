@@ -3,6 +3,7 @@ import SocialLayout from "@/layouts/SocialLayout";
 import { Link } from "react-router-dom";
 import { Star, MapPin, Loader2, Search } from "lucide-react";
 import { listBusinesses, type Business } from "@/lib/api";
+import AIMatchmaker from "@/components/AIMatchmaker";
 
 const categories = [
   "All", "restaurants", "mechanics", "dentists", "car-insurance",
