@@ -270,6 +270,7 @@ const FeaturedScroller = () => {
           </Link>
         </div>
       </div>
+      <AuthModal open={showAuth} onClose={handleAuthClose} />
     </section>
   );
 };
