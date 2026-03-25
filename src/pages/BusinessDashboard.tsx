@@ -142,7 +142,8 @@ const BusinessDashboard = () => {
 
           {/* Main content */}
           <div className="flex">
-            <div className="flex-1 min-w-0 p-6">
+            <div className="flex-1 min-w-0 p-4 sm:p-6 space-y-4 sm:space-y-6">
+              <FoundingSponsorStrip />
               <LeadMarketplace />
               <ApplyFeatured />
             </div>

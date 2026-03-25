@@ -121,6 +121,7 @@ const FeedPage = () => {
     <SocialLayout>
       <div className="flex max-w-6xl mx-auto">
         <div className="flex-1 max-w-2xl mx-auto p-4 space-y-4">
+          <FoundingSponsorStrip />
           <CreatePost onPostCreated={fetchPosts} />
 
           {loading ? (
