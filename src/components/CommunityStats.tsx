@@ -36,10 +36,8 @@ function AnimatedNumber({ target, suffix, inView }: { target: number; suffix: st
     return () => clearInterval(timer);
   }, [inView, target]);
 
-  const display = target >= 1000 ? `${Math.floor(count / 1000).toLocaleString()},${String(count % 1000).padStart(3, "0")}` : count.toString();
-
   return (
-    <span className="font-mono-stat text-4xl md:text-5xl font-bold text-primary">
+    <span className="font-mono-stat text-2xl sm:text-4xl md:text-5xl font-bold text-primary">
       {target >= 1000 ? count.toLocaleString() : count}
       {suffix}
     </span>
@@ -51,24 +49,24 @@ const CommunityStats = () => {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-20 px-6 bg-card border-y">
+    <section ref={ref} className="py-12 sm:py-20 px-4 sm:px-6 bg-card border-y">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-14"
+          className="text-center mb-8 sm:mb-14"
         >
-          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-3">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-foreground mb-3">
             Alief by the Numbers
           </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto">
+          <p className="text-muted-foreground max-w-lg mx-auto text-sm sm:text-base">
             One of the most culturally rich neighborhoods in the entire United States.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
@@ -80,9 +78,9 @@ const CommunityStats = () => {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="text-center"
               >
-                <Icon size={28} className="mx-auto mb-4 text-primary/70" strokeWidth={1.5} />
+                <Icon size={24} className="mx-auto mb-2 sm:mb-4 text-primary/70" strokeWidth={1.5} />
                 <AnimatedNumber target={stat.value} suffix={stat.suffix} inView={inView} />
-                <p className="text-sm text-muted-foreground mt-2">{stat.label}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">{stat.label}</p>
               </motion.div>
             );
           })}

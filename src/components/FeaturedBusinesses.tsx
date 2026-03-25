@@ -60,14 +60,14 @@ const item = {
 
 const FeaturedBusinesses = () => {
   return (
-    <section className="py-20 px-6">
-      <div className="max-w-7xl mx-auto text-center mb-12">
+    <section className="py-12 sm:py-20 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-12">
         <motion.h2
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-3"
+          className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-foreground mb-2 sm:mb-3"
         >
           Recently Added Local Businesses
         </motion.h2>
@@ -76,7 +76,7 @@ const FeaturedBusinesses = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-muted-foreground"
+          className="text-muted-foreground text-sm sm:text-base"
         >
           Check out these hometown favorites!
         </motion.p>
@@ -87,31 +87,30 @@ const FeaturedBusinesses = () => {
         whileInView="show"
         viewport={{ once: true, margin: "-50px" }}
         variants={container}
-        className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
       >
         {businesses.map((biz) => (
           <motion.div
             key={biz.name}
             variants={item}
-            className="bg-card border rounded-2xl p-6 shadow-card hover:shadow-elevated transition-shadow duration-300 flex flex-col items-center text-center"
+            className="bg-card border rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-card hover:shadow-elevated transition-shadow duration-300 flex flex-col items-center text-center"
           >
-            {/* Logo / Initials */}
             <div
-              className="w-24 h-24 rounded-xl flex items-center justify-center mb-5 text-white text-2xl font-serif font-bold"
+              className="w-14 h-14 sm:w-24 sm:h-24 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-5 text-white text-lg sm:text-2xl font-serif font-bold"
               style={{ backgroundColor: biz.color }}
             >
               {biz.initials}
             </div>
 
-            <h3 className="text-lg font-serif font-semibold text-foreground mb-2">
+            <h3 className="text-sm sm:text-lg font-serif font-semibold text-foreground mb-1 sm:mb-2 line-clamp-2">
               {biz.name}
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4 max-w-xs">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3 sm:mb-4 line-clamp-3">
               {biz.description}
             </p>
             <a
               href="#"
-              className="text-primary text-sm font-semibold hover:underline inline-flex items-center gap-1.5"
+              className="text-primary text-xs sm:text-sm font-semibold hover:underline inline-flex items-center gap-1.5"
             >
               View Profile <ExternalLink size={13} />
             </a>

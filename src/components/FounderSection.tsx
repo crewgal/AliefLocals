@@ -38,50 +38,50 @@ const FounderSection = () => {
   }, []);
 
   return (
-    <section className="py-[15vh] bg-foreground overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-12 sm:py-[15vh] bg-foreground overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* How It Works — Founder Bio + Portrait */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 items-start mb-16"
+          className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 sm:gap-10 items-start mb-10 sm:mb-16"
         >
           <div>
-            <h2 className="text-4xl md:text-5xl font-serif font-semibold text-white leading-tight mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-white leading-tight mb-4 sm:mb-6">
               How It Works
             </h2>
-            <p className="text-lg text-white/75 leading-relaxed mb-5">
+            <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-4 sm:mb-5">
               The best local businesses aren't always the ones with the biggest ad budgets.{" "}
               <strong className="text-white">Alief Locals</strong> is the place to discover the
               local gems in our community.
             </p>
-            <p className="text-lg text-white/75 leading-relaxed mb-5">
+            <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-4 sm:mb-5">
               Our listings are <strong className="text-white">free, but invitation-only</strong>.
               This means you aren't seeing who paid the most to be here. You are seeing business
               owners who earned their spot because they are proud of what they do and are willing
               to stand behind their work.
             </p>
-            <p className="text-lg text-white/75 leading-relaxed mb-5">
+            <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-4 sm:mb-5">
               Knowing the people behind a business matters. When you connect with a neighbor who
               puts their heart into their business, you get a higher level of accountability.
             </p>
-            <p className="text-base text-white/55 leading-relaxed">
+            <p className="text-sm sm:text-base text-white/55 leading-relaxed">
               We also like having fun. So, we regularly run{" "}
               <strong className="text-primary">giveaways, raffles, and scavenger hunts</strong>{" "}
               to help you discover the best local businesses in Alief &amp; the 77083 area.
             </p>
           </div>
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-52 h-52 md:w-60 md:h-60 rounded-2xl overflow-hidden border-2 border-primary/30 shadow-lg">
+          <div className="flex flex-row md:flex-col items-center gap-3">
+            <div className="w-32 h-32 sm:w-52 sm:h-52 md:w-60 md:h-60 rounded-2xl overflow-hidden border-2 border-primary/30 shadow-lg shrink-0">
               <img
                 src={founderPortrait}
                 alt="Founder of Alief Locals"
                 className="w-full h-full object-cover"
               />
             </div>
-            <p className="text-white/60 text-sm text-center max-w-[14rem] leading-snug">
+            <p className="text-white/60 text-xs sm:text-sm text-center max-w-[14rem] leading-snug">
               Pastor / Evangelist · MBA, Western Governors University · 18 years of web design experience — Founder of Alief Locals
             </p>
           </div>
@@ -93,13 +93,13 @@ const FounderSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 max-w-xl"
+          className="mb-10 sm:mb-16 max-w-xl"
         >
           <a
             href="https://calendly.com/thesthillstudios/sthill-studios-website-design-marketing-and-seo-meeting"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block w-full text-center py-4 px-6 rounded-full bg-primary text-primary-foreground font-semibold text-base hover:opacity-90 transition-opacity"
+            className="inline-block w-full text-center py-3 sm:py-4 px-6 rounded-full bg-primary text-primary-foreground font-semibold text-sm sm:text-base hover:opacity-90 transition-opacity"
           >
             📅 Book a Free Meeting
           </a>
@@ -111,19 +111,19 @@ const FounderSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-2xl mb-12"
+          className="max-w-2xl mb-8 sm:mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-semibold text-white leading-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-white leading-tight mb-4 sm:mb-6">
             Welcome to{" "}
             <span className="text-primary">Alief, Texas</span>
           </h2>
-          <p className="text-lg text-white/75 leading-relaxed mb-6">
+          <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-4 sm:mb-6">
             Alief is one of the most culturally diverse communities in the entire United States,
             located in southwest Houston within Harris County. Home to over 100,000 residents representing
             dozens of nationalities, Alief is a place where authentic cuisines, family-owned shops,
             and tight-knit neighborhoods come together.
           </p>
-          <p className="text-lg text-white/75 leading-relaxed">
+          <p className="text-base sm:text-lg text-white/75 leading-relaxed">
             From the famous Bellaire Food Street to the brand-new Alief Community Center,
             our neighborhood is thriving. Whether you need a trusted mechanic, a great barber,
             or a new church home — the best businesses in 77083 are right here, run by your neighbors.
@@ -133,11 +133,11 @@ const FounderSection = () => {
 
       {/* Infinite auto-scrolling carousel */}
       <div className="relative w-full">
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-foreground to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-foreground to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-10 sm:w-20 bg-gradient-to-r from-foreground to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-10 sm:w-20 bg-gradient-to-l from-foreground to-transparent z-10 pointer-events-none" />
 
         <motion.div
-          className="flex gap-5 w-max"
+          className="flex gap-3 sm:gap-5 w-max"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" },
@@ -146,7 +146,7 @@ const FounderSection = () => {
           {scrollImages.map((img, i) => (
             <div
               key={`${img.alt}-${i}`}
-              className="flex-shrink-0 w-[350px] md:w-[420px] rounded-2xl overflow-hidden cursor-pointer relative group"
+              className="flex-shrink-0 w-[260px] sm:w-[350px] md:w-[420px] rounded-2xl overflow-hidden cursor-pointer relative group"
               onClick={() => openLightbox(i)}
             >
               <div className="aspect-[16/10]">
@@ -157,9 +157,9 @@ const FounderSection = () => {
                   loading="lazy"
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-10">
-                <h3 className="text-white font-semibold text-lg leading-tight">{img.name}</h3>
-                <p className="text-white/60 text-sm flex items-center gap-1 mt-1">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 sm:p-4 pt-8 sm:pt-10">
+                <h3 className="text-white font-semibold text-sm sm:text-lg leading-tight">{img.name}</h3>
+                <p className="text-white/60 text-xs sm:text-sm flex items-center gap-1 mt-1">
                   <MapPin size={12} /> {img.address}
                 </p>
               </div>
@@ -181,35 +181,35 @@ const FounderSection = () => {
           >
             <button
               onClick={closeLightbox}
-              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-50"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/70 hover:text-white transition-colors z-50"
               aria-label="Close lightbox"
             >
-              <X size={36} />
+              <X size={28} />
             </button>
 
-            <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50 text-center">
-              <h3 className="text-white text-2xl md:text-3xl font-serif font-semibold">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 text-center px-4">
+              <h3 className="text-white text-lg sm:text-2xl md:text-3xl font-serif font-semibold">
                 {images[lightboxIndex].name}
               </h3>
-              <p className="text-white/50 text-sm flex items-center justify-center gap-1.5 mt-1">
+              <p className="text-white/50 text-xs sm:text-sm flex items-center justify-center gap-1.5 mt-1">
                 <MapPin size={14} /> {images[lightboxIndex].address}
               </p>
             </div>
 
             <button
               onClick={(e) => { e.stopPropagation(); goPrev(); }}
-              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-50 w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md flex items-center justify-center transition-all animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] border border-white/20"
+              className="absolute left-2 sm:left-4 md:left-10 top-1/2 -translate-y-1/2 z-50 w-12 h-12 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md flex items-center justify-center transition-all animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] border border-white/20"
               aria-label="Previous image"
             >
-              <ChevronLeft size={48} className="text-white md:w-14 md:h-14" />
+              <ChevronLeft size={28} className="text-white sm:w-12 sm:h-12" />
             </button>
 
             <button
               onClick={(e) => { e.stopPropagation(); goNext(); }}
-              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-50 w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md flex items-center justify-center transition-all animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] border border-white/20"
+              className="absolute right-2 sm:right-4 md:right-10 top-1/2 -translate-y-1/2 z-50 w-12 h-12 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-md flex items-center justify-center transition-all animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] border border-white/20"
               aria-label="Next image"
             >
-              <ChevronRight size={48} className="text-white md:w-14 md:h-14" />
+              <ChevronRight size={28} className="text-white sm:w-12 sm:h-12" />
             </button>
 
             <AnimatePresence mode="wait">
@@ -221,27 +221,23 @@ const FounderSection = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.92 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-[75vw] max-h-[75vh] object-contain rounded-xl shadow-2xl"
+                className="max-w-[90vw] sm:max-w-[75vw] max-h-[65vh] sm:max-h-[75vh] object-contain rounded-xl shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               />
             </AnimatePresence>
 
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
               {images.map((_, i) => (
                 <button
                   key={i}
                   onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
                     i === lightboxIndex ? "bg-primary scale-125" : "bg-white/40 hover:bg-white/60"
                   }`}
                   aria-label={`Go to image ${i + 1}`}
                 />
               ))}
             </div>
-
-            <p className="absolute bottom-6 right-8 text-white/50 text-sm font-mono">
-              {lightboxIndex + 1} / {images.length}
-            </p>
           </motion.div>
         )}
       </AnimatePresence>

@@ -33,12 +33,12 @@ const item = {
 
 const CategoryGrid = () => {
   return (
-    <section className="py-20 px-6">
+    <section className="py-12 sm:py-20 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-3">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-foreground mb-2 sm:mb-3">
           Browse by Category
         </h2>
-        <p className="text-muted-foreground mb-10 max-w-lg">
+        <p className="text-muted-foreground mb-6 sm:mb-10 max-w-lg text-sm sm:text-base">
           Every listing is vetted. Every business is local. Find exactly what you need in Alief.
         </p>
 
@@ -47,7 +47,7 @@ const CategoryGrid = () => {
           whileInView="show"
           viewport={{ once: true, margin: "-50px" }}
           variants={container}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4"
+          className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4"
         >
           {categories.map((cat) => {
             const Icon = cat.icon;
@@ -58,13 +58,13 @@ const CategoryGrid = () => {
               >
                 <Link
                   to={`/category/${cat.name.toLowerCase().replace(/\s/g, "-")}`}
-                  className="group block bg-card border rounded-xl p-6 hover:scale-[1.01] transition-all duration-300 shadow-card cursor-pointer"
+                  className="group block bg-card border rounded-xl p-3 sm:p-6 hover:scale-[1.01] transition-all duration-300 shadow-card cursor-pointer"
                 >
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 ${cat.color}`}>
-                    <Icon size={20} strokeWidth={1.5} />
+                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center mb-2 sm:mb-4 ${cat.color}`}>
+                    <Icon size={16} className="sm:w-5 sm:h-5" strokeWidth={1.5} />
                   </div>
-                  <p className="font-semibold text-foreground text-sm mb-1">{cat.name}</p>
-                  <p className="text-xs text-muted-foreground">{cat.count} listings in Alief</p>
+                  <p className="font-semibold text-foreground text-xs sm:text-sm mb-0.5 sm:mb-1 truncate">{cat.name}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">{cat.count} listings</p>
                 </Link>
               </motion.div>
             );
