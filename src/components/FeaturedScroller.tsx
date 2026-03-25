@@ -106,7 +106,7 @@ const FeaturedScroller = () => {
         <div className="relative">
           <button
             onClick={() => emblaApi?.scrollPrev()}
-            className="absolute -left-3 md:-left-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
+            className="absolute left-1 md:left-2 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
             disabled={!canScrollPrev}
             aria-label="Previous"
           >
@@ -114,14 +114,14 @@ const FeaturedScroller = () => {
           </button>
           <button
             onClick={() => emblaApi?.scrollNext()}
-            className="absolute -right-3 md:-right-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
+            className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
             disabled={!canScrollNext}
             aria-label="Next"
           >
             <ChevronRight size={22} />
           </button>
 
-          <div className="overflow-hidden" ref={emblaRef}>
+          <div className="overflow-hidden px-14 md:px-16" ref={emblaRef}>
             <div className="flex -ml-4">
               {featuredSlides.map((slide) => (
                 <div
