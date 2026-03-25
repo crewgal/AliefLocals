@@ -5,6 +5,7 @@ import SocialLayout from "@/layouts/SocialLayout";
 import CreatePost from "@/components/social/CreatePost";
 import PostCard from "@/components/social/PostCard";
 import RightSidebar from "@/components/social/RightSidebar";
+import FoundingSponsorStrip from "@/components/FoundingSponsorStrip";
 import AuthModal from "@/components/AuthModal";
 import { Loader2, Users, MessageCircle, ImagePlus, Video, Home, Monitor } from "lucide-react";
 import { listPosts, type Post } from "@/lib/api";
@@ -120,6 +121,7 @@ const FeedPage = () => {
     <SocialLayout>
       <div className="flex max-w-6xl mx-auto">
         <div className="flex-1 max-w-2xl mx-auto p-4 space-y-4">
+          <FoundingSponsorStrip />
           <CreatePost onPostCreated={fetchPosts} />
 
           {loading ? (
