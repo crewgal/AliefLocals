@@ -126,21 +126,21 @@ const FeaturedScroller = () => {
               {featuredSlides.map((slide) => (
                 <div
                   key={slide.name}
-                  className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0 pl-4"
+                  className="flex-[0_0_90%] sm:flex-[0_0_55%] lg:flex-[0_0_40%] min-w-0 pl-4"
                 >
                   {slide.type === "image-ad" ? (
                       <div className="block h-full">
-                        <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full min-h-[280px] border border-white/10 bg-[hsl(215,65%,18%)] p-4 flex flex-col items-center justify-center relative">
+                        <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full min-h-[400px] border border-white/10 bg-[hsl(215,65%,18%)] p-5 flex flex-col items-center justify-center relative">
                           <img
                             src={slide.image}
                             alt={slide.name}
-                            className="block w-[92%] h-auto object-contain object-center mx-auto mt-2"
+                            className="block w-[96%] h-auto object-contain object-center mx-auto mt-2"
                           />
                         </div>
                       </div>
                   ) : slide.type === "cta" ? (
                     <Link to="/get-listed" className="block h-full">
-                      <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-6 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[280px]">
+                      <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-8 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[400px]">
                         <div className="w-16 h-16 rounded-full bg-[hsl(30,80%,50%,0.2)] flex items-center justify-center mb-4">
                           <Plus size={28} className="text-[hsl(30,80%,65%)]" />
                         </div>
