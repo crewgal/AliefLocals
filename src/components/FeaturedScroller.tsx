@@ -57,39 +57,11 @@ const featuredSlides: FeaturedSlide[] = [
   },
 ];
 
-const tierBadge: Record<string, { label: string; className: string }> = {
-  gold: { label: "⭐ Gold", className: "bg-yellow-400/20 text-yellow-300" },
-  silver: { label: "Silver", className: "bg-white/10 text-white/70" },
-  bronze: { label: "Bronze", className: "bg-orange-400/20 text-orange-300" },
-};
-
 const FeaturedScroller = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const [showAuth, setShowAuth] = useState(false);
-  const [pendingSlug, setPendingSlug] = useState<string | null>(null);
-
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start", skipSnaps: false },
     [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
-
-  const handleBusinessClick = (slug: string) => {
-    if (user) {
-      navigate(`/business/${slug}`);
-    } else {
-      setPendingSlug(slug);
-      setShowAuth(true);
-    }
-  };
-
-  const handleAuthClose = () => {
-    setShowAuth(false);
-    if (pendingSlug && user) {
-      navigate(`/business/${pendingSlug}`);
-      setPendingSlug(null);
-    }
-  };
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
