@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Star, Loader2 } from "lucide-react";
+import { Star, Loader2, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "./AuthModal";
+import TranslateButton from "@/components/TranslateButton";
 import { motion } from "framer-motion";
 import { createReview, listReviews, type Review } from "@/lib/api";
 
