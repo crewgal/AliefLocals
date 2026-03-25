@@ -9,6 +9,7 @@ import LeadMarketplace from "@/components/business/LeadMarketplace";
 import ApplyFeatured from "@/components/business/ApplyFeatured";
 import FoundingSponsorStrip from "@/components/FoundingSponsorStrip";
 import { supabase } from "@/integrations/supabase/client";
+import { motion } from "framer-motion";
 import {
   Building2,
   Briefcase,
