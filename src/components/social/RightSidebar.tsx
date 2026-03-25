@@ -148,6 +148,9 @@ const RightSidebar = () => {
         <SocialMediaLinks variant="dark" size="sm" />
       </div>
 
+      {/* Founding Sponsor Ad */}
+      <SponsorAdBanner />
+
       <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
     </aside>
   );

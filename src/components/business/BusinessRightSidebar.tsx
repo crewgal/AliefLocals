@@ -87,6 +87,9 @@ const BusinessRightSidebar = () => {
           ))}
         </div>
       </div>
+
+      {/* Founding Sponsor Ad */}
+      <SponsorAdBanner />
     </aside>
   );
 };
