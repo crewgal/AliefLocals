@@ -131,7 +131,7 @@ const FoundingSponsorsPage = () => {
                     </a>
                   ) : !isFilled ? (
                     <Link to="/get-listed" className="text-primary text-xs font-semibold hover:underline">
-                      Claim This Spot →
+                      Apply to Be a Founder →
                     </Link>
                   ) : null}
                 </motion.div>
