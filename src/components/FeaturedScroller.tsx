@@ -175,7 +175,7 @@ const FeaturedScroller = () => {
                         <img
                           src={slide.image}
                           alt={slide.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                         />
                       </div>
                     </Link>
