@@ -4,6 +4,7 @@ import { UserPlus, ArrowRight, MapPin, Star, Briefcase, CalendarDays } from "luc
 import { Link } from "react-router-dom";
 import AuthModal from "@/components/AuthModal";
 import SocialMediaLinks from "@/components/SocialMediaLinks";
+import SponsorAdBanner from "@/components/SponsorAdBanner";
 import { listPeople, listBusinesses, type Profile, type Business } from "@/lib/api";
 
 const RightSidebar = () => {
