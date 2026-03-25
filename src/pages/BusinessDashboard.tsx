@@ -27,6 +27,19 @@ const BusinessDashboard = () => {
   const { user, loading, signOut } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
+  const [businessName, setBusinessName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("businesses")
+      .select("name")
+      .eq("owner_id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data?.name) setBusinessName(data.name);
+      });
+  }, [user]);
 
   if (loading) {
     return (
