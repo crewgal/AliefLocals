@@ -58,7 +58,8 @@ const TopBar = () => {
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Alief Locals" className="h-7" />
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <LanguageSwitcher />
           {user ? (
             <>
               <button className="p-2 rounded-lg hover:bg-muted text-muted-foreground">
