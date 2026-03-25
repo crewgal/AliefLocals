@@ -161,27 +161,38 @@ const ReviewSection = ({ businessId }: ReviewSectionProps) => {
         </p>
       ) : (
         <div className="space-y-4">
-          {reviews.map((review) => (
-            <div key={review.id} className="space-y-2 border-t pt-4 first:border-0 first:pt-0">
-              <div className="flex items-center gap-1">
-                {Array.from({ length: review.rating }).map((_, j) => (
-                  <Star key={j} size={14} className="fill-primary text-primary" />
-                ))}
-                {Array.from({ length: 5 - review.rating }).map((_, j) => (
-                  <Star key={j} size={14} className="text-muted-foreground" />
-                ))}
+          {reviews.map((review) => {
+            const [translated, setTranslated] = useState<string | null>(null);
+            return (
+              <div key={review.id} className="space-y-2 border-t pt-4 first:border-0 first:pt-0">
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: review.rating }).map((_, j) => (
+                    <Star key={j} size={14} className="fill-primary text-primary" />
+                  ))}
+                  {Array.from({ length: 5 - review.rating }).map((_, j) => (
+                    <Star key={j} size={14} className="text-muted-foreground" />
+                  ))}
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold text-foreground">
+                    {review.profiles?.display_name ?? "Anonymous"}
+                  </p>
+                  <span className="inline-flex items-center gap-1 text-[10px] font-medium text-green-600 bg-green-500/10 px-2 py-0.5 rounded-full">
+                    <ShieldCheck size={10} /> Verified Resident
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {translated || review.comment}
+                </p>
+                <div className="flex items-center gap-3">
+                  <p className="text-xs text-muted-foreground">
+                    {new Date(review.created_at).toLocaleDateString()}
+                  </p>
+                  <TranslateButton text={review.comment} onTranslated={setTranslated} />
+                </div>
               </div>
-              <p className="text-sm font-semibold text-foreground">
-                {review.profiles?.display_name ?? "Anonymous"}
-              </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {review.comment}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {new Date(review.created_at).toLocaleDateString()}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
