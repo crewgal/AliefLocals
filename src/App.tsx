@@ -18,6 +18,8 @@ import JobsPage from "./pages/JobsPage";
 import PostJobPage from "./pages/PostJobPage";
 import LostFoundPage from "./pages/LostFoundPage";
 import BusinessSignupPage from "./pages/BusinessSignupPage";
+import FoundingSponsorsPage from "./pages/FoundingSponsorsPage";
+import DisasterReliefPage from "./pages/DisasterReliefPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,6 +47,8 @@ const App = () => (
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/post-job" element={<PostJobPage />} />
             <Route path="/lost-found" element={<LostFoundPage />} />
+            <Route path="/founding-sponsors" element={<FoundingSponsorsPage />} />
+            <Route path="/disaster-relief" element={<DisasterReliefPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

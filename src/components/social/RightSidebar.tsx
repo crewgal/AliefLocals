@@ -4,6 +4,7 @@ import { UserPlus, ArrowRight, MapPin, Star, Briefcase, CalendarDays } from "luc
 import { Link } from "react-router-dom";
 import AuthModal from "@/components/AuthModal";
 import SocialMediaLinks from "@/components/SocialMediaLinks";
+import SponsorAdBanner from "@/components/SponsorAdBanner";
 import { listPeople, listBusinesses, type Profile, type Business } from "@/lib/api";
 
 const RightSidebar = () => {
@@ -146,6 +147,9 @@ const RightSidebar = () => {
         <h3 className="text-sm font-serif font-semibold text-foreground mb-2">Community</h3>
         <SocialMediaLinks variant="dark" size="sm" />
       </div>
+
+      {/* Founding Sponsor Ad */}
+      <SponsorAdBanner />
 
       <AuthModal open={showAuth} onClose={() => setShowAuth(false)} />
     </aside>

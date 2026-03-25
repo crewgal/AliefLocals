@@ -76,7 +76,7 @@ const FeaturedScroller = () => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="py-12 px-6 bg-[hsl(200,25%,12%)] relative overflow-hidden">
+    <section className="py-8 sm:py-12 px-4 sm:px-6 bg-[hsl(200,25%,12%)] relative overflow-hidden">
       {/* Subtle decorative elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(30,80%,50%,0.08),transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(200,60%,40%,0.06),transparent_60%)]" />
@@ -87,17 +87,17 @@ const FeaturedScroller = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center text-center mb-8"
+          className="flex flex-col items-center text-center mb-6 sm:mb-8"
         >
-          <div className="inline-flex items-center gap-2 bg-[hsl(30,80%,50%,0.15)] text-[hsl(30,80%,65%)] px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
+          <div className="inline-flex items-center gap-2 bg-[hsl(30,80%,50%,0.15)] text-[hsl(30,80%,65%)] px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-2 sm:mb-3">
             <Star size={14} /> Sponsored
           </div>
-          <h2 className="text-2xl md:text-3xl font-serif font-semibold text-white mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-semibold text-white mb-3 sm:mb-4">
             Featured Businesses
           </h2>
           <Link
             to="/get-listed"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[hsl(30,80%,50%)] text-white font-semibold text-sm hover:bg-[hsl(30,80%,45%)] transition-colors"
+            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[hsl(30,80%,50%)] text-white font-semibold text-xs sm:text-sm hover:bg-[hsl(30,80%,45%)] transition-colors"
           >
             Advertise Here →
           </Link>
@@ -106,31 +106,31 @@ const FeaturedScroller = () => {
         <div className="relative">
           <button
             onClick={() => emblaApi?.scrollPrev()}
-            className="absolute left-1 md:left-2 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
+            className="absolute -left-1 sm:left-1 md:left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
             disabled={!canScrollPrev}
             aria-label="Previous"
           >
-            <ChevronLeft size={22} />
+            <ChevronLeft size={18} />
           </button>
           <button
             onClick={() => emblaApi?.scrollNext()}
-            className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
+            className="absolute -right-1 sm:right-1 md:right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[hsl(43,80%,50%)]/20 backdrop-blur-sm border-2 border-[hsl(43,80%,55%)] flex items-center justify-center hover:bg-[hsl(43,80%,50%)]/40 transition-colors disabled:opacity-30 text-[hsl(43,80%,55%)] animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite] shadow-[0_0_15px_hsl(43,80%,50%,0.3)]"
             disabled={!canScrollNext}
             aria-label="Next"
           >
-            <ChevronRight size={22} />
+            <ChevronRight size={18} />
           </button>
 
-          <div className="overflow-hidden px-14 md:px-16" ref={emblaRef}>
-            <div className="flex -ml-4">
+          <div className="overflow-hidden px-10 sm:px-14 md:px-16" ref={emblaRef}>
+            <div className="flex -ml-3 sm:-ml-4">
               {featuredSlides.map((slide) => (
                 <div
                   key={slide.name}
-                  className="flex-[0_0_90%] sm:flex-[0_0_55%] lg:flex-[0_0_40%] min-w-0 pl-4"
+                  className="flex-[0_0_85%] sm:flex-[0_0_55%] lg:flex-[0_0_40%] min-w-0 pl-3 sm:pl-4"
                 >
                   {slide.type === "image-ad" ? (
                       <div className="block h-full">
-                        <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full min-h-[400px] border border-white/10 bg-[hsl(215,65%,18%)] p-5 flex flex-col items-center justify-center relative">
+                        <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full min-h-[280px] sm:min-h-[400px] border border-white/10 bg-[hsl(215,65%,18%)] p-3 sm:p-5 flex flex-col items-center justify-center relative">
                           <img
                             src={slide.image}
                             alt={slide.name}
@@ -140,20 +140,20 @@ const FeaturedScroller = () => {
                       </div>
                   ) : slide.type === "cta" ? (
                     <Link to="/get-listed" className="block h-full">
-                      <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-8 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[400px]">
-                        <div className="w-16 h-16 rounded-full bg-[hsl(30,80%,50%,0.2)] flex items-center justify-center mb-4">
-                          <Plus size={28} className="text-[hsl(30,80%,65%)]" />
+                      <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-5 sm:p-8 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[280px] sm:min-h-[400px]">
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[hsl(30,80%,50%,0.2)] flex items-center justify-center mb-3 sm:mb-4">
+                          <Plus size={22} className="text-[hsl(30,80%,65%)]" />
                         </div>
-                        <h3 className="text-lg font-serif font-bold text-white mb-2">
+                        <h3 className="text-base sm:text-lg font-serif font-bold text-white mb-1 sm:mb-2">
                           Your Business
                         </h3>
-                        <h3 className="text-lg font-serif font-bold text-[hsl(30,80%,60%)] mb-3">
+                        <h3 className="text-base sm:text-lg font-serif font-bold text-[hsl(30,80%,60%)] mb-2 sm:mb-3">
                           Can Be Here!
                         </h3>
-                        <p className="text-white/50 text-xs mb-4">
+                        <p className="text-white/50 text-[10px] sm:text-xs mb-3 sm:mb-4">
                           Starting at just $25/mo
                         </p>
-                        <span className="inline-flex items-center gap-1.5 text-[hsl(30,80%,60%)] text-sm font-semibold">
+                        <span className="inline-flex items-center gap-1.5 text-[hsl(30,80%,60%)] text-xs sm:text-sm font-semibold">
                           Get Featured <ExternalLink size={13} />
                         </span>
                       </div>
@@ -174,7 +174,6 @@ const FeaturedScroller = () => {
           </Link>
         </div>
       </div>
-      
     </section>
   );
 };

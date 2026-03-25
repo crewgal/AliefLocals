@@ -15,30 +15,29 @@ const categories = [
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-white/70 pt-16 pb-8 px-6">
+    <footer className="bg-foreground text-white/70 pt-10 sm:pt-16 pb-6 sm:pb-8 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10 mb-8 sm:mb-12">
           {/* Brand */}
-          <div className="md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <Link to="/">
-              <img src={logo} alt="Alief Locals" className="h-14" />
+              <img src={logo} alt="Alief Locals" className="h-10 sm:h-14" />
             </Link>
-            <p className="text-sm mt-3 leading-relaxed text-white/50">
+            <p className="text-xs sm:text-sm mt-3 leading-relaxed text-white/50">
               Connecting the Alief community with trusted, local businesses since day one.
-              Free listings. Invitation only. Real neighbors.
             </p>
-            <SocialMediaLinks variant="light" size="sm" className="mt-5" />
+            <SocialMediaLinks variant="light" size="sm" className="mt-4 sm:mt-5" />
           </div>
 
           {/* Categories */}
           <div>
-            <h4 className="text-white font-semibold text-sm mb-4">Categories</h4>
-            <ul className="space-y-2">
+            <h4 className="text-white font-semibold text-xs sm:text-sm mb-3 sm:mb-4">Categories</h4>
+            <ul className="space-y-1.5 sm:space-y-2">
               {categories.map((cat) => (
                 <li key={cat.slug}>
                   <Link
                     to={`/category/${cat.slug}`}
-                    className="text-sm hover:text-white transition-colors"
+                    className="text-xs sm:text-sm hover:text-white transition-colors"
                   >
                     {cat.name}
                   </Link>
@@ -49,15 +48,17 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-semibold text-sm mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li><Link to="/get-listed" className="text-sm hover:text-white transition-colors">Get Listed</Link></li>
+            <h4 className="text-white font-semibold text-xs sm:text-sm mb-3 sm:mb-4">Quick Links</h4>
+            <ul className="space-y-1.5 sm:space-y-2">
+              <li><Link to="/get-listed" className="text-xs sm:text-sm hover:text-white transition-colors">Get Listed</Link></li>
+              <li><Link to="/founding-sponsors" className="text-xs sm:text-sm hover:text-white transition-colors">Founding Sponsors</Link></li>
+              <li><Link to="/disaster-relief" className="text-xs sm:text-sm hover:text-white transition-colors">Disaster Relief</Link></li>
               <li>
                 <a
                   href="https://calendly.com/thesthillstudios/sthill-studios-website-design-marketing-and-seo-meeting"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm hover:text-white transition-colors"
+                  className="text-xs sm:text-sm hover:text-white transition-colors"
                 >
                   Book a Meeting
                 </a>
@@ -67,14 +68,14 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-semibold text-sm mb-4">Contact</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-sm">
-                <MapPin size={15} className="mt-0.5 shrink-0 text-primary/70" />
+            <h4 className="text-white font-semibold text-xs sm:text-sm mb-3 sm:mb-4">Contact</h4>
+            <ul className="space-y-2 sm:space-y-3">
+              <li className="flex items-start gap-2 text-xs sm:text-sm">
+                <MapPin size={14} className="mt-0.5 shrink-0 text-primary/70" />
                 Alief, Houston, TX 77083
               </li>
-              <li className="flex items-start gap-2 text-sm">
-                <Mail size={15} className="mt-0.5 shrink-0 text-primary/70" />
+              <li className="flex items-start gap-2 text-xs sm:text-sm">
+                <Mail size={14} className="mt-0.5 shrink-0 text-primary/70" />
                 hello@alieflocals.com
               </li>
             </ul>
@@ -82,11 +83,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/30">
+        <div className="border-t border-white/10 pt-4 sm:pt-6 flex flex-col md:flex-row items-center justify-between gap-2 sm:gap-3">
+          <p className="text-[10px] sm:text-xs text-white/30">
             © {new Date().getFullYear()} Alief Locals. All rights reserved.
           </p>
-          <p className="text-xs text-white/30">
+          <p className="text-[10px] sm:text-xs text-white/30">
             Built with ❤️ for the Alief community
           </p>
         </div>
