@@ -19,6 +19,7 @@ const categories = [
   { name: "Fitness", icon: Dumbbell, count: 10, color: "bg-lime-50 text-lime-600 border-lime-200" },
   { name: "Shopping", icon: ShoppingBag, count: 14, color: "bg-pink-50 text-pink-600 border-pink-200" },
   { name: "Graphic Design", icon: Palette, count: 1, color: "bg-cyan-50 text-cyan-600 border-cyan-200" },
+  { name: "Schools", icon: School, count: 6, color: "bg-yellow-50 text-yellow-600 border-yellow-200" },
 ];
 
 const container = {
