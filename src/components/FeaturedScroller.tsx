@@ -201,9 +201,6 @@ const FeaturedScroller = () => {
                             alt={slide.name}
                             className="block w-[92%] h-auto object-contain object-center mx-auto mt-2"
                           />
-                          <div className="mt-3 flex items-center gap-1.5 text-[hsl(30,80%,60%)] text-sm font-semibold">
-                            Visit <ArrowRight size={16} className="animate-[pulse_1.5s_ease-in-out_infinite]" />
-                          </div>
                         </div>
                     </a>
                   ) : slide.type === "cta" ? (
