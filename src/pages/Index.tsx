@@ -5,6 +5,7 @@ import CategoryGrid from "@/components/CategoryGrid";
 import FounderSection from "@/components/FounderSection";
 import FeaturedScroller from "@/components/FeaturedScroller";
 import FeaturedBusinesses from "@/components/FeaturedBusinesses";
+import FoundingSponsorsSection from "@/components/FoundingSponsorsSection";
 import Testimonials from "@/components/Testimonials";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import JobsSection from "@/components/JobsSection";
@@ -21,6 +22,7 @@ const Index = () => {
       <CommunityStats />
       <CategoryGrid />
       <FounderSection />
+      <FoundingSponsorsSection />
       <FeaturedBusinesses />
       <Testimonials />
       <JobsSection />
