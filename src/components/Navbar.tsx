@@ -3,6 +3,7 @@ import { Menu, X, User, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "./AuthModal";
+import LanguageSwitcher from "./LanguageSwitcher";
 import logo from "@/assets/alief-locals-logo.png";
 
 const categories = [
