@@ -41,6 +41,7 @@ const BusinessSignupPage = () => {
   const [socialMedia, setSocialMedia] = useState("");
   const [description, setDescription] = useState("");
   const [logoFileName, setLogoFileName] = useState("");
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
 
   const welcomeName = businessName.trim() || user?.displayName || "Business Name";
 
