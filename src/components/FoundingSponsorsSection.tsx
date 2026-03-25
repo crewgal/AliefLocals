@@ -12,15 +12,7 @@ export interface FoundingSponsor {
 }
 
 export const foundingSponsors: FoundingSponsor[] = [
-  {
-    name: "STHill Studios",
-    description: "Web design, marketing, and SEO agency serving Alief and the Houston area for 18+ years.",
-    initials: "SS",
-    color: "hsl(210 65% 35%)",
-    website: "https://sthillstudios.com",
-    slug: "sthillstudios",
-  },
-  // Slots 2–10 are open for founding sponsors
+  { name: "Founding Sponsor #1", description: "This spot is reserved for a founding sponsor. Lifetime promotion and recognition.", initials: "01", color: "hsl(210 65% 35%)" },
   { name: "Founding Sponsor #2", description: "This spot is reserved for a founding sponsor. Lifetime promotion and recognition.", initials: "02", color: "hsl(30 70% 45%)" },
   { name: "Founding Sponsor #3", description: "This spot is reserved for a founding sponsor. Lifetime promotion and recognition.", initials: "03", color: "hsl(150 50% 40%)" },
   { name: "Founding Sponsor #4", description: "This spot is reserved for a founding sponsor. Lifetime promotion and recognition.", initials: "04", color: "hsl(340 55% 45%)" },
