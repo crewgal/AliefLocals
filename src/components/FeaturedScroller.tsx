@@ -26,7 +26,7 @@ const featuredSlides: FeaturedSlide[] = [
     name: "STHill Studios",
     slug: "sthillstudios",
     image: sthillAd,
-    link: "/get-listed",
+    link: "https://calendly.com/thesthillstudios/sthill-studios-website-design-marketing-and-seo-meeting",
   },
   {
     type: "business",
