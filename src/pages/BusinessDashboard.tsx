@@ -7,6 +7,7 @@ import BusinessSidebar from "@/components/business/BusinessSidebar";
 import BusinessRightSidebar from "@/components/business/BusinessRightSidebar";
 import LeadMarketplace from "@/components/business/LeadMarketplace";
 import ApplyFeatured from "@/components/business/ApplyFeatured";
+import FoundingSponsorStrip from "@/components/FoundingSponsorStrip";
 import { motion } from "framer-motion";
 import {
   Building2,
