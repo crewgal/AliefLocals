@@ -24,7 +24,8 @@ const TopBar = () => {
             />
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          <LanguageSwitcher />
           {user ? (
             <>
               <button className="p-2 rounded-full hover:bg-muted text-muted-foreground relative">
