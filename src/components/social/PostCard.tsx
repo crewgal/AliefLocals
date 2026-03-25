@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Heart, MessageCircle, MoreHorizontal, Trash2 } from "lucide-react";
+import TranslateButton from "@/components/TranslateButton";
 import { useAuth } from "@/hooks/useAuth";
 import { formatDistanceToNow } from "date-fns";
 import {
