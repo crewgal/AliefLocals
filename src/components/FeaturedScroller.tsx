@@ -171,11 +171,11 @@ const FeaturedScroller = () => {
                 >
                   {slide.type === "image-ad" ? (
                       <Link to={slide.link || "/get-listed"} className="block h-full">
-                        <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full min-h-[280px] border border-white/10 bg-[hsl(215,65%,18%)] flex items-center justify-center px-3 pt-5 pb-3">
+                        <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full min-h-[280px] border border-white/10 bg-[hsl(215,65%,18%)] p-4 flex items-center justify-center">
                           <img
                             src={slide.image}
                             alt={slide.name}
-                            className="block w-full h-full max-h-full object-contain object-center"
+                            className="block w-[92%] h-auto object-contain object-center mx-auto mt-2"
                           />
                         </div>
                     </Link>
