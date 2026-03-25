@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Bell, LogOut, Search, Plus } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import logo from "@/assets/alief-locals-logo.png";
 
 const TopBar = () => {
