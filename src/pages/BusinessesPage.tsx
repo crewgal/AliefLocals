@@ -3,6 +3,7 @@ import SocialLayout from "@/layouts/SocialLayout";
 import { Link } from "react-router-dom";
 import { Star, MapPin, Loader2, Search } from "lucide-react";
 import { listBusinesses, type Business } from "@/lib/api";
+import AIMatchmaker from "@/components/AIMatchmaker";
 
 const categories = [
   "All", "restaurants", "mechanics", "dentists", "car-insurance",
@@ -36,6 +37,9 @@ const BusinessesPage = () => {
     <SocialLayout>
       <div className="max-w-3xl mx-auto p-4 space-y-4">
         <h1 className="text-xl font-serif font-bold text-foreground">Local Businesses</h1>
+
+        {/* AI Matchmaker */}
+        <AIMatchmaker />
 
         {/* Search */}
         <div className="relative">

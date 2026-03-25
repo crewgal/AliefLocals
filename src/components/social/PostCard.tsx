@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Heart, MessageCircle, MoreHorizontal, Trash2 } from "lucide-react";
+import TranslateButton from "@/components/TranslateButton";
 import { useAuth } from "@/hooks/useAuth";
 import { formatDistanceToNow } from "date-fns";
 import {
@@ -26,6 +27,7 @@ const PostCard = ({ post, onDeleted }: PostCardProps) => {
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [showMenu, setShowMenu] = useState(false);
+  const [translatedContent, setTranslatedContent] = useState<string | null>(null);
 
   useEffect(() => {
     fetchLikes();
@@ -107,7 +109,14 @@ const PostCard = ({ post, onDeleted }: PostCardProps) => {
       </div>
 
       {/* Content */}
-      {post.content && <p className="px-4 pb-3 text-sm text-foreground leading-relaxed">{post.content}</p>}
+      {post.content && (
+        <div className="px-4 pb-3">
+          <p className="text-sm text-foreground leading-relaxed">{translatedContent || post.content}</p>
+          <div className="mt-1">
+            <TranslateButton text={post.content} onTranslated={setTranslatedContent} />
+          </div>
+        </div>
+      )}
 
       {/* Media */}
       {post.media_url && (
