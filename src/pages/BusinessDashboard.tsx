@@ -113,7 +113,7 @@ const BusinessDashboard = () => {
           <div className="border-b bg-card px-6 py-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
               <h1 className="text-xl font-serif font-semibold text-foreground">
-                Welcome, {user?.displayName || user?.email?.split("@")[0] || "Business Owner"}
+                Welcome, {user?.displayName || user?.email?.split("@")[0] || "Business Owner"}{businessName ? ` from ${businessName}` : ""}
               </h1>
               <div className="flex items-center gap-2">
                 <Link
