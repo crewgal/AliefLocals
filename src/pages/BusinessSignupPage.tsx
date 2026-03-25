@@ -177,15 +177,21 @@ const BusinessSignupPage = () => {
               <div className="flex flex-col items-center gap-4">
                 <label
                   htmlFor="business-logo-upload"
-                  className="flex aspect-square w-full max-w-[240px] cursor-pointer flex-col items-center justify-center rounded-full border-4 border-border bg-muted px-8 text-center transition-colors hover:border-primary/40"
+                  className="flex aspect-square w-full max-w-[240px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-full border-4 border-border bg-muted px-8 text-center transition-colors hover:border-primary/40"
                 >
-                  <UploadCloud size={34} className="mb-4 text-primary" />
-                  <span className="text-2xl font-semibold leading-tight text-accent">
-                    Upload Your Logo
-                  </span>
-                  <span className="mt-4 rounded-xl border bg-card px-5 py-3 text-sm font-semibold text-foreground shadow-sm">
-                    Click to Upload
-                  </span>
+                  {logoPreview ? (
+                    <img src={logoPreview} alt="Logo preview" className="h-full w-full object-cover" />
+                  ) : (
+                    <>
+                      <UploadCloud size={34} className="mb-4 text-primary" />
+                      <span className="text-2xl font-semibold leading-tight text-accent">
+                        Upload Your Logo
+                      </span>
+                      <span className="mt-4 rounded-xl border bg-card px-5 py-3 text-sm font-semibold text-foreground shadow-sm">
+                        Click to Upload
+                      </span>
+                    </>
+                  )}
                 </label>
                 <p className="text-center text-sm text-muted-foreground">
                   {logoFileName || "No file chosen"}
