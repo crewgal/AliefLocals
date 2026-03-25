@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
@@ -8,7 +8,7 @@ import BusinessRightSidebar from "@/components/business/BusinessRightSidebar";
 import LeadMarketplace from "@/components/business/LeadMarketplace";
 import ApplyFeatured from "@/components/business/ApplyFeatured";
 import FoundingSponsorStrip from "@/components/FoundingSponsorStrip";
-import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Building2,
   Briefcase,
