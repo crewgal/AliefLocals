@@ -5,7 +5,7 @@ import SocialLayout from "@/layouts/SocialLayout";
 import CreatePost from "@/components/social/CreatePost";
 import PostCard from "@/components/social/PostCard";
 import RightSidebar from "@/components/social/RightSidebar";
-import FoundingSponsorStrip from "@/components/FoundingSponsorStrip";
+
 import AuthModal from "@/components/AuthModal";
 import { Loader2, Users, MessageCircle, ImagePlus, Video, Home, Monitor } from "lucide-react";
 import { listPosts, type Post } from "@/lib/api";
