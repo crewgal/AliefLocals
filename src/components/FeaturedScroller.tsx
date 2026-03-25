@@ -162,35 +162,7 @@ const FeaturedScroller = () => {
                         </span>
                       </div>
                     </Link>
-                  ) : (
-                    <div onClick={() => handleBusinessClick(slide.slug)} className="block h-full cursor-pointer">
-                      <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-6 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[280px]">
-                        <div className="flex items-center gap-2 mb-4">
-                          <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${tierBadge[slide.tier!].className}`}>
-                            {tierBadge[slide.tier!].label}
-                          </span>
-                        </div>
-
-                        <div
-                          className="w-16 h-16 rounded-full flex items-center justify-center mb-4 text-white text-lg font-serif font-bold shadow-md"
-                          style={{ backgroundColor: slide.color }}
-                        >
-                          {slide.initials}
-                        </div>
-
-                        <h3 className="text-lg font-serif font-bold text-white mb-2">
-                          {slide.name}
-                        </h3>
-                        <p className="text-xs text-white/50 leading-relaxed mb-4 line-clamp-3">
-                          {slide.description}
-                        </p>
-
-                        <span className="inline-flex items-center gap-1.5 text-[hsl(30,80%,60%)] text-sm font-semibold">
-                          View Profile <ArrowRight size={13} />
-                        </span>
-                      </div>
-                    </div>
-                  )}
+                  ) : null}
                 </div>
               ))}
             </div>
