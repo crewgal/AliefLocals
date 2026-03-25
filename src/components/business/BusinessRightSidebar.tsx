@@ -1,5 +1,6 @@
 import { ArrowRight, Star, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import SponsorAdBanner from "@/components/SponsorAdBanner";
 
 const BusinessRightSidebar = () => {
   return (
