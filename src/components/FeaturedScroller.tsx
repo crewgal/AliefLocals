@@ -2,20 +2,14 @@ import { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
-import { ExternalLink, Star, ChevronLeft, ChevronRight, Plus, ArrowRight } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import AuthModal from "@/components/AuthModal";
+import { ExternalLink, Star, ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 import sthillAd from "@/assets/ads/sthillstudios-ad.png";
 
 interface FeaturedSlide {
-  type: "image-ad" | "business" | "cta";
+  type: "image-ad" | "cta";
   name: string;
-  description?: string;
-  initials?: string;
-  color?: string;
   slug: string;
-  tier?: "gold" | "silver" | "bronze";
   image?: string;
   link?: string;
 }
@@ -26,103 +20,44 @@ const featuredSlides: FeaturedSlide[] = [
     name: "STHill Studios",
     slug: "sthillstudios",
     image: sthillAd,
-    link: "https://calendly.com/thesthillstudios/sthill-studios-website-design-marketing-and-seo-meeting",
-  },
-  {
-    type: "business",
-    name: "Trojan Grill",
-    description: "American Cuisine — burgers, sandwiches, salads, and live music every month.",
-    initials: "TG",
-    color: "hsl(30 80% 50%)",
-    slug: "trojan-grill",
-    tier: "gold",
-  },
-  {
-    type: "business",
-    name: "Beth Baldwin Real Estate",
-    description: "Exceptional service and effective marketing for your home buying journey.",
-    initials: "BB",
-    color: "hsl(210 30% 30%)",
-    slug: "beth-baldwin-real-estate",
-    tier: "gold",
   },
   {
     type: "cta",
-    name: "Your Business Here",
+    name: "Your Business Here 1",
     slug: "get-listed",
     link: "/get-listed",
   },
   {
-    type: "business",
-    name: "Sirius and the Wren",
-    description: "Heart-centered Reiki healing for people and animals, promoting natural energy flow.",
-    initials: "SW",
-    color: "hsl(210 50% 40%)",
-    slug: "sirius-and-the-wren",
-    tier: "silver",
+    type: "cta",
+    name: "Your Business Here 2",
+    slug: "get-listed",
+    link: "/get-listed",
   },
   {
-    type: "business",
-    name: "Infinity Coordinator",
-    description: "Expert event decorator creating affordable weddings and celebrations with creativity.",
-    initials: "IC",
-    color: "hsl(340 60% 50%)",
-    slug: "infinity-coordinator",
-    tier: "silver",
+    type: "cta",
+    name: "Your Business Here 3",
+    slug: "get-listed",
+    link: "/get-listed",
   },
   {
-    type: "business",
-    name: "Pigeon & Co",
-    description: "Unique shopping with refurbished, new, artistic, and vintage finds.",
-    initials: "PC",
-    color: "hsl(150 40% 40%)",
-    slug: "pigeon-co",
-    tier: "bronze",
+    type: "cta",
+    name: "Your Business Here 4",
+    slug: "get-listed",
+    link: "/get-listed",
   },
   {
-    type: "business",
-    name: "Cindy Steele Real Estate",
-    description: "Top-producing agent helping hundreds live the American dream.",
-    initials: "CS",
-    color: "hsl(280 50% 45%)",
-    slug: "cindy-steele-real-estate",
-    tier: "bronze",
+    type: "cta",
+    name: "Your Business Here 5",
+    slug: "get-listed",
+    link: "/get-listed",
   },
 ];
 
-const tierBadge: Record<string, { label: string; className: string }> = {
-  gold: { label: "⭐ Gold", className: "bg-yellow-400/20 text-yellow-300" },
-  silver: { label: "Silver", className: "bg-white/10 text-white/70" },
-  bronze: { label: "Bronze", className: "bg-orange-400/20 text-orange-300" },
-};
-
 const FeaturedScroller = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const [showAuth, setShowAuth] = useState(false);
-  const [pendingSlug, setPendingSlug] = useState<string | null>(null);
-
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start", skipSnaps: false },
     [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
-
-  const handleBusinessClick = (slug: string) => {
-    if (user) {
-      navigate(`/business/${slug}`);
-    } else {
-      setPendingSlug(slug);
-      setShowAuth(true);
-    }
-  };
-
-  const handleAuthClose = () => {
-    setShowAuth(false);
-    if (pendingSlug && user) {
-      navigate(`/business/${pendingSlug}`);
-      setPendingSlug(null);
-    }
-  };
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -194,7 +129,7 @@ const FeaturedScroller = () => {
                   className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0 pl-4"
                 >
                   {slide.type === "image-ad" ? (
-                      <a href={slide.link} target="_blank" rel="noopener noreferrer" className="block h-full">
+                      <div className="block h-full">
                         <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full min-h-[280px] border border-white/10 bg-[hsl(215,65%,18%)] p-4 flex flex-col items-center justify-center relative">
                           <img
                             src={slide.image}
@@ -202,7 +137,7 @@ const FeaturedScroller = () => {
                             className="block w-[92%] h-auto object-contain object-center mx-auto mt-2"
                           />
                         </div>
-                    </a>
+                      </div>
                   ) : slide.type === "cta" ? (
                     <Link to="/get-listed" className="block h-full">
                       <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-6 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[280px]">
@@ -223,35 +158,7 @@ const FeaturedScroller = () => {
                         </span>
                       </div>
                     </Link>
-                  ) : (
-                    <div onClick={() => handleBusinessClick(slide.slug)} className="block h-full cursor-pointer">
-                      <div className="rounded-2xl border-2 border-dashed border-[hsl(30,80%,50%,0.5)] bg-[hsl(30,80%,50%,0.08)] p-6 h-full flex flex-col items-center justify-center text-center hover:bg-[hsl(30,80%,50%,0.15)] transition-colors duration-300 min-h-[280px]">
-                        <div className="flex items-center gap-2 mb-4">
-                          <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${tierBadge[slide.tier!].className}`}>
-                            {tierBadge[slide.tier!].label}
-                          </span>
-                        </div>
-
-                        <div
-                          className="w-16 h-16 rounded-full flex items-center justify-center mb-4 text-white text-lg font-serif font-bold shadow-md"
-                          style={{ backgroundColor: slide.color }}
-                        >
-                          {slide.initials}
-                        </div>
-
-                        <h3 className="text-lg font-serif font-bold text-white mb-2">
-                          {slide.name}
-                        </h3>
-                        <p className="text-xs text-white/50 leading-relaxed mb-4 line-clamp-3">
-                          {slide.description}
-                        </p>
-
-                        <span className="inline-flex items-center gap-1.5 text-[hsl(30,80%,60%)] text-sm font-semibold">
-                          View Profile <ArrowRight size={13} />
-                        </span>
-                      </div>
-                    </div>
-                  )}
+                  ) : null}
                 </div>
               ))}
             </div>
@@ -267,7 +174,7 @@ const FeaturedScroller = () => {
           </Link>
         </div>
       </div>
-      <AuthModal open={showAuth} onClose={handleAuthClose} />
+      
     </section>
   );
 };
