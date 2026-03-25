@@ -97,10 +97,32 @@ const tierBadge: Record<string, { label: string; className: string }> = {
 };
 
 const FeaturedScroller = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [showAuth, setShowAuth] = useState(false);
+  const [pendingSlug, setPendingSlug] = useState<string | null>(null);
+
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start", skipSnaps: false },
     [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
   );
+
+  const handleBusinessClick = (slug: string) => {
+    if (user) {
+      navigate(`/business/${slug}`);
+    } else {
+      setPendingSlug(slug);
+      setShowAuth(true);
+    }
+  };
+
+  const handleAuthClose = () => {
+    setShowAuth(false);
+    if (pendingSlug && user) {
+      navigate(`/business/${pendingSlug}`);
+      setPendingSlug(null);
+    }
+  };
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
