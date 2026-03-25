@@ -109,7 +109,14 @@ const PostCard = ({ post, onDeleted }: PostCardProps) => {
       </div>
 
       {/* Content */}
-      {post.content && <p className="px-4 pb-3 text-sm text-foreground leading-relaxed">{post.content}</p>}
+      {post.content && (
+        <div className="px-4 pb-3">
+          <p className="text-sm text-foreground leading-relaxed">{translatedContent || post.content}</p>
+          <div className="mt-1">
+            <TranslateButton text={post.content} onTranslated={setTranslatedContent} />
+          </div>
+        </div>
+      )}
 
       {/* Media */}
       {post.media_url && (
