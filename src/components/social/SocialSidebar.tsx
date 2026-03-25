@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/alief-locals-logo.png";
+import SponsorRotator from "@/components/social/SponsorRotator";
 
 const navItems = [
   { icon: Home, label: "Home", path: "/" },
