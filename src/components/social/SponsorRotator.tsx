@@ -24,7 +24,7 @@ const SponsorRotator = () => {
   return (
     <div className="rounded-xl border bg-card p-3">
       <div className="flex items-center gap-1.5 mb-2">
-        <Crown size={12} className="text-amber-500" />
+        <Crown size={12} className="text-primary" />
         <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide">
           Founding 10 Sponsors
         </span>
