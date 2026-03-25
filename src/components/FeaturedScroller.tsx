@@ -2,8 +2,10 @@ import { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
-import { ExternalLink, Star, ChevronLeft, ChevronRight, Plus } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ExternalLink, Star, ChevronLeft, ChevronRight, Plus, ArrowRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import AuthModal from "@/components/AuthModal";
 import sthillAd from "@/assets/ads/sthillstudios-ad.png";
 
 interface FeaturedSlide {
