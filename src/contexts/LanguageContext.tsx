@@ -1,13 +1,17 @@
 import { createContext, useContext, useState, useCallback, useRef, ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
-export type SupportedLang = "en" | "es" | "fr" | "zh";
+export type SupportedLang = "en" | "es" | "fr" | "zh" | "ar" | "hi" | "pt" | "ko";
 
 export const languages = [
   { code: "en" as const, label: "English", flag: "🇺🇸" },
   { code: "es" as const, label: "Español", flag: "🇲🇽" },
   { code: "fr" as const, label: "Français", flag: "🇫🇷" },
   { code: "zh" as const, label: "中文", flag: "🇨🇳" },
+  { code: "ar" as const, label: "العربية", flag: "🇸🇦" },
+  { code: "hi" as const, label: "हिन्दी", flag: "🇮🇳" },
+  { code: "pt" as const, label: "Português", flag: "🇧🇷" },
+  { code: "ko" as const, label: "한국어", flag: "🇰🇷" },
 ];
 
 interface LanguageContextType {
