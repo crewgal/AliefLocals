@@ -4,6 +4,7 @@ import {
   UtensilsCrossed, Wrench, Smile, ShieldCheck, Scissors,
   Church, Car, Stethoscope, Home, GraduationCap, Dumbbell, ShoppingBag, Palette, School,
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const categories = [
   { name: "Restaurants", icon: UtensilsCrossed, count: 24, color: "bg-orange-50 text-orange-600 border-orange-200" },
@@ -33,14 +34,16 @@ const item = {
 };
 
 const CategoryGrid = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-12 sm:py-20 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-foreground mb-2 sm:mb-3">
-          Browse by Category
+          {t("Browse by Category")}
         </h2>
         <p className="text-muted-foreground mb-6 sm:mb-10 max-w-lg text-sm sm:text-base">
-          Every listing is vetted. Every business is local. Find exactly what you need in Alief.
+          {t("Every listing is vetted. Every business is local. Find exactly what you need in Alief.")}
         </p>
 
         <motion.div
@@ -53,10 +56,7 @@ const CategoryGrid = () => {
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
-              <motion.div
-                key={cat.name}
-                variants={item}
-              >
+              <motion.div key={cat.name} variants={item}>
                 <Link
                   to={`/category/${cat.name.toLowerCase().replace(/\s/g, "-")}`}
                   className="group block bg-card border rounded-xl p-3 sm:p-6 hover:scale-[1.01] transition-all duration-300 shadow-card cursor-pointer"
@@ -64,8 +64,8 @@ const CategoryGrid = () => {
                   <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center mb-2 sm:mb-4 ${cat.color}`}>
                     <Icon size={16} className="sm:w-5 sm:h-5" strokeWidth={1.5} />
                   </div>
-                  <p className="font-semibold text-foreground text-xs sm:text-sm mb-0.5 sm:mb-1 truncate">{cat.name}</p>
-                  <p className="text-[10px] sm:text-xs text-muted-foreground">{cat.count} listings</p>
+                  <p className="font-semibold text-foreground text-xs sm:text-sm mb-0.5 sm:mb-1 truncate">{t(cat.name)}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">{cat.count} {t("listings")}</p>
                 </Link>
               </motion.div>
             );

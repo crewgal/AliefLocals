@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Users, Store, Globe2, Heart } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface StatItem {
   icon: React.ElementType;
@@ -47,6 +48,7 @@ function AnimatedNumber({ target, suffix, inView }: { target: number; suffix: st
 const CommunityStats = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section ref={ref} className="py-12 sm:py-20 px-4 sm:px-6 bg-card border-y">
@@ -59,10 +61,10 @@ const CommunityStats = () => {
           className="text-center mb-8 sm:mb-14"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-foreground mb-3">
-            Alief by the Numbers
+            {t("Alief by the Numbers")}
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto text-sm sm:text-base">
-            One of the most culturally rich neighborhoods in the entire United States.
+            {t("One of the most culturally rich neighborhoods in the entire United States.")}
           </p>
         </motion.div>
 
@@ -80,7 +82,7 @@ const CommunityStats = () => {
               >
                 <Icon size={24} className="mx-auto mb-2 sm:mb-4 text-primary/70" strokeWidth={1.5} />
                 <AnimatedNumber target={stat.value} suffix={stat.suffix} inView={inView} />
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">{stat.label}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1 sm:mt-2">{t(stat.label)}</p>
               </motion.div>
             );
           })}

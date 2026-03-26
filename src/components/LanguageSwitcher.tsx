@@ -21,19 +21,19 @@ const LanguageSwitcher = () => {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-3 py-2 rounded-full hover:bg-muted text-sm font-medium text-foreground transition-colors"
+        className="flex items-center gap-1.5 px-3 py-2 rounded-full hover:bg-primary/10 text-sm font-medium text-primary transition-colors border border-primary/30"
         title="Change language"
       >
         {isTranslating ? (
           <Loader2 size={16} className="animate-spin text-primary" />
         ) : (
-          <Globe size={16} className="text-muted-foreground" />
+          <Globe size={16} className="text-primary" />
         )}
         <span>{current?.flag}</span>
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1 z-50 bg-card border rounded-xl shadow-lg py-1 min-w-[160px]">
+        <div className="absolute right-0 top-full mt-1 z-50 bg-card border border-border rounded-xl shadow-lg py-1 min-w-[160px]">
           {languages.map((lang) => (
             <button
               key={lang.code}
@@ -41,7 +41,7 @@ const LanguageSwitcher = () => {
                 setLanguage(lang.code);
                 setOpen(false);
               }}
-              className={`flex items-center gap-2.5 w-full px-4 py-2.5 text-sm hover:bg-muted transition-colors ${
+              className={`flex items-center gap-2.5 w-full px-4 py-2.5 text-sm hover:bg-primary/10 transition-colors ${
                 language === lang.code ? "text-primary font-semibold" : "text-foreground"
               }`}
             >
