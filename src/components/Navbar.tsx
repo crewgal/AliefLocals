@@ -77,6 +77,7 @@ const Navbar = () => {
                 <span>Sign In</span>
               </Link>
             )}
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile toggle */}
