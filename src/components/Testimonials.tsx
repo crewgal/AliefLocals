@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const testimonials = [
   {
@@ -27,6 +28,7 @@ const testimonials = [
 
 const Testimonials = () => {
   const [current, setCurrent] = useState(0);
+  const { t } = useLanguage();
 
   const next = () => setCurrent((p) => (p + 1) % testimonials.length);
   const prev = () => setCurrent((p) => (p - 1 + testimonials.length) % testimonials.length);
@@ -41,17 +43,13 @@ const Testimonials = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-white mb-2">
-            What Our Community Says
+            {t("What Our Community Says")}
           </h2>
-          <p className="text-white/50 mb-8 sm:mb-12 text-sm sm:text-base">Real voices from real neighbors.</p>
+          <p className="text-white/50 mb-8 sm:mb-12 text-sm sm:text-base">{t("Real voices from real neighbors.")}</p>
         </motion.div>
 
         <div className="relative min-h-[180px] sm:min-h-[220px] flex items-center justify-center">
-          <button
-            onClick={prev}
-            className="absolute -left-1 sm:left-0 md:-left-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors border border-white/10"
-            aria-label="Previous testimonial"
-          >
+          <button onClick={prev} className="absolute -left-1 sm:left-0 md:-left-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors border border-white/10" aria-label="Previous testimonial">
             <ChevronLeft size={18} className="text-white" />
           </button>
 
@@ -66,18 +64,14 @@ const Testimonials = () => {
             >
               <Quote size={24} className="mx-auto mb-3 sm:mb-5 text-primary/60" />
               <blockquote className="text-sm sm:text-lg md:text-xl text-white/85 leading-relaxed font-serif italic mb-4 sm:mb-6">
-                "{testimonials[current].quote}"
+                "{t(testimonials[current].quote)}"
               </blockquote>
               <p className="text-white font-semibold text-sm sm:text-base">{testimonials[current].name}</p>
-              <p className="text-white/40 text-xs sm:text-sm">{testimonials[current].role}</p>
+              <p className="text-white/40 text-xs sm:text-sm">{t(testimonials[current].role)}</p>
             </motion.div>
           </AnimatePresence>
 
-          <button
-            onClick={next}
-            className="absolute -right-1 sm:right-0 md:-right-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors border border-white/10"
-            aria-label="Next testimonial"
-          >
+          <button onClick={next} className="absolute -right-1 sm:right-0 md:-right-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors border border-white/10" aria-label="Next testimonial">
             <ChevronRight size={18} className="text-white" />
           </button>
         </div>
@@ -87,9 +81,7 @@ const Testimonials = () => {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
-                i === current ? "bg-primary scale-125" : "bg-white/30 hover:bg-white/50"
-              }`}
+              className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${i === current ? "bg-primary scale-125" : "bg-white/30 hover:bg-white/50"}`}
               aria-label={`Go to testimonial ${i + 1}`}
             />
           ))}

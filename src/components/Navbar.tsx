@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "./AuthModal";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 import logo from "@/assets/alief-locals-logo.png";
 
 const categories = [
@@ -20,6 +21,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const { user, signOut } = useAuth();
+  const { t } = useLanguage();
 
   return (
     <>
@@ -37,22 +39,21 @@ const Navbar = () => {
                 to={`/category/${cat.slug}`}
                 className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
-                {cat.name}
+                {t(cat.name)}
               </Link>
             ))}
             <Link to="/community" className="px-3 py-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
-              Community
+              {t("Community")}
             </Link>
             <Link to="/jobs" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Jobs
+              {t("Jobs")}
             </Link>
-            <LanguageSwitcher />
             <div className="ml-2 flex items-center border border-primary rounded-full overflow-hidden">
               <Link to="/business-signup" className="px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 transition-colors">
-                Business Signup
+                {t("Business Signup")}
               </Link>
               <Link to="/business-dashboard" className="px-5 py-2 text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
-                Business Login
+                {t("Business Login")}
               </Link>
             </div>
 
@@ -75,9 +76,10 @@ const Navbar = () => {
                 className="ml-2 flex flex-col items-center justify-center px-6 py-2 text-sm font-semibold text-primary bg-primary/10 border border-primary/30 rounded-full hover:bg-primary/20 transition-colors"
               >
                 <span className="flex items-center gap-1.5"><User size={16} /> Locals</span>
-                <span>Sign In</span>
+                <span>{t("Sign In")}</span>
               </Link>
             )}
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile toggle */}
@@ -101,27 +103,30 @@ const Navbar = () => {
                   className="py-2 px-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg"
                   onClick={() => setOpen(false)}
                 >
-                  {cat.name}
+                  {t(cat.name)}
                 </Link>
               ))}
             </div>
             <div className="border-t pt-2 space-y-2">
               <Link to="/community" className="block py-2 px-3 text-sm font-semibold text-primary" onClick={() => setOpen(false)}>
-                Community
+                {t("Community")}
               </Link>
               <Link to="/jobs" className="block py-2 px-3 text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>
-                Jobs
+                {t("Jobs")}
               </Link>
               <Link to="/disaster-relief" className="block py-2 px-3 text-sm font-medium text-destructive hover:text-destructive/80" onClick={() => setOpen(false)}>
-                🚨 Disaster Relief
+                🚨 {t("Disaster Relief")}
               </Link>
             </div>
             <div className="border-t pt-3 space-y-2">
+              <div className="flex justify-center mb-2">
+                <LanguageSwitcher />
+              </div>
               <Link to="/business-signup" className="block text-center w-full px-5 py-2.5 text-sm font-medium text-primary border border-primary rounded-full" onClick={() => setOpen(false)}>
-                Business Signup
+                {t("Business Signup")}
               </Link>
               <Link to="/business-dashboard" className="block text-center w-full px-5 py-2.5 text-sm font-semibold bg-primary text-primary-foreground rounded-full" onClick={() => setOpen(false)}>
-                Business Login
+                {t("Business Login")}
               </Link>
 
               {user ? (
@@ -130,7 +135,7 @@ const Navbar = () => {
                   className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground border rounded-full"
                 >
                   <LogOut size={16} />
-                  Sign out
+                  {t("Sign out")}
                 </button>
               ) : (
                 <Link
@@ -139,7 +144,7 @@ const Navbar = () => {
                   className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground border rounded-full"
                 >
                   <User size={16} />
-                  Local Sign In
+                  {t("Local Sign In")}
                 </Link>
               )}
             </div>
