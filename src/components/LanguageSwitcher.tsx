@@ -7,6 +7,10 @@ const langColors: Record<string, string> = {
   es: "bg-[hsl(0,72%,50%)] text-white",
   fr: "bg-[hsl(220,70%,45%)] text-white",
   zh: "bg-[hsl(15,80%,48%)] text-white",
+  ar: "bg-[hsl(145,60%,38%)] text-white",
+  hi: "bg-[hsl(25,90%,50%)] text-white",
+  pt: "bg-[hsl(130,55%,35%)] text-white",
+  ko: "bg-[hsl(350,65%,48%)] text-white",
 };
 
 const LanguageSwitcher = () => {

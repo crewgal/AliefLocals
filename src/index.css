@@ -74,6 +74,38 @@
     --accent-foreground: 0 0% 100%;
   }
 
+  :root[data-lang="ar"] {
+    --primary: 145 60% 38%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 145 60% 38%;
+    --accent: 145 45% 30%;
+    --accent-foreground: 0 0% 100%;
+  }
+
+  :root[data-lang="hi"] {
+    --primary: 25 90% 50%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 25 90% 50%;
+    --accent: 25 75% 42%;
+    --accent-foreground: 0 0% 100%;
+  }
+
+  :root[data-lang="pt"] {
+    --primary: 130 55% 35%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 130 55% 35%;
+    --accent: 50 85% 50%;
+    --accent-foreground: 0 0% 100%;
+  }
+
+  :root[data-lang="ko"] {
+    --primary: 350 65% 48%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 350 65% 48%;
+    --accent: 210 60% 42%;
+    --accent-foreground: 0 0% 100%;
+  }
+
   .dark {
     --background: 210 24% 8%;
     --foreground: 40 12% 97%;
