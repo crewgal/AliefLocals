@@ -49,6 +49,31 @@
     --shadow-elevated: 0 20px 60px -15px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.03);
   }
 
+  /* Language-specific themes */
+  :root[data-lang="es"] {
+    --primary: 0 72% 50%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 0 72% 50%;
+    --accent: 0 60% 42%;
+    --accent-foreground: 0 0% 100%;
+  }
+
+  :root[data-lang="fr"] {
+    --primary: 220 70% 45%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 220 70% 45%;
+    --accent: 220 55% 38%;
+    --accent-foreground: 0 0% 100%;
+  }
+
+  :root[data-lang="zh"] {
+    --primary: 15 80% 48%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 15 80% 48%;
+    --accent: 45 80% 45%;
+    --accent-foreground: 0 0% 100%;
+  }
+
   .dark {
     --background: 210 24% 8%;
     --foreground: 40 12% 97%;

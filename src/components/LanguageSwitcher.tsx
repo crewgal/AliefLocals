@@ -2,6 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import { Globe, Loader2 } from "lucide-react";
 import { useLanguage, languages } from "@/contexts/LanguageContext";
 
+const langColors: Record<string, string> = {
+  en: "bg-primary text-primary-foreground",
+  es: "bg-[hsl(0,72%,50%)] text-white",
+  fr: "bg-[hsl(220,70%,45%)] text-white",
+  zh: "bg-[hsl(15,80%,48%)] text-white",
+};
+
 const LanguageSwitcher = () => {
   const { language, setLanguage, isTranslating } = useLanguage();
   const [open, setOpen] = useState(false);
@@ -15,19 +22,26 @@ const LanguageSwitcher = () => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  // Set data-lang on mount for persisted language
+  useEffect(() => {
+    if (language !== "en") {
+      document.documentElement.setAttribute("data-lang", language);
+    }
+  }, []);
+
   const current = languages.find((l) => l.code === language);
 
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-3 py-2 rounded-full hover:bg-primary/10 text-sm font-medium text-primary transition-colors border border-primary/30"
+        className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-colors ${langColors[language] || langColors.en}`}
         title="Change language"
       >
         {isTranslating ? (
-          <Loader2 size={16} className="animate-spin text-primary" />
+          <Loader2 size={16} className="animate-spin" />
         ) : (
-          <Globe size={16} className="text-primary" />
+          <Globe size={16} />
         )}
         <span>{current?.flag}</span>
       </button>
