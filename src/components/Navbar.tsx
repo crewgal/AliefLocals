@@ -46,7 +46,6 @@ const Navbar = () => {
             <Link to="/jobs" className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Jobs
             </Link>
-            <LanguageSwitcher />
             <div className="ml-2 flex items-center border border-primary rounded-full overflow-hidden">
               <Link to="/business-signup" className="px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 transition-colors">
                 Business Signup
