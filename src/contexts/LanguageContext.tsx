@@ -69,9 +69,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const setLanguage = useCallback((lang: SupportedLang) => {
     setLanguageState(lang);
     localStorage.setItem("site-lang", lang);
+    // Apply language-specific theme
     if (lang === "en") {
-      forceUpdate((n) => n + 1);
+      document.documentElement.removeAttribute("data-lang");
+    } else {
+      document.documentElement.setAttribute("data-lang", lang);
     }
+    forceUpdate((n) => n + 1);
   }, []);
 
   const t = useCallback(
