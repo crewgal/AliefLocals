@@ -98,10 +98,10 @@ jobs:
             exit 1
           }
 
-          docker compose --env-file .env.docker config >/dev/null
-          docker compose --env-file .env.docker build --pull app
+          docker compose -p alieflocals --env-file .env.docker config >/dev/null
+          docker compose -p alieflocals --env-file .env.docker build --pull app
           echo "Running database migration..."
-          docker compose --env-file .env.docker run --rm --no-deps app php /app/scripts/migrate.php
-          docker compose --env-file .env.docker up -d --remove-orphans
-          docker compose --env-file .env.docker ps
+          docker compose -p alieflocals --env-file .env.docker run --rm --no-deps app php /app/scripts/migrate.php
+          docker compose -p alieflocals --env-file .env.docker up -d --remove-orphans
+          docker compose -p alieflocals --env-file .env.docker ps
           EOF
