@@ -75,7 +75,6 @@ Required secrets:
 - `DEPLOY_SSH_PORT`
 - `DEPLOY_SSH_USER`
 - `DEPLOY_SSH_PRIVATE_KEY`
-- `DEPLOY_SSH_KNOWN_HOSTS`
 
 Required server-side file:
 
