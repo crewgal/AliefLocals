@@ -39,7 +39,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [, forceUpdate] = useState(0);
 
   const translateBatch = useCallback(async (texts: string[], lang: SupportedLang) => {
-    if (lang === "en") return;
+    if (lang === "en" || !supabase) return;
     const untranslated = texts.filter((t) => !cache.current.has(`${lang}:${t}`));
     if (untranslated.length === 0) return;
 

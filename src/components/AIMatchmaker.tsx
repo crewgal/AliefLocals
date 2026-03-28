@@ -30,6 +30,11 @@ const AIMatchmaker = () => {
   const handleSearch = async (searchQuery?: string) => {
     const q = searchQuery || query;
     if (!q.trim()) return;
+    if (!supabase) {
+      setError("Couldn't reach the matchmaker right now. Try searching the directory instead!");
+      setHasSearched(true);
+      return;
+    }
 
     setLoading(true);
     setError("");

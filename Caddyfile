@@ -8,6 +8,7 @@
 	route {
 		handle /api/* {
 			root * /app
+			rewrite * /api/index.php
 			php_server
 		}
 

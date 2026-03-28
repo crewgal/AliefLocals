@@ -20,6 +20,11 @@ const TranslateButton = ({ text, onTranslated }: TranslateButtonProps) => {
   const [activeLang, setActiveLang] = useState<string | null>(null);
 
   const handleTranslate = async (langCode: string) => {
+    if (!supabase) {
+      setOpen(false);
+      return;
+    }
+
     if (langCode === activeLang) {
       // Toggle off — show original
       setActiveLang(null);
