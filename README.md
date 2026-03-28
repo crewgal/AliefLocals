@@ -37,7 +37,7 @@ php scripts/migrate.php
 1. Copy [.env.docker.example](/Users/marvin/Sites/upwork/alieflocals/.env.docker.example) to `.env.docker`.
 2. Update `APP_URL`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD`, and `JWT_SECRET`.
 3. Ensure the `bamlead-vps-db` MariaDB stack is running on the VPS.
-4. Confirm the external Docker network from that stack exists. By default this app expects `bamlead-vps-db_bamlead-network`, and the database host is `bamlead-mariadb`.
+4. Confirm the external Docker network from that stack exists. On your VPS the app should use `mysql_bamlead-network`, and the database host is `bamlead-mariadb`.
 5. For first-time setup, either create the target MariaDB database/user yourself or set `MYSQL_ADMIN_USER` and `MYSQL_ADMIN_PASSWORD` in `.env.docker` so the migration can create them.
 6. Run the migration inside the app container:
 
@@ -66,7 +66,7 @@ On every push to `main`, it:
 1. installs dependencies, runs tests, and verifies the frontend build
 2. syncs the repository to the VPS app directory, excluding local env files and runtime data
 3. checks that `.env.docker` exists on the server
-4. checks that the `bamlead-vps-db` Docker network exists
+4. checks that the MariaDB Docker network exists
 5. builds the app image, runs `php /app/scripts/migrate.php` against MariaDB, and restarts the Docker stack
 
 Required secrets:

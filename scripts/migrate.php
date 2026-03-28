@@ -110,7 +110,7 @@ try {
         $connection = connect_to_database($db, $db['database']);
     } catch (Throwable $bootstrapException) {
         $message = sprintf(
-            "MySQL connection failed for %s@%s:%d/%s: %s\nIf you are using bamlead-vps-db, make sure the MariaDB container is reachable as 'bamlead-mariadb' on network 'bamlead-vps-db_bamlead-network'. For first-time setup, provide MYSQL_ADMIN_PASSWORD or MYSQL_ROOT_PASSWORD so the migration can create the database and grant privileges.\n",
+            "MySQL connection failed for %s@%s:%d/%s: %s\nMake sure the MariaDB container is reachable as 'bamlead-mariadb' on Docker network 'mysql_bamlead-network'. For first-time setup, provide MYSQL_ADMIN_PASSWORD or MYSQL_ROOT_PASSWORD so the migration can create the database and grant privileges.\n",
             $db['user'],
             $db['host'],
             (int) $db['port'],

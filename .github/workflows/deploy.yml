@@ -91,7 +91,7 @@ jobs:
           fi
 
           DB_NETWORK_NAME="\$(grep '^DB_NETWORK_NAME=' .env.docker | tail -1 | cut -d '=' -f 2-)"
-          DB_NETWORK_NAME="\${DB_NETWORK_NAME:-bamlead-vps-db_bamlead-network}"
+          DB_NETWORK_NAME="\${DB_NETWORK_NAME:-mysql_bamlead-network}"
 
           docker network inspect "\${DB_NETWORK_NAME}" >/dev/null 2>&1 || {
             echo "Docker network \${DB_NETWORK_NAME} does not exist on the VPS."
