@@ -1,0 +1,25 @@
+{
+	admin off
+}
+
+:80 {
+	encode zstd gzip
+
+	route {
+		handle /api/* {
+			root * /app
+			php_server
+		}
+
+		handle /uploads/* {
+			root * /app
+			file_server
+		}
+
+		handle {
+			root * /app/dist
+			try_files {path} {path}/ /index.html
+			file_server
+		}
+	}
+}

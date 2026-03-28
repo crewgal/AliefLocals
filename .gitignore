@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 api/.env.php
+.env.docker
 uploads/*
 !uploads/.gitkeep
 !uploads/.htaccess

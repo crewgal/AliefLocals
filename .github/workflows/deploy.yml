@@ -6,13 +6,15 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  DEPLOY_PATH: /home/u497238762/domains/alieflocals.com/public_html
-  APP_URL: https://alieflocals.com
+concurrency:
+  group: deploy-alieflocals-prod
+  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      APP_DIR: /home/devmarvsftp/domains/alieflocals.com/prod
 
     steps:
       - name: Check out code
@@ -30,7 +32,7 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Build frontend
+      - name: Verify frontend build
         run: npm run build
         env:
           VITE_API_URL: /api
@@ -48,95 +50,54 @@ jobs:
 
       - name: Create deploy directories
         run: |
+          test -n "${APP_DIR}"
           ssh -p "${{ secrets.DEPLOY_SSH_PORT }}" "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}" \
-            "mkdir -p '${{ env.DEPLOY_PATH }}' '${{ env.DEPLOY_PATH }}/api' '${{ env.DEPLOY_PATH }}/mysql' '${{ env.DEPLOY_PATH }}/scripts' '${{ env.DEPLOY_PATH }}/uploads'"
+            "mkdir -p '${APP_DIR}' '${APP_DIR}/runtime/api-logs' '${APP_DIR}/runtime/api-cache' '${APP_DIR}/uploads'"
 
-      - name: Upload frontend build
+      - name: Sync application to VPS
         run: |
           rsync -az --delete \
-            --exclude "api" \
-            --exclude "mysql" \
-            --exclude "scripts" \
-            --exclude "uploads" \
-            --exclude ".htaccess" \
+            --exclude ".git/" \
+            --exclude ".github/" \
+            --exclude "node_modules/" \
+            --exclude "dist/" \
+            --exclude "dist-ssr/" \
+            --exclude ".env" \
+            --exclude ".env.*" \
+            --exclude "runtime/" \
+            --exclude "uploads/" \
+            --exclude "coverage/" \
+            --exclude "reports/" \
+            --exclude "playwright-report/" \
+            --exclude "test-results/" \
             -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
-            dist/ \
-            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/"
+            ./ \
+            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${APP_DIR}/"
 
-      - name: Upload backend and deployment files
+      - name: Rebuild and restart Docker stack
         run: |
-          rsync -az --delete \
-            --exclude ".env.php" \
-            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
-            api/ \
-            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/api/"
-
-          rsync -az --delete \
-            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
-            mysql/ \
-            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/mysql/"
-
-          rsync -az --delete \
-            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
-            scripts/ \
-            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/scripts/"
-
-          rsync -az \
-            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
-            .htaccess \
-            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/"
-
-          rsync -az \
-            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
-            uploads/.htaccess \
-            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/uploads/"
-
-      - name: Render production PHP config
-        env:
-          APP_JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
-          DEPLOY_DB_HOST: ${{ secrets.DEPLOY_DB_HOST }}
-          DEPLOY_DB_PORT: ${{ secrets.DEPLOY_DB_PORT }}
-          DEPLOY_DB_NAME: ${{ secrets.DEPLOY_DB_NAME }}
-          DEPLOY_DB_USER: ${{ secrets.DEPLOY_DB_USER }}
-          DEPLOY_DB_PASSWORD: ${{ secrets.DEPLOY_DB_PASSWORD }}
-        run: |
-          php -r '
-            $config = [
-              "app_url" => getenv("APP_URL"),
-              "jwt_secret" => getenv("APP_JWT_SECRET"),
-              "db" => [
-                "host" => getenv("DEPLOY_DB_HOST"),
-                "port" => (int) getenv("DEPLOY_DB_PORT"),
-                "database" => getenv("DEPLOY_DB_NAME"),
-                "user" => getenv("DEPLOY_DB_USER"),
-                "password" => getenv("DEPLOY_DB_PASSWORD"),
-              ],
-            ];
-            file_put_contents(getenv("RUNNER_TEMP") . "/api-env.php", "<?php\nreturn " . var_export($config, true) . ";\n");
-          '
-
-      - name: Upload production PHP config
-        run: |
-          rsync -az \
-            -e "ssh -p ${{ secrets.DEPLOY_SSH_PORT }}" \
-            "$RUNNER_TEMP/api-env.php" \
-            "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}:${{ env.DEPLOY_PATH }}/api/.env.php"
-
-      - name: Run migrations
-        run: |
+          test -n "${APP_DIR}"
           ssh -p "${{ secrets.DEPLOY_SSH_PORT }}" "${{ secrets.DEPLOY_SSH_USER }}@${{ secrets.DEPLOY_SSH_HOST }}" <<EOF
           set -eu
-          cd "${{ env.DEPLOY_PATH }}"
+          cd "${APP_DIR}"
 
-          if ! command -v php >/dev/null 2>&1; then
-            echo "php is not available on PATH during deploy."
+          if [ ! -f .env.docker ]; then
+            echo ".env.docker is missing in ${APP_DIR}"
             exit 1
           fi
 
-          mkdir -p uploads
-          php scripts/migrate.php
+          DB_NETWORK_NAME="\$(grep '^DB_NETWORK_NAME=' .env.docker | tail -1 | cut -d '=' -f 2-)"
+          DB_NETWORK_NAME="\${DB_NETWORK_NAME:-bamlead-vps-db_bamlead-network}"
 
-          if [ -n "${{ secrets.DEPLOY_RESTART_COMMAND || '' }}" ]; then
-            eval "${{ secrets.DEPLOY_RESTART_COMMAND }}"
-          fi
+          docker network inspect "\${DB_NETWORK_NAME}" >/dev/null 2>&1 || {
+            echo "Docker network \${DB_NETWORK_NAME} does not exist on the VPS."
+            exit 1
+          }
+
+          docker compose --env-file .env.docker config >/dev/null
+          docker compose --env-file .env.docker build --pull app
+          echo "Running database migration..."
+          docker compose --env-file .env.docker run --rm --no-deps app php /app/scripts/migrate.php
+          docker compose --env-file .env.docker up -d --remove-orphans
+          docker compose --env-file .env.docker ps
           EOF

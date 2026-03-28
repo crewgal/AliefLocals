@@ -1,10 +1,10 @@
 # Alief Locals
 
-This project now supports shared-hosting deployment with:
+This project supports Docker-based deployment with:
 
 - a Vite-built frontend
-- a PHP API under `/api`
-- MySQL
+- a PHP API under `/api` served by FrankenPHP/Caddy
+- MariaDB on an external Docker network
 
 ## Local frontend
 
@@ -32,19 +32,42 @@ php scripts/migrate.php
 
 5. Serve the API with PHP however you prefer locally. The frontend build for production uses `/api` as the API base.
 
+## Docker deployment
+
+1. Copy [.env.docker.example](/Users/marvin/Sites/upwork/alieflocals/.env.docker.example) to `.env.docker`.
+2. Update `APP_URL`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD`, and `JWT_SECRET`.
+3. Ensure the `bamlead-vps-db` MariaDB stack is running on the VPS.
+4. Confirm the external Docker network from that stack exists. By default this app expects `bamlead-vps-db_bamlead-network`, and the database host is `bamlead-mariadb`.
+5. For first-time setup, either create the target MariaDB database/user yourself or set `MYSQL_ADMIN_USER` and `MYSQL_ADMIN_PASSWORD` in `.env.docker` so the migration can create them.
+6. Run the migration inside the app container:
+
+```bash
+docker compose --env-file .env.docker run --rm --no-deps app php /app/scripts/migrate.php
+```
+
+7. Start the app:
+
+```bash
+docker compose --env-file .env.docker up -d --build
+```
+
+By default the app binds to host port `8080`, which avoids conflicting with the Bamlead app if that project already uses `80` and `443` on the same VPS.
+
 ## GitHub deployment
 
-The workflow at [deploy.yml](/Users/marvin/Sites/upwork/alieflocals/.github/workflows/deploy.yml) deploys to:
+The workflow at [deploy.yml](/Users/marvin/Sites/upwork/alieflocals/.github/workflows/deploy.yml) now syncs this repository to:
 
-`/home/u497238762/domains/alieflocals.com/public_html`
+`/home/devmarvsftp/domains/alieflocals.com/prod`
+
+It then runs `docker compose` there.
 
 On every push to `main`, it:
 
-1. installs dependencies, runs tests, and builds the frontend with `VITE_API_URL=/api`
-2. uploads the built frontend to `public_html`
-3. uploads `api/`, `mysql/`, `scripts/`, and Apache `.htaccess` files
-4. writes `api/.env.php` on the server from GitHub Secrets
-5. runs `php scripts/migrate.php` on the server so MySQL migrations apply automatically
+1. installs dependencies, runs tests, and verifies the frontend build
+2. syncs the repository to the VPS app directory, excluding local env files and runtime data
+3. checks that `.env.docker` exists on the server
+4. checks that the `bamlead-vps-db` Docker network exists
+5. builds the app image, runs `php /app/scripts/migrate.php` against MariaDB, and restarts the Docker stack
 
 Required secrets:
 
@@ -53,15 +76,12 @@ Required secrets:
 - `DEPLOY_SSH_USER`
 - `DEPLOY_SSH_PRIVATE_KEY`
 - `DEPLOY_SSH_KNOWN_HOSTS`
-- `DEPLOY_DB_HOST`
-- `DEPLOY_DB_PORT`
-- `DEPLOY_DB_NAME`
-- `DEPLOY_DB_USER`
-- `DEPLOY_DB_PASSWORD`
-- `APP_JWT_SECRET`
 
-Optional secret:
+Required server-side file:
 
-- `DEPLOY_RESTART_COMMAND`
+- `.env.docker` in the remote app directory
 
-Most PHP shared hosting setups do not need `DEPLOY_RESTART_COMMAND`. If your host uses a restart trigger, you can add it there.
+Optional first-run env vars in `.env.docker`:
+
+- `MYSQL_ADMIN_USER`
+- `MYSQL_ADMIN_PASSWORD`
